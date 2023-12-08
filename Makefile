@@ -1,7 +1,7 @@
-# DO NOT EDIT.  GENERATED WITH lz_mkmake version 0.7.13: '/usr/bin/lz_mkmake --scope --no-bind --source x.in --cobload PJOOT.SAMPLE.COMPLEX --cobsuff cob'
+# DO NOT EDIT.  GENERATED WITH lz_mkmake version 0.7.14: '/usr/bin/lz_mkmake --scope --no-bind --source x.in --cobload PJOOT.SAMPLE.COMPLEX --cobsuff cob --outdir out'
 
 
-OUTDIR := .
+OUTDIR := out
 
 DOSCOPE := 1
 NOBIND := 1
@@ -13,11 +13,11 @@ PLISUFF := pli
 include make.vars
 
 
-OBJECTS_complex += ./src/COMPLEX.o
+OBJECTS_complex += out/src/COMPLEX.o
 OBJECTS += $(OBJECTS_complex)
 ENTRIES += complex
-SHAREDS += ./src/liblz_pgm_complex.so
-ALLOCTARGETS += ./PJOOT.SAMPLE.COMPLEX.allocate.ts
+SHAREDS += out/src/liblz_pgm_complex.so
+ALLOCTARGETS += out/PJOOT.SAMPLE.COMPLEX.allocate.ts
 
 .PHONY: clean shareds pdses objects
 
@@ -49,35 +49,35 @@ shared : shareds
 pdses :: $(PDSES)
 
 
-./src/liblz_pgm_complex.so : $(OBJECTS_complex)
-	$(call SAYWHAT,./src/liblz_pgm_complex.so)
-	$(Q)rm -f './src/liblz_pgm_complex.so'
-	$(Q)$(COBRC) :Output='./src/liblz_pgm_complex.so' $(patsubst %,'%',$(OBJECTS_complex)) $(LDFLAGS) $(LDFLAGS_complex)
+out/src/liblz_pgm_complex.so : $(OBJECTS_complex)
+	$(call SAYWHAT,out/src/liblz_pgm_complex.so)
+	$(Q)rm -f 'out/src/liblz_pgm_complex.so'
+	$(Q)$(COBRC) :Output='out/src/liblz_pgm_complex.so' $(patsubst %,'%',$(OBJECTS_complex)) $(LDFLAGS) $(LDFLAGS_complex)
 
 .PHONY: allocate
 allocate : $(ALLOCTARGETS)
 
 shareds :: allocate
 
-./PJOOT.SAMPLE.COMPLEX.allocate.ts :
+out/PJOOT.SAMPLE.COMPLEX.allocate.ts :
 ifndef NODELETEPDS
 	$(Q)-$(LZDELETE) 'PJOOT.SAMPLE.COMPLEX' >/dev/null 2>&1
 endif
 	$(call SAYWHAT,PJOOT.SAMPLE.COMPLEX)
 	$(Q)mkdir -p $(CLITMPPATHDIR)
 	$(Q)$(LZALLOCATE) 'dataset(PJOOT.SAMPLE.COMPLEX) MOD CATALOG DIR(1) DSORG(PO) RECFM(U) BLKSIZE(8192) ' $(CLIREDIRECT)
-	$(Q)mv $(CLITMPPATH) './PJOOT.SAMPLE.COMPLEX.allocate.ts'
+	$(Q)mv $(CLITMPPATH) 'out/PJOOT.SAMPLE.COMPLEX.allocate.ts'
 
 
 
 clean ::
 	-$(LZDELETE) 'PJOOT.SAMPLE.COMPLEX'
-	rm -f ./PJOOT.SAMPLE.COMPLEX.allocate.ts
+	rm -f out/PJOOT.SAMPLE.COMPLEX.allocate.ts
 
-./src/liblz_pgm_complex.pds : ./PJOOT.SAMPLE.COMPLEX.allocate.ts ./src/liblz_pgm_complex.so
+out/src/liblz_pgm_complex.pds : out/PJOOT.SAMPLE.COMPLEX.allocate.ts out/src/liblz_pgm_complex.so
 	$(call SAYWHAT,PJOOT.SAMPLE.COMPLEX(COMPLEX))
-	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)./src/'liblz_pgm_complex.so',recfm=u -o '//PJOOT.SAMPLE.COMPLEX(COMPLEX),disp=mod' $(CLIREDIRECT)
-	$(Q)mv $(CLITMPPATH) './src/liblz_pgm_complex.pds'
+	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_complex.so',recfm=u -o '//PJOOT.SAMPLE.COMPLEX(COMPLEX),disp=mod' $(CLIREDIRECT)
+	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_complex.pds'
 
 
 

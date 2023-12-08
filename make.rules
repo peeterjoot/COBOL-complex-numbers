@@ -1,4 +1,4 @@
-# DO NOT EDIT.  GENERATED WITH lz_mkmake version 0.7.13
+# DO NOT EDIT.  GENERATED WITH lz_mkmake version 0.7.14
 ifdef COBSUFF2
 $(COBSUFF1_OBJECTS) :: $(OUTDIR)/%.o : %.$(COBSUFF)
 	$(call cobol_compile,$(COBSUFF))
