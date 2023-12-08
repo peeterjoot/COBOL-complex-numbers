@@ -6,20 +6,40 @@
        WORKING-STORAGE SECTION.
        COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-V1-==.
        COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-V2-==.
+
        COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-CONJPARM-==.
+
        COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-REALPARM-==.
+
        COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-IMAGPARM-==.
+
        COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-MULTPARM-IN1-==.
        COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-MULTPARM-IN2-==.
        COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-MULTPARM-OUT-==.
+
+       COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-ADDPARM-IN1-==.
+       COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-ADDPARM-IN2-==.
+       COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-ADDPARM-OUT-==.
+
+       COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-SUBPARM-IN1-==.
+       COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-SUBPARM-IN2-==.
+       COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-SUBPARM-OUT-==.
+
        COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-DIVPARM-IN1-==.
        COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-DIVPARM-IN2-==.
        COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-DIVPARM-OUT-==.
+
        COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-INVPARM-IN-==.
        COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-INVPARM-OUT-==.
        COPY FLOAT REPLACING ==(PRFX)== BY ==WS-INV-MAGNITUDE-==.
+
+       COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-NEGPARM-IN-==.
+       COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-NEGPARM-OUT-==.
+
        COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-DISPPARM-==.
+
        COPY FLOAT REPLACING ==(PRFX)== BY ==WS-REAL-==.
+
        COPY FLOAT REPLACING ==(PRFX)== BY ==WS-IMAG-==.
        01 WS-DISPPARM-N PIC X(20) VALUE SPACES.
        PROCEDURE DIVISION.
@@ -65,10 +85,30 @@
            MOVE 'A * B' TO WS-DISPPARM-N
            PERFORM COMPLEX-DISPLAY
 
+           MOVE WS-V1-COMPLEX TO WS-ADDPARM-IN1-COMPLEX
+           MOVE WS-V2-COMPLEX TO WS-ADDPARM-IN2-COMPLEX
+           PERFORM COMPLEX-ADD
+           MOVE WS-ADDPARM-OUT-COMPLEX TO WS-DISPPARM-COMPLEX
+           MOVE 'A + B' TO WS-DISPPARM-N
+           PERFORM COMPLEX-DISPLAY
+
+           MOVE WS-V1-COMPLEX TO WS-SUBPARM-IN1-COMPLEX
+           MOVE WS-V2-COMPLEX TO WS-SUBPARM-IN2-COMPLEX
+           PERFORM COMPLEX-SUB
+           MOVE WS-SUBPARM-OUT-COMPLEX TO WS-DISPPARM-COMPLEX
+           MOVE 'A - B' TO WS-DISPPARM-N
+           PERFORM COMPLEX-DISPLAY
+
            MOVE WS-V1-COMPLEX TO WS-INVPARM-IN-COMPLEX
            PERFORM COMPLEX-INVERSE
            MOVE WS-INVPARM-OUT-COMPLEX TO WS-DISPPARM-COMPLEX
            MOVE '1/A' TO WS-DISPPARM-N
+           PERFORM COMPLEX-DISPLAY
+
+           MOVE WS-V1-COMPLEX TO WS-NEGPARM-IN-COMPLEX
+           PERFORM COMPLEX-NEGATE
+           MOVE WS-NEGPARM-OUT-COMPLEX TO WS-DISPPARM-COMPLEX
+           MOVE '-A' TO WS-DISPPARM-N
            PERFORM COMPLEX-DISPLAY
 
            MOVE WS-V1-COMPLEX TO WS-DIVPARM-IN1-COMPLEX
@@ -145,6 +185,40 @@
              (WS-MULTPARM-IN1-RE * WS-MULTPARM-IN2-IM)
            .
       ******************************************************************
+      * LIBRARY ROUTINE: COMPLEX-ADD
+      *
+      * @param [in] WS-ADDPARM-IN1-COMPLEX,
+      *   with members WS-ADDPARM-IN1-RE, WS-ADDPARM-IN1-IM.
+      * @param [in] WS-ADDPARM-IN2-COMPLEX,
+      *   with members WS-ADDPARM-IN2-RE, WS-ADDPARM-IN2-IM.
+      * @param [out] WS-ADDPARM-OUT-COMPLEX,
+      *   with members WS-ADDPARM-OUT-RE, WS-ADDPARM-OUT-IM.
+      *
+       COMPLEX-ADD.
+           COMPUTE WS-ADDPARM-OUT-RE =
+             WS-ADDPARM-IN1-RE + WS-ADDPARM-IN2-RE
+
+           COMPUTE WS-ADDPARM-OUT-IM =
+             WS-ADDPARM-IN1-IM + WS-ADDPARM-IN2-IM
+           .
+      ******************************************************************
+      * LIBRARY ROUTINE: COMPLEX-SUB
+      *
+      * @param [in] WS-SUBPARM-IN1-COMPLEX,
+      *   with members WS-SUBPARM-IN1-RE, WS-SUBPARM-IN1-IM.
+      * @param [in] WS-SUBPARM-IN2-COMPLEX,
+      *   with members WS-SUBPARM-IN2-RE, WS-SUBPARM-IN2-IM.
+      * @param [out] WS-SUBPARM-OUT-COMPLEX,
+      *   with members WS-SUBPARM-OUT-RE, WS-SUBPARM-OUT-IM.
+      *
+       COMPLEX-SUB.
+           COMPUTE WS-SUBPARM-OUT-RE =
+             WS-SUBPARM-IN1-RE - WS-SUBPARM-IN2-RE
+
+           COMPUTE WS-SUBPARM-OUT-IM =
+             WS-SUBPARM-IN1-IM - WS-SUBPARM-IN2-IM
+           .
+      ******************************************************************
       * LIBRARY ROUTINE: COMPLEX-INVERSE
       *
       * @param [in] WS-INVPARM-IN-COMPLEX,
@@ -163,6 +237,21 @@
 
            COMPUTE WS-INVPARM-OUT-IM =
              -(WS-INVPARM-IN-IM/WS-INV-MAGNITUDE-V)
+           .
+      ******************************************************************
+      * LIBRARY ROUTINE: COMPLEX-NEGATE
+      *
+      * @param [in] WS-NEGPARM-IN-COMPLEX,
+      *   with members WS-NEGPARM-IN-RE, WS-NEGPARM-IN-IM.
+      * @param [out] WS-NEGPARM-OUT-COMPLEX,
+      *   with members WS-NEGPARM-OUT-RE, WS-NEGPARM-OUT-IM.
+      *
+       COMPLEX-NEGATE.
+           COMPUTE WS-NEGPARM-OUT-RE =
+             -WS-NEGPARM-IN-RE
+
+           COMPUTE WS-NEGPARM-OUT-IM =
+             -WS-NEGPARM-IN-IM
            .
       ******************************************************************
       * LIBRARY ROUTINE: COMPLEX-DIVIDE
