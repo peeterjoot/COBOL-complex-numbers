@@ -19,7 +19,6 @@
        COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-INVPARM-OUT-==.
        COPY FLOAT REPLACING ==(PRFX)== BY ==WS-INV-MAGNITUDE-==.
        COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-DISPPARM-==.
-       COPY COMPLEXD REPLACING ==(PRFX)== BY ==WS-DISPTMP-==.
        COPY FLOAT REPLACING ==(PRFX)== BY ==WS-REAL-==.
        COPY FLOAT REPLACING ==(PRFX)== BY ==WS-IMAG-==.
        01 WS-DISPPARM-N PIC X(20) VALUE SPACES.
@@ -99,34 +98,12 @@
       * @param [in] WS-DISPPARM-COMPLEX,
       *   with members WS-DISPPARM-RE, WS-DISPPARM-IM.
        COMPLEX-DISPLAY.
-           MOVE WS-DISPPARM-RE TO WS-DISPTMP-RE
-           MOVE WS-DISPPARM-IM TO WS-DISPTMP-IM
            IF WS-DISPPARM-IM IS EQUAL ZERO
-             IF WS-DISPPARM-RE < ZERO
-               DISPLAY WS-DISPPARM-N ' = - ' WS-DISPTMP-RE
-             END-IF
+             DISPLAY WS-DISPPARM-N ' = ' WS-DISPPARM-RE
            ELSE
-             IF WS-DISPPARM-RE < ZERO
-               IF WS-DISPPARM-IM < ZERO
-                 DISPLAY WS-DISPPARM-N ' = - ' WS-DISPTMP-RE ' - '
-                   WS-DISPTMP-IM
-                   ' I'
-               ELSE
-                 DISPLAY WS-DISPPARM-N ' = - ' WS-DISPTMP-RE ' + '
-                   WS-DISPTMP-IM
-                   ' I'
-               END-IF
-             ELSE
-               IF WS-DISPPARM-IM < ZERO
-                 DISPLAY WS-DISPPARM-N ' = + ' WS-DISPTMP-RE ' - '
-                   WS-DISPTMP-IM
-                   ' I'
-               ELSE
-                 DISPLAY WS-DISPPARM-N ' = + ' WS-DISPTMP-RE ' + '
-                   WS-DISPTMP-IM
-                   ' I'
-               END-IF
-             END-IF
+             DISPLAY WS-DISPPARM-N ' = ' WS-DISPPARM-RE ' + ('
+                  WS-DISPPARM-IM
+                  ') I'
            END-IF
            .
       ******************************************************************
