@@ -2,7 +2,7 @@
       * copy/COMPLEX.cpy
        01  (PRFX)COMPLEX.
          10  (PRFX)RE
-           PIC S9(8) COMP-3.
+           COMP-2.
          10  (PRFX)IM
-           PIC S9(8) COMP-3.
+           COMP-2.
       ******************************************************************
