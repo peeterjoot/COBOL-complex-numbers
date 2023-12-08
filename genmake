@@ -1,0 +1,5 @@
+
+# Fixme: DOSCOPE doesn't work with --outdir.  .d file path to the .o is in the wrong place.
+#lz_mkmake --scope --no-bind --source x.in --cobload PJOOT.SAMPLE.COMPLEX --cobsuff cob --outdir out > Makefile
+
+lz_mkmake --scope --no-bind --source x.in --cobload PJOOT.SAMPLE.COMPLEX --cobsuff cob > Makefile
