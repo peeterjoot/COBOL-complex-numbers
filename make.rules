@@ -1,0 +1,47 @@
+# DO NOT EDIT.  GENERATED WITH lz_mkmake version 0.7.13
+ifdef COBSUFF2
+$(COBSUFF1_OBJECTS) :: $(OUTDIR)/%.o : %.$(COBSUFF)
+	$(call cobol_compile,$(COBSUFF))
+
+$(COBSUFF2_OBJECTS) :: $(OUTDIR)/%.o : %.$(COBSUFF2)
+	$(call cobol_compile,$(COBSUFF2))
+else
+$(OUTDIR)/%.o :: %.$(COBSUFF)
+	$(call cobol_compile,$(COBSUFF))
+endif
+
+ifdef PLISUFF2
+$(PLISUFF1_OBJECTS) :: $(OUTDIR)/%.o : %.$(PLISUFF)
+	$(call pli_compile,$(PLISUFF))
+
+$(PLISUFF2_OBJECTS) :: $(OUTDIR)/%.o : %.$(PLISUFF2)
+	$(call pli_compile,$(PLISUFF2))
+else
+$(OUTDIR)/%.o :: %.$(PLISUFF)
+	$(call pli_compile,$(PLISUFF))
+endif
+
+$(OUTDIR)/%.oz31 : %.$(ASMSUFF)
+	$(Q)rm -f $@ $*.oz31.lst $*.oz31.html
+	$(call SAYWHAT,$@)
+	$(Q)$(ASZ31) $(ASZ31FLAGS) $(ASZ31FLAGS_$(BASEPATH)) -flisting=$*.oz31.lst -o $@ $(filter %.$(ASMSUFF),$^)
+
+%.lmr : %.oz31
+	$(Q)rm -f $@
+	$(call SAYWHAT,$@)
+	$(Q)$(LDZ31) $(ASZ31_LDFLAGS) -o $@ $(filter %.oz31,$^)
+
+simpleclean ::
+ifeq ($(OUTDIR),.)
+	-find -name "*.so" -o -name "*.pds" -o -name "*.bind" -o -name "*.sql.xml" -o -name "*.ll" -o -name "*.sql" -o -name "*.allcics" -o -name "*.alldli" -o -name "*.[doyi]" -o -name "*.oz31" -o -name "*.lmr" -o -name "*.oz31.lst" -o -name "*.oz31.html" | xargs rm
+else
+	rm -rf $(OUTDIR)
+endif
+
+clean:: simpleclean
+
+-include $(MAKESUBDIR)make.morerules
+
+ifdef DOSCOPE
+-include $(shell find -name "*.d")
+endif

@@ -1,0 +1,41 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID.    COMPLEX.
+       DATE-COMPILED.
+       ENVIRONMENT DIVISION.
+       CONFIGURATION SECTION.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       COPY COMPLEXI REPLACING ==(PRFX)== BY ==WS-V1-==.
+       COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-CONJPARM-==.
+       COPY COMPLEXD REPLACING ==(PRFX)== BY ==WS-DISPPARM-V-==.
+       01 WS-DISPPARM-N PIC X(8) VALUE SPACES.
+       PROCEDURE DIVISION.
+
+           MOVE 1 TO WS-V1-RE
+           MOVE 2 TO WS-V1-IM
+
+      * Doesn't work, seems that field by field copy is needed:
+      *    MOVE WS-V1-COMPLEX TO WS-DISPPARM-V-COMPLEX
+           MOVE WS-V1-RE TO WS-DISPPARM-V-RE
+           MOVE WS-V1-IM TO WS-DISPPARM-V-IM
+           MOVE 'A' TO WS-DISPPARM-N
+           PERFORM COMPLEX-DISPLAY
+
+           MOVE WS-V1-COMPLEX TO WS-CONJPARM-COMPLEX
+           PERFORM COMPLEX-CONJUGATE
+         
+           MOVE WS-CONJPARM-RE TO WS-DISPPARM-V-RE
+           MOVE WS-CONJPARM-IM TO WS-DISPPARM-V-IM
+           MOVE 'B' TO WS-DISPPARM-N
+           PERFORM COMPLEX-DISPLAY
+
+           GOBACK
+           .
+       COMPLEX-CONJUGATE.
+           COMPUTE WS-CONJPARM-IM = WS-CONJPARM-IM * -1
+           .
+       COMPLEX-DISPLAY.
+           DISPLAY WS-DISPPARM-N ' = ' WS-DISPPARM-V-RE ' '
+             WS-DISPPARM-V-IM 
+             ' I'
+           .
