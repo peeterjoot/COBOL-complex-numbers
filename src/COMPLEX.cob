@@ -12,10 +12,14 @@
        COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-MULTPARM-IN1-==.
        COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-MULTPARM-IN2-==.
        COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-MULTPARM-OUT-==.
+       COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-DIVPARM-IN1-==.
+       COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-DIVPARM-IN2-==.
+       COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-DIVPARM-OUT-==.
        COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-INVPARM-IN-==.
        COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-INVPARM-OUT-==.
        COPY FLOAT REPLACING ==(PRFX)== BY ==WS-INV-MAGNITUDE-==.
-       COPY COMPLEXD REPLACING ==(PRFX)== BY ==WS-DISPPARM-V-==.
+       COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-DISPPARM-==.
+       COPY COMPLEXD REPLACING ==(PRFX)== BY ==WS-DISPTMP-==.
        COPY FLOAT REPLACING ==(PRFX)== BY ==WS-REAL-==.
        COPY FLOAT REPLACING ==(PRFX)== BY ==WS-IMAG-==.
        01 WS-DISPPARM-N PIC X(20) VALUE SPACES.
@@ -27,53 +31,52 @@
            MOVE 3 TO WS-V2-RE
            MOVE 4 TO WS-V2-IM
 
-      * Doesn't work, seems that field by field copy is needed:
-      *    MOVE WS-V1-COMPLEX TO WS-DISPPARM-V-COMPLEX
-           MOVE WS-V1-RE TO WS-DISPPARM-V-RE
-           MOVE WS-V1-IM TO WS-DISPPARM-V-IM
+           MOVE WS-V1-COMPLEX TO WS-DISPPARM-COMPLEX
            MOVE 'A' TO WS-DISPPARM-N
            PERFORM COMPLEX-DISPLAY
 
-           MOVE WS-V2-RE TO WS-DISPPARM-V-RE
-           MOVE WS-V2-IM TO WS-DISPPARM-V-IM
+           MOVE WS-V2-COMPLEX TO WS-DISPPARM-COMPLEX
            MOVE 'B' TO WS-DISPPARM-N
            PERFORM COMPLEX-DISPLAY
 
            MOVE WS-V1-COMPLEX TO WS-CONJPARM-COMPLEX
            PERFORM COMPLEX-CONJUGATE
-         
-           MOVE WS-CONJPARM-RE TO WS-DISPPARM-V-RE
-           MOVE WS-CONJPARM-IM TO WS-DISPPARM-V-IM
+           MOVE WS-CONJPARM-COMPLEX TO WS-DISPPARM-COMPLEX
            MOVE 'CONJ(A)' TO WS-DISPPARM-N
            PERFORM COMPLEX-DISPLAY
 
            MOVE WS-V1-COMPLEX TO WS-REALPARM-COMPLEX
            PERFORM COMPLEX-REAL
-           MOVE WS-REAL-V TO WS-DISPPARM-V-RE
-           MOVE 0 TO WS-DISPPARM-V-IM
+           MOVE WS-REAL-V TO WS-DISPPARM-RE
+           MOVE 0         TO WS-DISPPARM-IM
            MOVE 'RE(A)' TO WS-DISPPARM-N
            PERFORM COMPLEX-DISPLAY
 
            MOVE WS-V1-COMPLEX TO WS-IMAGPARM-COMPLEX
            PERFORM COMPLEX-IMAG
-           MOVE WS-IMAG-V TO WS-DISPPARM-V-RE
-           MOVE 0 TO WS-DISPPARM-V-IM
+           MOVE WS-IMAG-V TO WS-DISPPARM-RE
+           MOVE 0         TO WS-DISPPARM-IM
            MOVE 'IM(A)' TO WS-DISPPARM-N
            PERFORM COMPLEX-DISPLAY
 
            MOVE WS-V1-COMPLEX TO WS-MULTPARM-IN1-COMPLEX
            MOVE WS-V2-COMPLEX TO WS-MULTPARM-IN2-COMPLEX
            PERFORM COMPLEX-MULT
-           MOVE WS-MULTPARM-OUT-RE TO WS-DISPPARM-V-RE
-           MOVE WS-MULTPARM-OUT-IM TO WS-DISPPARM-V-IM
+           MOVE WS-MULTPARM-OUT-COMPLEX TO WS-DISPPARM-COMPLEX
            MOVE 'A * B' TO WS-DISPPARM-N
            PERFORM COMPLEX-DISPLAY
 
            MOVE WS-V1-COMPLEX TO WS-INVPARM-IN-COMPLEX
            PERFORM COMPLEX-INVERSE
-           MOVE WS-INVPARM-OUT-RE TO WS-DISPPARM-V-RE
-           MOVE WS-INVPARM-OUT-IM TO WS-DISPPARM-V-IM
+           MOVE WS-INVPARM-OUT-COMPLEX TO WS-DISPPARM-COMPLEX
            MOVE '1/A' TO WS-DISPPARM-N
+           PERFORM COMPLEX-DISPLAY
+
+           MOVE WS-V1-COMPLEX TO WS-DIVPARM-IN1-COMPLEX
+           MOVE WS-V2-COMPLEX TO WS-DIVPARM-IN2-COMPLEX
+           PERFORM COMPLEX-DIVIDE
+           MOVE WS-DIVPARM-OUT-COMPLEX TO WS-DISPPARM-COMPLEX
+           MOVE 'A/B' TO WS-DISPPARM-N
            PERFORM COMPLEX-DISPLAY
 
            GOBACK
@@ -96,14 +99,34 @@
       * @param [in] WS-DISPPARM-COMPLEX,
       *   with members WS-DISPPARM-RE, WS-DISPPARM-IM.
        COMPLEX-DISPLAY.
-      * After changing the types from COMP-3 to COMP-2, this
-      * EQUAL zero check doesn't work any longer:
-           IF WS-DISPPARM-V-IM IS EQUAL ZERO
-             DISPLAY WS-DISPPARM-N ' = ' WS-DISPPARM-V-RE
+           MOVE WS-DISPPARM-RE TO WS-DISPTMP-RE
+           MOVE WS-DISPPARM-IM TO WS-DISPTMP-IM
+           IF WS-DISPPARM-IM IS EQUAL ZERO
+             IF WS-DISPPARM-RE < ZERO
+               DISPLAY WS-DISPPARM-N ' = - ' WS-DISPTMP-RE
+             END-IF
            ELSE
-             DISPLAY WS-DISPPARM-N ' = ' WS-DISPPARM-V-RE ' '
-               WS-DISPPARM-V-IM 
-               ' I'
+             IF WS-DISPPARM-RE < ZERO
+               IF WS-DISPPARM-IM < ZERO
+                 DISPLAY WS-DISPPARM-N ' = - ' WS-DISPTMP-RE ' - '
+                   WS-DISPTMP-IM
+                   ' I'
+               ELSE
+                 DISPLAY WS-DISPPARM-N ' = - ' WS-DISPTMP-RE ' + '
+                   WS-DISPTMP-IM
+                   ' I'
+               END-IF
+             ELSE
+               IF WS-DISPPARM-IM < ZERO
+                 DISPLAY WS-DISPPARM-N ' = + ' WS-DISPTMP-RE ' - '
+                   WS-DISPTMP-IM
+                   ' I'
+               ELSE
+                 DISPLAY WS-DISPPARM-N ' = + ' WS-DISPTMP-RE ' + '
+                   WS-DISPTMP-IM
+                   ' I'
+               END-IF
+             END-IF
            END-IF
            .
       ******************************************************************
@@ -143,7 +166,6 @@
            COMPUTE WS-MULTPARM-OUT-IM =
              (WS-MULTPARM-IN1-IM * WS-MULTPARM-IN2-RE) +
              (WS-MULTPARM-IN1-RE * WS-MULTPARM-IN2-IM)
-
            .
       ******************************************************************
       * LIBRARY ROUTINE: COMPLEX-INVERSE
@@ -164,5 +186,26 @@
 
            COMPUTE WS-INVPARM-OUT-IM =
              -(WS-INVPARM-IN-IM/WS-INV-MAGNITUDE-V)
-
            .
+      ******************************************************************
+      * LIBRARY ROUTINE: COMPLEX-DIVIDE
+      *
+      * @param [in] WS-DIVPARM-IN1-COMPLEX,
+      *   with members WS-DIVPARM-IN1-RE, WS-DIVPARM-IN1-IM.
+      * @param [in] WS-DIVPARM-IN2-COMPLEX,
+      *   with members WS-DIVPARM-IN2-RE, WS-DIVPARM-IN2-IM.
+      * @param [out] WS-DIVPARM-OUT-COMPLEX,
+      *   with members WS-DIVPARM-OUT-RE, WS-DIVPARM-OUT-IM.
+      *
+      *   (a + b i)/(c + d i) = (a + bi) * (1/(c + di))
+       COMPLEX-DIVIDE.
+           MOVE WS-DIVPARM-IN2-COMPLEX TO WS-INVPARM-IN-COMPLEX
+           PERFORM COMPLEX-INVERSE
+
+           MOVE WS-DIVPARM-IN1-COMPLEX TO WS-MULTPARM-IN1-COMPLEX
+           MOVE WS-INVPARM-OUT-COMPLEX TO WS-MULTPARM-IN2-COMPLEX
+           PERFORM COMPLEX-MULT
+           MOVE WS-MULTPARM-OUT-COMPLEX TO WS-DIVPARM-OUT-COMPLEX
+           .
+      ******************************************************************
+
