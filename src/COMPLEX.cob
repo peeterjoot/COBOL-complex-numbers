@@ -96,7 +96,9 @@
       * @param [in] WS-DISPPARM-COMPLEX,
       *   with members WS-DISPPARM-RE, WS-DISPPARM-IM.
        COMPLEX-DISPLAY.
-           IF WS-DISPPARM-V-IM IS EQUAL 0
+      * After changing the types from COMP-3 to COMP-2, this
+      * EQUAL zero check doesn't work any longer:
+           IF WS-DISPPARM-V-IM IS EQUAL ZERO
              DISPLAY WS-DISPPARM-N ' = ' WS-DISPPARM-V-RE
            ELSE
              DISPLAY WS-DISPPARM-N ' = ' WS-DISPPARM-V-RE ' '
