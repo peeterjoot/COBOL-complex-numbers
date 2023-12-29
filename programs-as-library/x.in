@@ -2,8 +2,8 @@ src/CRADD.cob
 src/CMCONJ.cob
 src/CRSCALE.cob
 src/CDISPLAY.cob
-#src/CRIMAG.cob
-#src/CRREAL.cob
+src/CRREAL.cob
+src/CRIMAG.cob
 #src/CRMULT.cob
 #src/CRINV.cob
 #src/CRDIV.cob

@@ -1,4 +1,4 @@
-# DO NOT EDIT.  GENERATED WITH lz_mkmake version 0.7.15: '/usr/bin/lz_mkmake --scope --no-bind --source x.in --cobload PJOOT.SAMPLE2.COMPLEX --cobsuff cob --outdir out'
+# DO NOT EDIT.  GENERATED WITH lz_mkmake version 0.7.15: '/usr/bin/lz_mkmake --scope --no-bind --source x.in --cobload PJOOT.SAMPLE2.COMPLEX --cobsuff cob --outdir out --pdssz=30'
 
 
 OUTDIR := out
@@ -27,6 +27,16 @@ OBJECTS_cradd += out/src/CRADD.o
 OBJECTS += $(OBJECTS_cradd)
 ENTRIES += cradd
 SHAREDS += out/src/liblz_pgm_cradd.so
+
+OBJECTS_crimag += out/src/CRIMAG.o
+OBJECTS += $(OBJECTS_crimag)
+ENTRIES += crimag
+SHAREDS += out/src/liblz_pgm_crimag.so
+
+OBJECTS_crreal += out/src/CRREAL.o
+OBJECTS += $(OBJECTS_crreal)
+ENTRIES += crreal
+SHAREDS += out/src/liblz_pgm_crreal.so
 
 OBJECTS_crscale += out/src/CRSCALE.o
 OBJECTS += $(OBJECTS_crscale)
@@ -89,6 +99,16 @@ out/src/liblz_pgm_cradd.so : $(OBJECTS_cradd)
 	$(Q)rm -f 'out/src/liblz_pgm_cradd.so'
 	$(Q)$(COBRC) :Output='out/src/liblz_pgm_cradd.so' $(patsubst %,'%',$(OBJECTS_cradd)) $(LDFLAGS) $(LDFLAGS_cradd)
 
+out/src/liblz_pgm_crimag.so : $(OBJECTS_crimag)
+	$(call SAYWHAT,out/src/liblz_pgm_crimag.so)
+	$(Q)rm -f 'out/src/liblz_pgm_crimag.so'
+	$(Q)$(COBRC) :Output='out/src/liblz_pgm_crimag.so' $(patsubst %,'%',$(OBJECTS_crimag)) $(LDFLAGS) $(LDFLAGS_crimag)
+
+out/src/liblz_pgm_crreal.so : $(OBJECTS_crreal)
+	$(call SAYWHAT,out/src/liblz_pgm_crreal.so)
+	$(Q)rm -f 'out/src/liblz_pgm_crreal.so'
+	$(Q)$(COBRC) :Output='out/src/liblz_pgm_crreal.so' $(patsubst %,'%',$(OBJECTS_crreal)) $(LDFLAGS) $(LDFLAGS_crreal)
+
 out/src/liblz_pgm_crscale.so : $(OBJECTS_crscale)
 	$(call SAYWHAT,out/src/liblz_pgm_crscale.so)
 	$(Q)rm -f 'out/src/liblz_pgm_crscale.so'
@@ -115,7 +135,7 @@ ifndef NODELETEPDS
 endif
 	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX)
 	$(Q)mkdir -p $(CLITMPPATHDIR)
-	$(Q)$(LZALLOCATE) 'dataset(PJOOT.SAMPLE2.COMPLEX) MOD CATALOG DIR(1) DSORG(PO) RECFM(U) BLKSIZE(8192) ' $(CLIREDIRECT)
+	$(Q)$(LZALLOCATE) 'dataset(PJOOT.SAMPLE2.COMPLEX) MOD CATALOG DIR(30) DSORG(PO) RECFM(U) BLKSIZE(8192) ' $(CLIREDIRECT)
 	$(Q)mv $(CLITMPPATH) 'out/PJOOT.SAMPLE2.COMPLEX.allocate.ts'
 
 
@@ -142,6 +162,20 @@ out/src/liblz_pgm_cradd.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/libl
 	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX(CRADD))
 	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_cradd.so',recfm=u -o '//PJOOT.SAMPLE2.COMPLEX(CRADD),disp=mod' $(CLIREDIRECT)
 	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_cradd.pds'
+
+
+
+out/src/liblz_pgm_crimag.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/liblz_pgm_crimag.so
+	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX(CRIMAG))
+	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_crimag.so',recfm=u -o '//PJOOT.SAMPLE2.COMPLEX(CRIMAG),disp=mod' $(CLIREDIRECT)
+	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_crimag.pds'
+
+
+
+out/src/liblz_pgm_crreal.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/liblz_pgm_crreal.so
+	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX(CRREAL))
+	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_crreal.so',recfm=u -o '//PJOOT.SAMPLE2.COMPLEX(CRREAL),disp=mod' $(CLIREDIRECT)
+	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_crreal.pds'
 
 
 

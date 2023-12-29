@@ -8,8 +8,8 @@
         COPY COMPLEX REPLACING ==(PRFX)== BY ==LK-REAL-IN-==.
         COPY FLOAT REPLACING ==(PRFX)== BY ==LK-REAL-OUT-==.
        PROCEDURE DIVISION USING
-        LK-REAL-IN1-COMPLEX,
-        LK-REAL-OUT-V
+        LK-REAL-IN-COMPLEX,
+        LK-REAL-OUT-V.
       ******************************************************************
       * LIBRARY ROUTINE: COMPLEX-REAL
       *
