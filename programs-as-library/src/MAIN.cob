@@ -4,6 +4,7 @@
       *CONFIGURATION SECTION.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
+       COPY CMPXLBRY.
        COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-V1-==.
        COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-V2-==.
 
@@ -32,7 +33,7 @@
            MOVE 2 TO WS-V1-IM
            MOVE 'A' TO WS-DISPPARM-N
 
-           CALL 'CDISPLAY' USING
+           CALL COMPLEX-DISPLAY USING
              WS-DISPPARM-N,
              WS-V1-COMPLEX
 
@@ -41,93 +42,95 @@
            MOVE 4 TO WS-V2-IM
 
            MOVE 'B' TO WS-DISPPARM-N
-           CALL 'CDISPLAY' USING
+           CALL COMPLEX-DISPLAY USING
              WS-DISPPARM-N,
              WS-V2-COMPLEX
 
       * C = A + B
-           CALL 'CRADD' USING
+           CALL COMPLEX-ADD-RETURN USING
              WS-V1-COMPLEX,
              WS-V2-COMPLEX,
              WS-ADDPARM-OUT-COMPLEX
 
            MOVE 'A + B' TO WS-DISPPARM-N
-           CALL 'CDISPLAY' USING
+           CALL COMPLEX-DISPLAY USING
              WS-DISPPARM-N,
              WS-ADDPARM-OUT-COMPLEX
 
       * D = A - B
-           CALL 'CRSUB' USING
+           CALL COMPLEX-SUB-RETURN USING
              WS-V2-COMPLEX,
              WS-V1-COMPLEX,
              WS-SUBPARM-OUT-COMPLEX
 
            MOVE 'B - A' TO WS-DISPPARM-N
-           CALL 'CDISPLAY' USING
+           CALL COMPLEX-DISPLAY USING
              WS-DISPPARM-N,
              WS-SUBPARM-OUT-COMPLEX
 
       * E = A^*
            MOVE WS-V1-COMPLEX TO WS-CONJPARM-COMPLEX
-           CALL 'CMCONJ' USING WS-CONJPARM-COMPLEX
+           CALL COMPLEX-CONJUGATE-MODIFY USING WS-CONJPARM-COMPLEX
            MOVE 'CONJUGATE(A)' TO WS-DISPPARM-N
-           CALL 'CDISPLAY' USING
+           CALL COMPLEX-DISPLAY USING
              WS-DISPPARM-N,
              WS-CONJPARM-COMPLEX
 
       * F = -A
            MOVE -1 to WS-SCALEPARM-IN-V
-           CALL 'CRSCALE' USING
+           CALL COMPLEX-SCALE-RETURN USING
              WS-V1-COMPLEX,
              WS-SCALEPARM-IN-V,
              WS-SCALEPARM-OUT-COMPLEX
            MOVE '-A' TO WS-DISPPARM-N
-           CALL 'CDISPLAY' USING
+           CALL COMPLEX-DISPLAY USING
              WS-DISPPARM-N,
              WS-SCALEPARM-OUT-COMPLEX
 
       * G = RE(A)
-           CALL 'CRREAL' USING WS-V1-COMPLEX, WS-REAL-V
+           CALL COMPLEX-REAL-RETURN USING WS-V1-COMPLEX, WS-REAL-V
            MOVE WS-REAL-V TO WS-DISPPARM-RE
            MOVE 0         TO WS-DISPPARM-IM
            MOVE 'RE(A)'   TO WS-DISPPARM-N
-           CALL 'CDISPLAY' USING
+           CALL COMPLEX-DISPLAY USING
              WS-DISPPARM-N,
              WS-DISPPARM-COMPLEX
 
       * H = IM(A)
-           CALL 'CRIMAG' USING WS-V1-COMPLEX, WS-IMAG-V
+           CALL COMPLEX-IMAG-RETURN USING WS-V1-COMPLEX, WS-IMAG-V
            MOVE WS-IMAG-V TO WS-DISPPARM-RE
            MOVE 0         TO WS-DISPPARM-IM
            MOVE 'IM(A)'   TO WS-DISPPARM-N
-           CALL 'CDISPLAY' USING
+           CALL COMPLEX-DISPLAY USING
              WS-DISPPARM-N,
              WS-DISPPARM-COMPLEX
 
       * K = A * B
-           CALL 'CRMULT' USING
+           CALL COMPLEX-MULT-RETURN USING
              WS-V1-COMPLEX,
              WS-V2-COMPLEX,
              WS-MULTPARM-OUT-COMPLEX
            MOVE 'A * B' TO WS-DISPPARM-N
-           CALL 'CDISPLAY' USING
+           CALL COMPLEX-DISPLAY USING
              WS-DISPPARM-N,
              WS-MULTPARM-OUT-COMPLEX
 
       * L = 1/A
-           CALL 'CRINV' USING WS-V1-COMPLEX, WS-INVPARM-OUT-COMPLEX
+           CALL COMPLEX-INVERSE-RETURN USING
+             WS-V1-COMPLEX,
+             WS-INVPARM-OUT-COMPLEX
            MOVE '1/A' TO WS-DISPPARM-N
-           CALL 'CDISPLAY' USING
+           CALL COMPLEX-DISPLAY USING
              WS-DISPPARM-N,
              WS-INVPARM-OUT-COMPLEX
 
       * M = A/B
-           CALL 'CRDIV' USING
+           CALL COMPLEX-DIVIDE-RETURN USING
              WS-V1-COMPLEX,
              WS-V2-COMPLEX,
              WS-DIVPARM-OUT-COMPLEX
            MOVE 'A/B' TO WS-DISPPARM-N
-           CALL 'CDISPLAY' USING
+           CALL COMPLEX-DISPLAY USING
              WS-DISPPARM-N,
              WS-DIVPARM-OUT-COMPLEX
 
