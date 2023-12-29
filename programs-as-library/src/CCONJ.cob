@@ -5,18 +5,20 @@
        DATA DIVISION.
        WORKING-STORAGE SECTION.
        LINKAGE SECTION.
-       PROCEDURE DIVISION.
+        COPY COMPLEX REPLACING ==(PRFX)== BY ==LK-CONJPARM-==.
+       PROCEDURE DIVISION USING
+        LK-CONJPARM-COMPLEX.
 
       ******************************************************************
       * LIBRARY ROUTINE: COMPLEX-CONJUGATE
       *
-      * @param [in] WS-CONJPARM-COMPLEX,
-      *   with members WS-CONJPARM-RE, WS-CONJPARM-IM.
+      * @param [in,out] LK-CONJPARM-COMPLEX,
+      *   with members LK-CONJPARM-RE, LK-CONJPARM-IM.
       *
-      * Side effects: sign of WS-CONJPARM-IM is toggled.
+      * Side effects: sign of LK-CONJPARM-IM is toggled.
       *
        COMPLEX-CONJUGATE.
-           COMPUTE WS-CONJPARM-IM = WS-CONJPARM-IM * -1
+           COMPUTE LK-CONJPARM-IM = LK-CONJPARM-IM * -1
 
            GOBACK
            .

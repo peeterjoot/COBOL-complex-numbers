@@ -5,21 +5,22 @@
        DATA DIVISION.
        WORKING-STORAGE SECTION.
        LINKAGE SECTION.
-       PROCEDURE DIVISION.
+       PROCEDURE DIVISION USING
+        LK-ADDPARM-IN1-COMPLEX.
       ******************************************************************
       * LIBRARY ROUTINE: COMPLEX-NEGATE
       *
-      * @param [in] WS-NEGPARM-IN-COMPLEX,
-      *   with members WS-NEGPARM-IN-RE, WS-NEGPARM-IN-IM.
-      * @param [out] WS-NEGPARM-OUT-COMPLEX,
-      *   with members WS-NEGPARM-OUT-RE, WS-NEGPARM-OUT-IM.
+      * @param [in] LK-NEGPARM-IN-COMPLEX,
+      *   with members LK-NEGPARM-IN-RE, LK-NEGPARM-IN-IM.
+      * @param [out] LK-NEGPARM-OUT-COMPLEX,
+      *   with members LK-NEGPARM-OUT-RE, LK-NEGPARM-OUT-IM.
       *
        COMPLEX-NEGATE.
-           COMPUTE WS-NEGPARM-OUT-RE =
-             -WS-NEGPARM-IN-RE
+           COMPUTE LK-NEGPARM-OUT-RE =
+             -LK-NEGPARM-IN-RE
 
-           COMPUTE WS-NEGPARM-OUT-IM =
-             -WS-NEGPARM-IN-IM
+           COMPUTE LK-NEGPARM-OUT-IM =
+             -LK-NEGPARM-IN-IM
 
            GOBACK
            .
