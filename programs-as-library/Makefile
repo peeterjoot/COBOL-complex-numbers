@@ -13,6 +13,11 @@ PLISUFF := pli
 include make.vars
 
 
+OBJECTS_cadd += out/src/CADD.o
+OBJECTS += $(OBJECTS_cadd)
+ENTRIES += cadd
+SHAREDS += out/src/liblz_pgm_cadd.so
+
 OBJECTS_cdisplay += out/src/CDISPLAY.o
 OBJECTS += $(OBJECTS_cdisplay)
 ENTRIES += cdisplay
@@ -54,6 +59,11 @@ shared : shareds
 pdses :: $(PDSES)
 
 
+out/src/liblz_pgm_cadd.so : $(OBJECTS_cadd)
+	$(call SAYWHAT,out/src/liblz_pgm_cadd.so)
+	$(Q)rm -f 'out/src/liblz_pgm_cadd.so'
+	$(Q)$(COBRC) :Output='out/src/liblz_pgm_cadd.so' $(patsubst %,'%',$(OBJECTS_cadd)) $(LDFLAGS) $(LDFLAGS_cadd)
+
 out/src/liblz_pgm_cdisplay.so : $(OBJECTS_cdisplay)
 	$(call SAYWHAT,out/src/liblz_pgm_cdisplay.so)
 	$(Q)rm -f 'out/src/liblz_pgm_cdisplay.so'
@@ -83,6 +93,13 @@ endif
 clean ::
 	-$(LZDELETE) 'PJOOT.SAMPLE2.COMPLEX'
 	rm -f out/PJOOT.SAMPLE2.COMPLEX.allocate.ts
+
+out/src/liblz_pgm_cadd.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/liblz_pgm_cadd.so
+	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX(CADD))
+	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_cadd.so',recfm=u -o '//PJOOT.SAMPLE2.COMPLEX(CADD),disp=mod' $(CLIREDIRECT)
+	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_cadd.pds'
+
+
 
 out/src/liblz_pgm_cdisplay.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/liblz_pgm_cdisplay.so
 	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX(CDISPLAY))
