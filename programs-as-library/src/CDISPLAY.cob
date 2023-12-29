@@ -10,7 +10,7 @@
         COPY COMPLEX REPLACING ==(PRFX)== BY ==LK-DISP-IN-==.
        PROCEDURE DIVISION USING LK-DISP-IN-N, LK-DISP-IN-COMPLEX.
       ******************************************************************
-      * LIBRARY ROUTINE: CDISPLAY
+      * LIBRARY ROUTINE: COMPLEX-DISPLAY
       *
       * @param [in] LK-DISP-IN-COMPLEX,
       *   with members LK-DISP-IN-RE, LK-DISP-IN-IM.
