@@ -1,0 +1,11 @@
+#src/CADD.cob
+#src/CCONJ.cob
+src/CDISPLAY.cob
+#src/CDIVIDE.cob
+#src/CIMAG.cob
+#src/CINVERSE.cob
+#src/CMULT.cob
+#src/CNEGATE.cob
+#src/CREAL.cob
+#src/CSUB.cob
+src/MAIN.cob
