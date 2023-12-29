@@ -7,5 +7,5 @@ src/CDISPLAY.cob
 #src/CMULT.cob
 #src/CNEGATE.cob
 #src/CREAL.cob
-#src/CSUB.cob
+src/CSUB.cob
 src/MAIN.cob
