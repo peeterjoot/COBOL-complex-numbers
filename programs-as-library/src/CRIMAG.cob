@@ -5,16 +5,19 @@
        DATA DIVISION.
        WORKING-STORAGE SECTION.
        LINKAGE SECTION.
+        COPY COMPLEX REPLACING ==(PRFX)== BY ==LK-IMAG-IN-==.
+        COPY FLOAT REPLACING ==(PRFX)== BY ==LK-IMAG-OUT-==.
        PROCEDURE DIVISION USING
-        LK-ADDPARM-IN1-COMPLEX.
+        LK-IMAG-IN-COMPLEX,
+        LK-IMAG-OUT-V.
       ******************************************************************
       * LIBRARY ROUTINE: COMPLEX-IMAG
       *
-      * @param [in] LK-IMAGPARM-COMPLEX,
-      *   with members LK-IMAGPARM-RE, LK-IMAGPARM-IM.
+      * @param [in] LK-IMAG-IN-COMPLEX,
+      *   with members LK-IMAG-IN-RE, LK-IMAG-IN-IM.
       * @param [out] LK-IMAG-V,
        COMPLEX-IMAG.
-           MOVE LK-IMAGPARM-IM TO LK-IMAG-V
+           MOVE LK-IMAG-IN-IM TO LK-IMAG-OUT-V
 
            GOBACK
            .
