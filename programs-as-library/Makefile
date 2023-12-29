@@ -23,6 +23,11 @@ OBJECTS += $(OBJECTS_cdisplay)
 ENTRIES += cdisplay
 SHAREDS += out/src/liblz_pgm_cdisplay.so
 
+OBJECTS_csub += out/src/CSUB.o
+OBJECTS += $(OBJECTS_csub)
+ENTRIES += csub
+SHAREDS += out/src/liblz_pgm_csub.so
+
 OBJECTS_main += out/src/MAIN.o
 OBJECTS += $(OBJECTS_main)
 ENTRIES += main
@@ -69,6 +74,11 @@ out/src/liblz_pgm_cdisplay.so : $(OBJECTS_cdisplay)
 	$(Q)rm -f 'out/src/liblz_pgm_cdisplay.so'
 	$(Q)$(COBRC) :Output='out/src/liblz_pgm_cdisplay.so' $(patsubst %,'%',$(OBJECTS_cdisplay)) $(LDFLAGS) $(LDFLAGS_cdisplay)
 
+out/src/liblz_pgm_csub.so : $(OBJECTS_csub)
+	$(call SAYWHAT,out/src/liblz_pgm_csub.so)
+	$(Q)rm -f 'out/src/liblz_pgm_csub.so'
+	$(Q)$(COBRC) :Output='out/src/liblz_pgm_csub.so' $(patsubst %,'%',$(OBJECTS_csub)) $(LDFLAGS) $(LDFLAGS_csub)
+
 out/src/liblz_pgm_main.so : $(OBJECTS_main)
 	$(call SAYWHAT,out/src/liblz_pgm_main.so)
 	$(Q)rm -f 'out/src/liblz_pgm_main.so'
@@ -105,6 +115,13 @@ out/src/liblz_pgm_cdisplay.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/l
 	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX(CDISPLAY))
 	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_cdisplay.so',recfm=u -o '//PJOOT.SAMPLE2.COMPLEX(CDISPLAY),disp=mod' $(CLIREDIRECT)
 	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_cdisplay.pds'
+
+
+
+out/src/liblz_pgm_csub.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/liblz_pgm_csub.so
+	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX(CSUB))
+	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_csub.so',recfm=u -o '//PJOOT.SAMPLE2.COMPLEX(CSUB),disp=mod' $(CLIREDIRECT)
+	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_csub.pds'
 
 
 
