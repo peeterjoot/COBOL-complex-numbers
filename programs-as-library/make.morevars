@@ -23,7 +23,17 @@
 # If :DynExternals= is not used for such symbols, the code must be changed to use DYNAMIC call syntax (using a variable name
 # for the entry in the CALL statement.)
 #
+COBDYNLINK += CADD
+COBDYNLINK += CCONJ
 COBDYNLINK += CDISPLAY
+COBDYNLINK += CDIVIDE
+COBDYNLINK += CIMAG
+COBDYNLINK += CINVERSE
+COBDYNLINK += CMULT
+COBDYNLINK += CNEGATE
+COBDYNLINK += CREAL
+COBDYNLINK += CSUB
+#
 #COBDYNLINK += CEE3ABD
 #---------------------------------------------------------------------------------------
 

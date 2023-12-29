@@ -5,24 +5,29 @@
        DATA DIVISION.
        WORKING-STORAGE SECTION.
        LINKAGE SECTION.
-       LINKAGE SECTION.
-       PROCEDURE DIVISION.
+        COPY COMPLEX REPLACING ==(PRFX)== BY ==LK-ADDPARM-IN1-==.
+        COPY COMPLEX REPLACING ==(PRFX)== BY ==LK-ADDPARM-IN2-==.
+        COPY COMPLEX REPLACING ==(PRFX)== BY ==LK-ADDPARM-OUT-==.
+       PROCEDURE DIVISION USING
+        LK-ADDPARM-IN1-COMPLEX,
+        LK-ADDPARM-IN2-COMPLEX,
+        LK-ADDPARM-OUT-COMPLEX.
       ******************************************************************
       * LIBRARY ROUTINE: COMPLEX-ADD
       *
-      * @param [in] WS-ADDPARM-IN1-COMPLEX,
-      *   with members WS-ADDPARM-IN1-RE, WS-ADDPARM-IN1-IM.
-      * @param [in] WS-ADDPARM-IN2-COMPLEX,
-      *   with members WS-ADDPARM-IN2-RE, WS-ADDPARM-IN2-IM.
-      * @param [out] WS-ADDPARM-OUT-COMPLEX,
-      *   with members WS-ADDPARM-OUT-RE, WS-ADDPARM-OUT-IM.
+      * @param [in] LK-ADDPARM-IN1-COMPLEX,
+      *   with members LK-ADDPARM-IN1-RE, LK-ADDPARM-IN1-IM.
+      * @param [in] LK-ADDPARM-IN2-COMPLEX,
+      *   with members LK-ADDPARM-IN2-RE, LK-ADDPARM-IN2-IM.
+      * @param [out] LK-ADDPARM-OUT-COMPLEX,
+      *   with members LK-ADDPARM-OUT-RE, LK-ADDPARM-OUT-IM.
       *
        COMPLEX-ADD.
-           COMPUTE WS-ADDPARM-OUT-RE =
-             WS-ADDPARM-IN1-RE + WS-ADDPARM-IN2-RE
+           COMPUTE LK-ADDPARM-OUT-RE =
+             LK-ADDPARM-IN1-RE + LK-ADDPARM-IN2-RE
 
-           COMPUTE WS-ADDPARM-OUT-IM =
-             WS-ADDPARM-IN1-IM + WS-ADDPARM-IN2-IM
+           COMPUTE LK-ADDPARM-OUT-IM =
+             LK-ADDPARM-IN1-IM + LK-ADDPARM-IN2-IM
 
            GOBACK
            .
