@@ -1,0 +1,1 @@
+lz_mkmake --scope --no-bind --source x.in --cobload PJOOT.SAMPLE2.COMPLEX --cobsuff cob --outdir out > Makefile
