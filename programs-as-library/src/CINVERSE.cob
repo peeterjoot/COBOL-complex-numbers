@@ -5,26 +5,27 @@
        DATA DIVISION.
        WORKING-STORAGE SECTION.
        LINKAGE SECTION.
-       PROCEDURE DIVISION.
+       PROCEDURE DIVISION USING
+        LK-ADDPARM-IN1-COMPLEX.
       ******************************************************************
       * LIBRARY ROUTINE: COMPLEX-INVERSE
       *
-      * @param [in] WS-INVPARM-IN-COMPLEX,
-      *   with members WS-INVPARM-IN-RE, WS-INVPARM-IN-IM.
-      * @param [out] WS-INVPARM-OUT-COMPLEX,
-      *   with members WS-INVPARM-OUT-RE, WS-INVPARM-OUT-IM.
+      * @param [in] LK-INVPARM-IN-COMPLEX,
+      *   with members LK-INVPARM-IN-RE, LK-INVPARM-IN-IM.
+      * @param [out] LK-INVPARM-OUT-COMPLEX,
+      *   with members LK-INVPARM-OUT-RE, LK-INVPARM-OUT-IM.
       *
       *   1/(a + b i) = (a - b i)/(a^2 + b^2)
        COMPLEX-INVERSE.
-           COMPUTE WS-INV-MAGNITUDE-V =
-             (WS-INVPARM-IN-RE * WS-INVPARM-IN-RE) +
-             (WS-INVPARM-IN-IM * WS-INVPARM-IN-IM)
+           COMPUTE LK-INV-MAGNITUDE-V =
+             (LK-INVPARM-IN-RE * LK-INVPARM-IN-RE) +
+             (LK-INVPARM-IN-IM * LK-INVPARM-IN-IM)
 
-           COMPUTE WS-INVPARM-OUT-RE =
-             WS-INVPARM-IN-RE/WS-INV-MAGNITUDE-V
+           COMPUTE LK-INVPARM-OUT-RE =
+             LK-INVPARM-IN-RE/LK-INV-MAGNITUDE-V
 
-           COMPUTE WS-INVPARM-OUT-IM =
-             -(WS-INVPARM-IN-IM/WS-INV-MAGNITUDE-V)
+           COMPUTE LK-INVPARM-OUT-IM =
+             -(LK-INVPARM-IN-IM/LK-INV-MAGNITUDE-V)
 
            GOBACK
            .

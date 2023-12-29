@@ -5,17 +5,19 @@
        DATA DIVISION.
        WORKING-STORAGE SECTION.
        LINKAGE SECTION.
-        COPY COMPLEX REPLACING ==(PRFX)== BY ==LK-REAL-IN==.
+        COPY COMPLEX REPLACING ==(PRFX)== BY ==LK-REAL-IN-==.
         COPY FLOAT REPLACING ==(PRFX)== BY ==LK-REAL-OUT-==.
-       PROCEDURE DIVISION.
+       PROCEDURE DIVISION USING
+        LK-REAL-IN1-COMPLEX,
+        LK-REAL-OUT-V
       ******************************************************************
       * LIBRARY ROUTINE: COMPLEX-REAL
       *
-      * @param [in] WS-REALPARM-COMPLEX,
-      *   with members WS-REALPARM-RE, WS-REALPARM-IM.
-      * @param [out] WS-REAL-V,
+      * @param [in] LK-REAL-IN-COMPLEX,
+      *   with members LK-REAL-IN-RE, LK-REAL-IN-IM.
+      * @param [out] LK-REAL-V,
        COMPLEX-REAL.
-           MOVE WS-REALPARM-RE TO WS-REAL-V
+           MOVE LK-REAL-IN-RE TO LK-REAL-OUT-V
 
            GOBACK
            .

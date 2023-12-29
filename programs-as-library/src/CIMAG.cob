@@ -5,15 +5,16 @@
        DATA DIVISION.
        WORKING-STORAGE SECTION.
        LINKAGE SECTION.
-       PROCEDURE DIVISION.
+       PROCEDURE DIVISION USING
+        LK-ADDPARM-IN1-COMPLEX.
       ******************************************************************
       * LIBRARY ROUTINE: COMPLEX-IMAG
       *
-      * @param [in] WS-IMAGPARM-COMPLEX,
-      *   with members WS-IMAGPARM-RE, WS-IMAGPARM-IM.
-      * @param [out] WS-IMAG-V,
+      * @param [in] LK-IMAGPARM-COMPLEX,
+      *   with members LK-IMAGPARM-RE, LK-IMAGPARM-IM.
+      * @param [out] LK-IMAG-V,
        COMPLEX-IMAG.
-           MOVE WS-IMAGPARM-IM TO WS-IMAG-V
+           MOVE LK-IMAGPARM-IM TO LK-IMAG-V
 
            GOBACK
            .

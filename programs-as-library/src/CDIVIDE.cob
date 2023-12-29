@@ -5,26 +5,27 @@
        DATA DIVISION.
        WORKING-STORAGE SECTION.
        LINKAGE SECTION.
-       PROCEDURE DIVISION.
+       PROCEDURE DIVISION USING
+        LK-ADDPARM-IN1-COMPLEX.
       ******************************************************************
       * LIBRARY ROUTINE: COMPLEX-DIVIDE
       *
-      * @param [in] WS-DIVPARM-IN1-COMPLEX,
-      *   with members WS-DIVPARM-IN1-RE, WS-DIVPARM-IN1-IM.
-      * @param [in] WS-DIVPARM-IN2-COMPLEX,
-      *   with members WS-DIVPARM-IN2-RE, WS-DIVPARM-IN2-IM.
-      * @param [out] WS-DIVPARM-OUT-COMPLEX,
-      *   with members WS-DIVPARM-OUT-RE, WS-DIVPARM-OUT-IM.
+      * @param [in] LK-DIVPARM-IN1-COMPLEX,
+      *   with members LK-DIVPARM-IN1-RE, LK-DIVPARM-IN1-IM.
+      * @param [in] LK-DIVPARM-IN2-COMPLEX,
+      *   with members LK-DIVPARM-IN2-RE, LK-DIVPARM-IN2-IM.
+      * @param [out] LK-DIVPARM-OUT-COMPLEX,
+      *   with members LK-DIVPARM-OUT-RE, LK-DIVPARM-OUT-IM.
       *
       *   (a + b i)/(c + d i) = (a + bi) * (1/(c + di))
        COMPLEX-DIVIDE.
-           MOVE WS-DIVPARM-IN2-COMPLEX TO WS-INVPARM-IN-COMPLEX
+           MOVE LK-DIVPARM-IN2-COMPLEX TO LK-INVPARM-IN-COMPLEX
            PERFORM COMPLEX-INVERSE
 
-           MOVE WS-DIVPARM-IN1-COMPLEX TO WS-MULTPARM-IN1-COMPLEX
-           MOVE WS-INVPARM-OUT-COMPLEX TO WS-MULTPARM-IN2-COMPLEX
+           MOVE LK-DIVPARM-IN1-COMPLEX TO LK-MULTPARM-IN1-COMPLEX
+           MOVE LK-INVPARM-OUT-COMPLEX TO LK-MULTPARM-IN2-COMPLEX
            PERFORM COMPLEX-MULT
-           MOVE WS-MULTPARM-OUT-COMPLEX TO WS-DIVPARM-OUT-COMPLEX
+           MOVE LK-MULTPARM-OUT-COMPLEX TO LK-DIVPARM-OUT-COMPLEX
 
            GOBACK
            .
