@@ -4,9 +4,13 @@
       *CONFIGURATION SECTION.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
+        COPY FLOAT REPLACING ==(PRFX)== BY ==LK-INV-MAGNITUDE-==.
        LINKAGE SECTION.
+        COPY COMPLEX REPLACING ==(PRFX)== BY ==LK-INVPARM-IN-==.
+        COPY COMPLEX REPLACING ==(PRFX)== BY ==LK-INVPARM-OUT-==.
        PROCEDURE DIVISION USING
-        LK-ADDPARM-IN1-COMPLEX.
+        LK-INVPARM-IN-COMPLEX,
+        LK-INVPARM-OUT-COMPLEX.
       ******************************************************************
       * LIBRARY ROUTINE: COMPLEX-INVERSE
       *

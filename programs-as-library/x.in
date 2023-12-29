@@ -7,5 +7,5 @@ src/CRIMAG.cob
 src/CRSUB.cob
 src/MAIN.cob
 src/CRMULT.cob
-#src/CRINV.cob
+src/CRINV.cob
 #src/CRDIV.cob
