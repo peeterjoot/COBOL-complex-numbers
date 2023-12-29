@@ -33,6 +33,11 @@ OBJECTS += $(OBJECTS_crimag)
 ENTRIES += crimag
 SHAREDS += out/src/liblz_pgm_crimag.so
 
+OBJECTS_crmult += out/src/CRMULT.o
+OBJECTS += $(OBJECTS_crmult)
+ENTRIES += crmult
+SHAREDS += out/src/liblz_pgm_crmult.so
+
 OBJECTS_crreal += out/src/CRREAL.o
 OBJECTS += $(OBJECTS_crreal)
 ENTRIES += crreal
@@ -104,6 +109,11 @@ out/src/liblz_pgm_crimag.so : $(OBJECTS_crimag)
 	$(Q)rm -f 'out/src/liblz_pgm_crimag.so'
 	$(Q)$(COBRC) :Output='out/src/liblz_pgm_crimag.so' $(patsubst %,'%',$(OBJECTS_crimag)) $(LDFLAGS) $(LDFLAGS_crimag)
 
+out/src/liblz_pgm_crmult.so : $(OBJECTS_crmult)
+	$(call SAYWHAT,out/src/liblz_pgm_crmult.so)
+	$(Q)rm -f 'out/src/liblz_pgm_crmult.so'
+	$(Q)$(COBRC) :Output='out/src/liblz_pgm_crmult.so' $(patsubst %,'%',$(OBJECTS_crmult)) $(LDFLAGS) $(LDFLAGS_crmult)
+
 out/src/liblz_pgm_crreal.so : $(OBJECTS_crreal)
 	$(call SAYWHAT,out/src/liblz_pgm_crreal.so)
 	$(Q)rm -f 'out/src/liblz_pgm_crreal.so'
@@ -169,6 +179,13 @@ out/src/liblz_pgm_crimag.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/lib
 	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX(CRIMAG))
 	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_crimag.so',recfm=u -o '//PJOOT.SAMPLE2.COMPLEX(CRIMAG),disp=mod' $(CLIREDIRECT)
 	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_crimag.pds'
+
+
+
+out/src/liblz_pgm_crmult.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/liblz_pgm_crmult.so
+	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX(CRMULT))
+	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_crmult.so',recfm=u -o '//PJOOT.SAMPLE2.COMPLEX(CRMULT),disp=mod' $(CLIREDIRECT)
+	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_crmult.pds'
 
 
 
