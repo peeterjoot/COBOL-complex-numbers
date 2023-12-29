@@ -13,30 +13,30 @@ PLISUFF := pli
 include make.vars
 
 
-OBJECTS_cadd += out/src/CADD.o
-OBJECTS += $(OBJECTS_cadd)
-ENTRIES += cadd
-SHAREDS += out/src/liblz_pgm_cadd.so
-
-OBJECTS_cconj += out/src/CCONJ.o
-OBJECTS += $(OBJECTS_cconj)
-ENTRIES += cconj
-SHAREDS += out/src/liblz_pgm_cconj.so
-
 OBJECTS_cdisplay += out/src/CDISPLAY.o
 OBJECTS += $(OBJECTS_cdisplay)
 ENTRIES += cdisplay
 SHAREDS += out/src/liblz_pgm_cdisplay.so
 
-OBJECTS_cscale += out/src/CSCALE.o
-OBJECTS += $(OBJECTS_cscale)
-ENTRIES += cscale
-SHAREDS += out/src/liblz_pgm_cscale.so
+OBJECTS_cmconj += out/src/CMCONJ.o
+OBJECTS += $(OBJECTS_cmconj)
+ENTRIES += cmconj
+SHAREDS += out/src/liblz_pgm_cmconj.so
 
-OBJECTS_csub += out/src/CSUB.o
-OBJECTS += $(OBJECTS_csub)
-ENTRIES += csub
-SHAREDS += out/src/liblz_pgm_csub.so
+OBJECTS_cradd += out/src/CRADD.o
+OBJECTS += $(OBJECTS_cradd)
+ENTRIES += cradd
+SHAREDS += out/src/liblz_pgm_cradd.so
+
+OBJECTS_crscale += out/src/CRSCALE.o
+OBJECTS += $(OBJECTS_crscale)
+ENTRIES += crscale
+SHAREDS += out/src/liblz_pgm_crscale.so
+
+OBJECTS_crsub += out/src/CRSUB.o
+OBJECTS += $(OBJECTS_crsub)
+ENTRIES += crsub
+SHAREDS += out/src/liblz_pgm_crsub.so
 
 OBJECTS_main += out/src/MAIN.o
 OBJECTS += $(OBJECTS_main)
@@ -74,30 +74,30 @@ shared : shareds
 pdses :: $(PDSES)
 
 
-out/src/liblz_pgm_cadd.so : $(OBJECTS_cadd)
-	$(call SAYWHAT,out/src/liblz_pgm_cadd.so)
-	$(Q)rm -f 'out/src/liblz_pgm_cadd.so'
-	$(Q)$(COBRC) :Output='out/src/liblz_pgm_cadd.so' $(patsubst %,'%',$(OBJECTS_cadd)) $(LDFLAGS) $(LDFLAGS_cadd)
-
-out/src/liblz_pgm_cconj.so : $(OBJECTS_cconj)
-	$(call SAYWHAT,out/src/liblz_pgm_cconj.so)
-	$(Q)rm -f 'out/src/liblz_pgm_cconj.so'
-	$(Q)$(COBRC) :Output='out/src/liblz_pgm_cconj.so' $(patsubst %,'%',$(OBJECTS_cconj)) $(LDFLAGS) $(LDFLAGS_cconj)
-
 out/src/liblz_pgm_cdisplay.so : $(OBJECTS_cdisplay)
 	$(call SAYWHAT,out/src/liblz_pgm_cdisplay.so)
 	$(Q)rm -f 'out/src/liblz_pgm_cdisplay.so'
 	$(Q)$(COBRC) :Output='out/src/liblz_pgm_cdisplay.so' $(patsubst %,'%',$(OBJECTS_cdisplay)) $(LDFLAGS) $(LDFLAGS_cdisplay)
 
-out/src/liblz_pgm_cscale.so : $(OBJECTS_cscale)
-	$(call SAYWHAT,out/src/liblz_pgm_cscale.so)
-	$(Q)rm -f 'out/src/liblz_pgm_cscale.so'
-	$(Q)$(COBRC) :Output='out/src/liblz_pgm_cscale.so' $(patsubst %,'%',$(OBJECTS_cscale)) $(LDFLAGS) $(LDFLAGS_cscale)
+out/src/liblz_pgm_cmconj.so : $(OBJECTS_cmconj)
+	$(call SAYWHAT,out/src/liblz_pgm_cmconj.so)
+	$(Q)rm -f 'out/src/liblz_pgm_cmconj.so'
+	$(Q)$(COBRC) :Output='out/src/liblz_pgm_cmconj.so' $(patsubst %,'%',$(OBJECTS_cmconj)) $(LDFLAGS) $(LDFLAGS_cmconj)
 
-out/src/liblz_pgm_csub.so : $(OBJECTS_csub)
-	$(call SAYWHAT,out/src/liblz_pgm_csub.so)
-	$(Q)rm -f 'out/src/liblz_pgm_csub.so'
-	$(Q)$(COBRC) :Output='out/src/liblz_pgm_csub.so' $(patsubst %,'%',$(OBJECTS_csub)) $(LDFLAGS) $(LDFLAGS_csub)
+out/src/liblz_pgm_cradd.so : $(OBJECTS_cradd)
+	$(call SAYWHAT,out/src/liblz_pgm_cradd.so)
+	$(Q)rm -f 'out/src/liblz_pgm_cradd.so'
+	$(Q)$(COBRC) :Output='out/src/liblz_pgm_cradd.so' $(patsubst %,'%',$(OBJECTS_cradd)) $(LDFLAGS) $(LDFLAGS_cradd)
+
+out/src/liblz_pgm_crscale.so : $(OBJECTS_crscale)
+	$(call SAYWHAT,out/src/liblz_pgm_crscale.so)
+	$(Q)rm -f 'out/src/liblz_pgm_crscale.so'
+	$(Q)$(COBRC) :Output='out/src/liblz_pgm_crscale.so' $(patsubst %,'%',$(OBJECTS_crscale)) $(LDFLAGS) $(LDFLAGS_crscale)
+
+out/src/liblz_pgm_crsub.so : $(OBJECTS_crsub)
+	$(call SAYWHAT,out/src/liblz_pgm_crsub.so)
+	$(Q)rm -f 'out/src/liblz_pgm_crsub.so'
+	$(Q)$(COBRC) :Output='out/src/liblz_pgm_crsub.so' $(patsubst %,'%',$(OBJECTS_crsub)) $(LDFLAGS) $(LDFLAGS_crsub)
 
 out/src/liblz_pgm_main.so : $(OBJECTS_main)
 	$(call SAYWHAT,out/src/liblz_pgm_main.so)
@@ -124,20 +124,6 @@ clean ::
 	-$(LZDELETE) 'PJOOT.SAMPLE2.COMPLEX'
 	rm -f out/PJOOT.SAMPLE2.COMPLEX.allocate.ts
 
-out/src/liblz_pgm_cadd.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/liblz_pgm_cadd.so
-	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX(CADD))
-	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_cadd.so',recfm=u -o '//PJOOT.SAMPLE2.COMPLEX(CADD),disp=mod' $(CLIREDIRECT)
-	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_cadd.pds'
-
-
-
-out/src/liblz_pgm_cconj.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/liblz_pgm_cconj.so
-	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX(CCONJ))
-	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_cconj.so',recfm=u -o '//PJOOT.SAMPLE2.COMPLEX(CCONJ),disp=mod' $(CLIREDIRECT)
-	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_cconj.pds'
-
-
-
 out/src/liblz_pgm_cdisplay.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/liblz_pgm_cdisplay.so
 	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX(CDISPLAY))
 	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_cdisplay.so',recfm=u -o '//PJOOT.SAMPLE2.COMPLEX(CDISPLAY),disp=mod' $(CLIREDIRECT)
@@ -145,17 +131,31 @@ out/src/liblz_pgm_cdisplay.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/l
 
 
 
-out/src/liblz_pgm_cscale.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/liblz_pgm_cscale.so
-	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX(CSCALE))
-	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_cscale.so',recfm=u -o '//PJOOT.SAMPLE2.COMPLEX(CSCALE),disp=mod' $(CLIREDIRECT)
-	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_cscale.pds'
+out/src/liblz_pgm_cmconj.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/liblz_pgm_cmconj.so
+	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX(CMCONJ))
+	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_cmconj.so',recfm=u -o '//PJOOT.SAMPLE2.COMPLEX(CMCONJ),disp=mod' $(CLIREDIRECT)
+	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_cmconj.pds'
 
 
 
-out/src/liblz_pgm_csub.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/liblz_pgm_csub.so
-	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX(CSUB))
-	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_csub.so',recfm=u -o '//PJOOT.SAMPLE2.COMPLEX(CSUB),disp=mod' $(CLIREDIRECT)
-	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_csub.pds'
+out/src/liblz_pgm_cradd.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/liblz_pgm_cradd.so
+	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX(CRADD))
+	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_cradd.so',recfm=u -o '//PJOOT.SAMPLE2.COMPLEX(CRADD),disp=mod' $(CLIREDIRECT)
+	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_cradd.pds'
+
+
+
+out/src/liblz_pgm_crscale.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/liblz_pgm_crscale.so
+	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX(CRSCALE))
+	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_crscale.so',recfm=u -o '//PJOOT.SAMPLE2.COMPLEX(CRSCALE),disp=mod' $(CLIREDIRECT)
+	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_crscale.pds'
+
+
+
+out/src/liblz_pgm_crsub.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/liblz_pgm_crsub.so
+	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX(CRSUB))
+	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_crsub.so',recfm=u -o '//PJOOT.SAMPLE2.COMPLEX(CRSUB),disp=mod' $(CLIREDIRECT)
+	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_crsub.pds'
 
 
 
