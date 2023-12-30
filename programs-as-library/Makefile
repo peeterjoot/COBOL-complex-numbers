@@ -43,6 +43,11 @@ OBJECTS += $(OBJECTS_cmmult)
 ENTRIES += cmmult
 SHAREDS += out/src/liblz_pgm_cmmult.so
 
+OBJECTS_cmnegate += out/src/CMNEGATE.o
+OBJECTS += $(OBJECTS_cmnegate)
+ENTRIES += cmnegate
+SHAREDS += out/src/liblz_pgm_cmnegate.so
+
 OBJECTS_cmscale += out/src/CMSCALE.o
 OBJECTS += $(OBJECTS_cmscale)
 ENTRIES += cmscale
@@ -164,6 +169,11 @@ out/src/liblz_pgm_cmmult.so : $(OBJECTS_cmmult)
 	$(Q)rm -f 'out/src/liblz_pgm_cmmult.so'
 	$(Q)$(COBRC) :Output='out/src/liblz_pgm_cmmult.so' $(patsubst %,'%',$(OBJECTS_cmmult)) $(LDFLAGS) $(LDFLAGS_cmmult)
 
+out/src/liblz_pgm_cmnegate.so : $(OBJECTS_cmnegate)
+	$(call SAYWHAT,out/src/liblz_pgm_cmnegate.so)
+	$(Q)rm -f 'out/src/liblz_pgm_cmnegate.so'
+	$(Q)$(COBRC) :Output='out/src/liblz_pgm_cmnegate.so' $(patsubst %,'%',$(OBJECTS_cmnegate)) $(LDFLAGS) $(LDFLAGS_cmnegate)
+
 out/src/liblz_pgm_cmscale.so : $(OBJECTS_cmscale)
 	$(call SAYWHAT,out/src/liblz_pgm_cmscale.so)
 	$(Q)rm -f 'out/src/liblz_pgm_cmscale.so'
@@ -283,6 +293,13 @@ out/src/liblz_pgm_cmmult.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/lib
 	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX(CMMULT))
 	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_cmmult.so',recfm=u -o '//PJOOT.SAMPLE2.COMPLEX(CMMULT),disp=mod' $(CLIREDIRECT)
 	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_cmmult.pds'
+
+
+
+out/src/liblz_pgm_cmnegate.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/liblz_pgm_cmnegate.so
+	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX(CMNEGATE))
+	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_cmnegate.so',recfm=u -o '//PJOOT.SAMPLE2.COMPLEX(CMNEGATE),disp=mod' $(CLIREDIRECT)
+	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_cmnegate.pds'
 
 
 

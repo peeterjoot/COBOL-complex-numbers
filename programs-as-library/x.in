@@ -17,3 +17,4 @@ src/CMINV.cob
 src/CMMULT.cob
 src/CMSCALE.cob
 src/CMSUB.cob
+src/CMNEGATE.cob

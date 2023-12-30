@@ -16,4 +16,5 @@
        01 COMPLEX-MULT-MODIFY      PIC X(20) VALUE 'CMMULT'.
        01 COMPLEX-SCALE-MODIFY     PIC X(20) VALUE 'CMSCALE'.
        01 COMPLEX-SUB-MODIFY       PIC X(20) VALUE 'CMSUB'.
+       01 COMPLEX-NEGATE-MODIFY    PIC X(20) VALUE 'CMNEGATE'.
       ******************************************************************

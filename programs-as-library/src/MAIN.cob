@@ -78,10 +78,21 @@
              WS-DISPPARM-N,
              WS-SUBPARM-OUT-COMPLEX
 
+      * B' -= A
+           MOVE WS-V2-COMPLEX TO WS-V3-COMPLEX
+           CALL COMPLEX-SUB-MODIFY USING
+             WS-V3-COMPLEX,
+             WS-V1-COMPLEX
+
+           MOVE 'B -= A' TO WS-DISPPARM-N
+           CALL COMPLEX-DISPLAY USING
+             WS-DISPPARM-N,
+             WS-V3-COMPLEX
+
       * E = A^*
            MOVE WS-V1-COMPLEX TO WS-CONJPARM-COMPLEX
            CALL COMPLEX-CONJUGATE-MODIFY USING WS-CONJPARM-COMPLEX
-           MOVE 'CONJUGATE(A)' TO WS-DISPPARM-N
+           MOVE 'A.CONJUGATE()' TO WS-DISPPARM-N
            CALL COMPLEX-DISPLAY USING
              WS-DISPPARM-N,
              WS-CONJPARM-COMPLEX
@@ -96,6 +107,26 @@
            CALL COMPLEX-DISPLAY USING
              WS-DISPPARM-N,
              WS-SCALEPARM-OUT-COMPLEX
+
+      * A' = -A
+           MOVE -1 to WS-SCALEPARM-IN-V
+           MOVE WS-V1-COMPLEX TO WS-V3-COMPLEX
+           CALL COMPLEX-SCALE-MODIFY USING
+             WS-V3-COMPLEX,
+             WS-SCALEPARM-IN-V
+           MOVE '-A' TO WS-DISPPARM-N
+           CALL COMPLEX-DISPLAY USING
+             WS-DISPPARM-N,
+             WS-V3-COMPLEX
+
+      * A' = -A
+           MOVE WS-V1-COMPLEX TO WS-V3-COMPLEX
+           CALL COMPLEX-NEGATE-MODIFY USING
+             WS-V3-COMPLEX
+           MOVE '-A' TO WS-DISPPARM-N
+           CALL COMPLEX-DISPLAY USING
+             WS-DISPPARM-N,
+             WS-V3-COMPLEX
 
       * G = RE(A)
            CALL COMPLEX-REAL-RETURN USING WS-V1-COMPLEX, WS-REAL-V
@@ -125,6 +156,16 @@
              WS-DISPPARM-N,
              WS-MULTPARM-OUT-COMPLEX
 
+      * A *= B
+           MOVE WS-V1-COMPLEX TO WS-V3-COMPLEX
+           CALL COMPLEX-MULT-MODIFY USING
+             WS-V3-COMPLEX,
+             WS-V2-COMPLEX
+           MOVE 'A =* B' TO WS-DISPPARM-N
+           CALL COMPLEX-DISPLAY USING
+             WS-DISPPARM-N,
+             WS-V3-COMPLEX
+
       * L = 1/A
            CALL COMPLEX-INVERSE-RETURN USING
              WS-V1-COMPLEX,
@@ -133,6 +174,15 @@
            CALL COMPLEX-DISPLAY USING
              WS-DISPPARM-N,
              WS-INVPARM-OUT-COMPLEX
+
+      * A = 1/A
+           MOVE WS-V1-COMPLEX TO WS-V3-COMPLEX
+           CALL COMPLEX-INVERSE-MODIFY USING
+             WS-V3-COMPLEX
+           MOVE 'A.INVERSE()' TO WS-DISPPARM-N
+           CALL COMPLEX-DISPLAY USING
+             WS-DISPPARM-N,
+             WS-V3-COMPLEX
 
       * M = A/B
            CALL COMPLEX-DIVIDE-RETURN USING
@@ -143,6 +193,16 @@
            CALL COMPLEX-DISPLAY USING
              WS-DISPPARM-N,
              WS-DIVPARM-OUT-COMPLEX
+
+      * A /= B
+           MOVE WS-V1-COMPLEX TO WS-V3-COMPLEX
+           CALL COMPLEX-DIVIDE-MODIFY USING
+             WS-V3-COMPLEX,
+             WS-V2-COMPLEX
+           MOVE 'A /= B' TO WS-DISPPARM-N
+           CALL COMPLEX-DISPLAY USING
+             WS-DISPPARM-N,
+             WS-V3-COMPLEX
 
            GOBACK
            .
