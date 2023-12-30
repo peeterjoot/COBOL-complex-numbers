@@ -5,6 +5,7 @@
        COPY CMPXLBRY.
        COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-V1-==.
        COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-V2-==.
+       COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-V3-==.
 
        COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-CONJPARM-==.
 
@@ -55,7 +56,18 @@
              WS-DISPPARM-N,
              WS-ADDPARM-OUT-COMPLEX
 
-      * D = A - B
+      * A' += B
+           MOVE WS-V1-COMPLEX TO WS-V3-COMPLEX
+           CALL COMPLEX-ADD-MODIFY USING
+             WS-V3-COMPLEX,
+             WS-V2-COMPLEX
+
+           MOVE 'A += B' TO WS-DISPPARM-N
+           CALL COMPLEX-DISPLAY USING
+             WS-DISPPARM-N,
+             WS-V3-COMPLEX
+
+      * D = B - A
            CALL COMPLEX-SUB-RETURN USING
              WS-V2-COMPLEX,
              WS-V1-COMPLEX,

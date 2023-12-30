@@ -10,3 +10,10 @@ src/CRMULT.cob
 src/CRINV.cob
 src/CRDIV.cob
 src/MULT.cob
+src/CMADD.cob
+src/CMCONJ.cob
+src/CMDIV.cob
+src/CMINV.cob
+src/CMMULT.cob
+src/CMSCALE.cob
+src/CMSUB.cob
