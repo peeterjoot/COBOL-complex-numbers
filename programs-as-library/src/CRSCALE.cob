@@ -3,28 +3,27 @@
        DATA DIVISION.
        WORKING-STORAGE SECTION.
        LINKAGE SECTION.
-        COPY COMPLEX REPLACING ==(PRFX)== BY ==LK-SCALEPARM-IN1-==.
-        COPY FLOAT   REPLACING ==(PRFX)== BY ==LK-SCALEPARM-IN2-==.
-        COPY COMPLEX REPLACING ==(PRFX)== BY ==LK-SCALEPARM-OUT-==.
+        COPY COMPLEX REPLACING ==(PRFX)== BY ==L-IN1-==.
+        COPY FLOAT   REPLACING ==(PRFX)== BY ==L-IN2-==.
+        COPY COMPLEX REPLACING ==(PRFX)== BY ==L-OUT-==.
        PROCEDURE DIVISION USING
-        LK-SCALEPARM-IN1-COMPLEX,
-        LK-SCALEPARM-IN2-V,
-        LK-SCALEPARM-OUT-COMPLEX.
+        L-IN1-COMPLEX,
+        L-IN2-V,
+        L-OUT-COMPLEX.
       ******************************************************************
-      * LIBRARY ROUTINE: COMPLEX-SCALE
+      * @brief COMPLEX-SCALE-RETURN
       *
-      * @param [in] LK-SCALEPARM-IN1-COMPLEX,
-      *   with members LK-SCALEPARM-IN-RE, LK-SCALEPARM-IN-IM.
-      * @param [in] LK-SCALEPARM-IN2-V
-      * @param [out] LK-SCALEPARM-OUT-COMPLEX,
-      *   with members LK-SCALEPARM-OUT-RE, LK-SCALEPARM-OUT-IM.
+      * @param [in] L-IN1-COMPLEX,
+      *   with members L-IN-RE, L-IN-IM.
+      * @param [in] L-IN2-V
+      * @param [out] L-OUT-COMPLEX,
+      *   with members L-OUT-RE, L-OUT-IM.
       *
-      *COMPLEX-SCALE.
-           COMPUTE LK-SCALEPARM-OUT-RE =
-             LK-SCALEPARM-IN1-RE * LK-SCALEPARM-IN2-V
+           COMPUTE L-OUT-RE =
+             L-IN1-RE * L-IN2-V
 
-           COMPUTE LK-SCALEPARM-OUT-IM =
-             LK-SCALEPARM-IN1-IM * LK-SCALEPARM-IN2-V
+           COMPUTE L-OUT-IM =
+             L-IN1-IM * L-IN2-V
 
            GOBACK
            .

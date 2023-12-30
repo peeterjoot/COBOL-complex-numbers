@@ -2,35 +2,34 @@
        PROGRAM-ID.    CRDIV.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
-        COPY COMPLEX REPLACING ==(PRFX)== BY ==LK-DIV-INVTMP-==.
+        COPY COMPLEX REPLACING ==(PRFX)== BY ==W-TMP-==.
        LINKAGE SECTION.
-        COPY COMPLEX REPLACING ==(PRFX)== BY ==LK-DIVPARM-IN1-==.
-        COPY COMPLEX REPLACING ==(PRFX)== BY ==LK-DIVPARM-IN2-==.
-        COPY COMPLEX REPLACING ==(PRFX)== BY ==LK-DIVPARM-OUT-==.
+        COPY COMPLEX REPLACING ==(PRFX)== BY ==L-IN1-==.
+        COPY COMPLEX REPLACING ==(PRFX)== BY ==L-IN2-==.
+        COPY COMPLEX REPLACING ==(PRFX)== BY ==L-OUT-==.
        PROCEDURE DIVISION USING
-        LK-DIVPARM-IN1-COMPLEX,
-        LK-DIVPARM-IN2-COMPLEX,
-        LK-DIVPARM-OUT-COMPLEX.
+        L-IN1-COMPLEX,
+        L-IN2-COMPLEX,
+        L-OUT-COMPLEX.
       ******************************************************************
-      * LIBRARY ROUTINE: COMPLEX-DIVIDE
+      * @brief COMPLEX-DIVIDE-RETURN
       *
-      * @param [in] LK-DIVPARM-IN1-COMPLEX,
-      *   with members LK-DIVPARM-IN1-RE, LK-DIVPARM-IN1-IM.
-      * @param [in] LK-DIVPARM-IN2-COMPLEX,
-      *   with members LK-DIVPARM-IN2-RE, LK-DIVPARM-IN2-IM.
-      * @param [out] LK-DIVPARM-OUT-COMPLEX,
-      *   with members LK-DIVPARM-OUT-RE, LK-DIVPARM-OUT-IM.
+      * @param [in] L-IN1-COMPLEX,
+      *   with members L-IN1-RE, L-IN1-IM.
+      * @param [in] L-IN2-COMPLEX,
+      *   with members L-IN2-RE, L-IN2-IM.
+      * @param [out] L-OUT-COMPLEX,
+      *   with members L-OUT-RE, L-OUT-IM.
       *
       *   (a + b i)/(c + d i) = (a + bi) * (1/(c + di))
-      *COMPLEX-DIVIDE.
            CALL 'CRINV' USING
-             LK-DIVPARM-IN2-COMPLEX,
-             LK-DIV-INVTMP-COMPLEX
+             L-IN2-COMPLEX,
+             W-TMP-COMPLEX
 
            CALL 'CRMULT' USING
-             LK-DIVPARM-IN1-COMPLEX,
-             LK-DIV-INVTMP-COMPLEX,
-             LK-DIVPARM-OUT-COMPLEX
+             L-IN1-COMPLEX,
+             W-TMP-COMPLEX,
+             L-OUT-COMPLEX
 
            GOBACK
            .
