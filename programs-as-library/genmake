@@ -1,1 +1,1 @@
-lz_mkmake --scope --no-bind --source x.in --cobload PJOOT.SAMPLE2.COMPLEX --cobsuff cob --outdir out --pdssz=30 > Makefile
+lz_mkmake --scope --no-bind --source x.in --cobload PJOOT.CMPXLBRY.LOADLIB --cobsuff cob --outdir out --pdssz=30 > Makefile
