@@ -1,0 +1,33 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID.    MULT.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       COPY CMPXLBRY.
+       COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-V1-==.
+       COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-V2-==.
+
+       COPY COMPLEX REPLACING ==(PRFX)== BY ==WS-MULTPARM-OUT-==.
+
+       COPY CDISPLAY REPLACING ==(PRFX)== BY ==WS-DISPPARM-==.
+       COPY COMPLEX  REPLACING ==(PRFX)== BY ==WS-DISPPARM-==.
+       PROCEDURE DIVISION.
+
+           MOVE 1 TO WS-V1-RE
+           MOVE 2 TO WS-V1-IM
+
+           MOVE 3 TO WS-V2-RE
+           MOVE 4 TO WS-V2-IM
+
+           CALL COMPLEX-MULT-RETURN USING
+             WS-V1-COMPLEX,
+             WS-V2-COMPLEX,
+             WS-MULTPARM-OUT-COMPLEX
+           MOVE 'A * B' TO WS-DISPPARM-N
+           CALL COMPLEX-DISPLAY USING
+             WS-DISPPARM-N,
+             WS-MULTPARM-OUT-COMPLEX
+
+           GOBACK
+           .
+
+      * vim: et ts=4 sw=4

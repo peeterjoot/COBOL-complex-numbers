@@ -1,7 +1,5 @@
        IDENTIFICATION DIVISION.
        PROGRAM-ID.    CRREAL.
-      *ENVIRONMENT DIVISION.
-      *CONFIGURATION SECTION.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
        LINKAGE SECTION.
@@ -16,7 +14,7 @@
       * @param [in] LK-REAL-IN-COMPLEX,
       *   with members LK-REAL-IN-RE, LK-REAL-IN-IM.
       * @param [out] LK-REAL-V,
-       COMPLEX-REAL.
+      *COMPLEX-REAL.
            MOVE LK-REAL-IN-RE TO LK-REAL-OUT-V
 
            GOBACK

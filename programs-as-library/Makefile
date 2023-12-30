@@ -67,6 +67,11 @@ OBJECTS_main += out/src/MAIN.o
 OBJECTS += $(OBJECTS_main)
 ENTRIES += main
 SHAREDS += out/src/liblz_pgm_main.so
+
+OBJECTS_mult += out/src/MULT.o
+OBJECTS += $(OBJECTS_mult)
+ENTRIES += mult
+SHAREDS += out/src/liblz_pgm_mult.so
 ALLOCTARGETS += out/PJOOT.SAMPLE2.COMPLEX.allocate.ts
 
 .PHONY: clean shareds pdses objects
@@ -153,6 +158,11 @@ out/src/liblz_pgm_main.so : $(OBJECTS_main)
 	$(call SAYWHAT,out/src/liblz_pgm_main.so)
 	$(Q)rm -f 'out/src/liblz_pgm_main.so'
 	$(Q)$(COBRC) :Output='out/src/liblz_pgm_main.so' $(patsubst %,'%',$(OBJECTS_main)) $(LDFLAGS) $(LDFLAGS_main)
+
+out/src/liblz_pgm_mult.so : $(OBJECTS_mult)
+	$(call SAYWHAT,out/src/liblz_pgm_mult.so)
+	$(Q)rm -f 'out/src/liblz_pgm_mult.so'
+	$(Q)$(COBRC) :Output='out/src/liblz_pgm_mult.so' $(patsubst %,'%',$(OBJECTS_mult)) $(LDFLAGS) $(LDFLAGS_mult)
 
 .PHONY: allocate
 allocate : $(ALLOCTARGETS)
@@ -248,6 +258,13 @@ out/src/liblz_pgm_main.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/liblz
 	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX(MAIN))
 	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_main.so',recfm=u -o '//PJOOT.SAMPLE2.COMPLEX(MAIN),disp=mod' $(CLIREDIRECT)
 	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_main.pds'
+
+
+
+out/src/liblz_pgm_mult.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/liblz_pgm_mult.so
+	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX(MULT))
+	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_mult.so',recfm=u -o '//PJOOT.SAMPLE2.COMPLEX(MULT),disp=mod' $(CLIREDIRECT)
+	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_mult.pds'
 
 
 

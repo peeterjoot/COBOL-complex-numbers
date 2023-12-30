@@ -1,7 +1,5 @@
        IDENTIFICATION DIVISION.
        PROGRAM-ID.    CRINV.
-      *ENVIRONMENT DIVISION.
-      *CONFIGURATION SECTION.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
         COPY FLOAT REPLACING ==(PRFX)== BY ==LK-INV-MAGNITUDE-==.
@@ -20,7 +18,7 @@
       *   with members LK-INVPARM-OUT-RE, LK-INVPARM-OUT-IM.
       *
       *   1/(a + b i) = (a - b i)/(a^2 + b^2)
-       COMPLEX-INVERSE.
+      *COMPLEX-INVERSE.
            COMPUTE LK-INV-MAGNITUDE-V =
              (LK-INVPARM-IN-RE * LK-INVPARM-IN-RE) +
              (LK-INVPARM-IN-IM * LK-INVPARM-IN-IM)

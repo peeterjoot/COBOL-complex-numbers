@@ -1,7 +1,5 @@
        IDENTIFICATION DIVISION.
        PROGRAM-ID.    CDISPLAY.
-      *ENVIRONMENT DIVISION.
-      *CONFIGURATION SECTION.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
         COPY FLOAT REPLACING ==(PRFX)== BY ==LK-TMP-IM-==.
@@ -14,7 +12,7 @@
       *
       * @param [in] LK-DISP-IN-COMPLEX,
       *   with members LK-DISP-IN-RE, LK-DISP-IN-IM.
-       COMPLEX-DISPLAY.
+      *COMPLEX-DISPLAY.
            IF LK-DISP-IN-IM IS EQUAL ZERO
              DISPLAY LK-DISP-IN-N ' = ' LK-DISP-IN-RE
            ELSE

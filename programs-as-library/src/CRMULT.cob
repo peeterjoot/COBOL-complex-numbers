@@ -1,7 +1,5 @@
        IDENTIFICATION DIVISION.
        PROGRAM-ID.    CRMULT.
-      *ENVIRONMENT DIVISION.
-      *CONFIGURATION SECTION.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
         COPY FLOAT REPLACING ==(PRFX)== BY ==WS-MULT-TMP-RE-==.
@@ -25,7 +23,7 @@
       *   with members LK-MULTPARM-OUT-RE, LK-MULTPARM-OUT-IM.
       *
       *   (a + b i)(c + d i) = a c - b d + i( b c + a d)
-       COMPLEX-MULT.
+      *COMPLEX-MULT.
            COMPUTE WS-MULT-TMP-RE-V =
              (LK-MULTPARM-IN1-RE * LK-MULTPARM-IN2-RE) -
              (LK-MULTPARM-IN1-IM * LK-MULTPARM-IN2-IM)

@@ -1,7 +1,5 @@
        IDENTIFICATION DIVISION.
        PROGRAM-ID.    CMCONJ.
-      *ENVIRONMENT DIVISION.
-      *CONFIGURATION SECTION.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
        LINKAGE SECTION.
@@ -17,7 +15,7 @@
       *
       * Side effects: sign of LK-CONJPARM-IM is toggled.
       *
-       COMPLEX-CONJUGATE.
+      *COMPLEX-CONJUGATE.
            COMPUTE LK-CONJPARM-IM = LK-CONJPARM-IM * -1
 
            GOBACK

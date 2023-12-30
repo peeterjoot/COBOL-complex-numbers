@@ -9,3 +9,4 @@ src/MAIN.cob
 src/CRMULT.cob
 src/CRINV.cob
 src/CRDIV.cob
+src/MULT.cob
