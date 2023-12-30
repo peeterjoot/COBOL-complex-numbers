@@ -3,20 +3,19 @@
        DATA DIVISION.
        WORKING-STORAGE SECTION.
        LINKAGE SECTION.
-        COPY COMPLEX REPLACING ==(PRFX)== BY ==LK-CONJPARM-==.
+        COPY COMPLEX REPLACING ==(PRFX)== BY ==L-==.
        PROCEDURE DIVISION USING
-        LK-CONJPARM-COMPLEX.
+        L-COMPLEX.
 
       ******************************************************************
-      * LIBRARY ROUTINE: COMPLEX-CONJUGATE
+      * @brief COMPLEX-CONJUGATE-MODIFY
       *
-      * @param [in,out] LK-CONJPARM-COMPLEX,
-      *   with members LK-CONJPARM-RE, LK-CONJPARM-IM.
+      * @param [in,out] L-COMPLEX,
+      *   with members L-RE, L-IM.
       *
-      * Side effects: sign of LK-CONJPARM-IM is toggled.
+      * Side effects: sign of L-IM is toggled.
       *
-      *COMPLEX-CONJUGATE.
-           COMPUTE LK-CONJPARM-IM = LK-CONJPARM-IM * -1
+           COMPUTE L-IM = L-IM * -1
 
            GOBACK
            .

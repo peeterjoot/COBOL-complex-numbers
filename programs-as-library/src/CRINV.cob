@@ -2,32 +2,31 @@
        PROGRAM-ID.    CRINV.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
-        COPY FLOAT REPLACING ==(PRFX)== BY ==LK-INV-MAGNITUDE-==.
+        COPY FLOAT REPLACING ==(PRFX)== BY ==W-MAGNITUDE-==.
        LINKAGE SECTION.
-        COPY COMPLEX REPLACING ==(PRFX)== BY ==LK-INVPARM-IN-==.
-        COPY COMPLEX REPLACING ==(PRFX)== BY ==LK-INVPARM-OUT-==.
+        COPY COMPLEX REPLACING ==(PRFX)== BY ==L-IN-==.
+        COPY COMPLEX REPLACING ==(PRFX)== BY ==L-OUT-==.
        PROCEDURE DIVISION USING
-        LK-INVPARM-IN-COMPLEX,
-        LK-INVPARM-OUT-COMPLEX.
+        L-IN-COMPLEX,
+        L-OUT-COMPLEX.
       ******************************************************************
-      * LIBRARY ROUTINE: COMPLEX-INVERSE
+      * @brief COMPLEX-INVERSE-RETURN
       *
-      * @param [in] LK-INVPARM-IN-COMPLEX,
-      *   with members LK-INVPARM-IN-RE, LK-INVPARM-IN-IM.
-      * @param [out] LK-INVPARM-OUT-COMPLEX,
-      *   with members LK-INVPARM-OUT-RE, LK-INVPARM-OUT-IM.
+      * @param [in] L-IN-COMPLEX,
+      *   with members L-IN-RE, L-IN-IM.
+      * @param [out] L-OUT-COMPLEX,
+      *   with members L-OUT-RE, L-OUT-IM.
       *
       *   1/(a + b i) = (a - b i)/(a^2 + b^2)
-      *COMPLEX-INVERSE.
-           COMPUTE LK-INV-MAGNITUDE-V =
-             (LK-INVPARM-IN-RE * LK-INVPARM-IN-RE) +
-             (LK-INVPARM-IN-IM * LK-INVPARM-IN-IM)
+           COMPUTE W-MAGNITUDE-V =
+             (L-IN-RE * L-IN-RE) +
+             (L-IN-IM * L-IN-IM)
 
-           COMPUTE LK-INVPARM-OUT-RE =
-             LK-INVPARM-IN-RE/LK-INV-MAGNITUDE-V
+           COMPUTE L-OUT-RE =
+             L-IN-RE/W-MAGNITUDE-V
 
-           COMPUTE LK-INVPARM-OUT-IM =
-             -(LK-INVPARM-IN-IM/LK-INV-MAGNITUDE-V)
+           COMPUTE L-OUT-IM =
+             -(L-IN-IM/W-MAGNITUDE-V)
 
            GOBACK
            .

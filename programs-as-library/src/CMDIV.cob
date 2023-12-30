@@ -2,30 +2,29 @@
        PROGRAM-ID.    CMDIV.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
-        COPY COMPLEX REPLACING ==(PRFX)== BY ==LK-DIV-INVTMP-==.
+        COPY COMPLEX REPLACING ==(PRFX)== BY ==W-TMP-==.
        LINKAGE SECTION.
-        COPY COMPLEX REPLACING ==(PRFX)== BY ==LK-DIVPARM-IN1-==.
-        COPY COMPLEX REPLACING ==(PRFX)== BY ==LK-DIVPARM-IN2-==.
+        COPY COMPLEX REPLACING ==(PRFX)== BY ==L-IN1-==.
+        COPY COMPLEX REPLACING ==(PRFX)== BY ==L-IN2-==.
        PROCEDURE DIVISION USING
-        LK-DIVPARM-IN1-COMPLEX,
-        LK-DIVPARM-IN2-COMPLEX.
+        L-IN1-COMPLEX,
+        L-IN2-COMPLEX.
       ******************************************************************
-      * LIBRARY ROUTINE: COMPLEX-DIVIDE
+      * @brief COMPLEX-DIVIDE-MODIFY
       *
-      * @param [in,out] LK-DIVPARM-IN1-COMPLEX,
-      *   with members LK-DIVPARM-IN1-RE, LK-DIVPARM-IN1-IM.
-      * @param [in] LK-DIVPARM-IN2-COMPLEX,
-      *   with members LK-DIVPARM-IN2-RE, LK-DIVPARM-IN2-IM.
+      * @param [in,out] L-IN1-COMPLEX,
+      *   with members L-IN1-RE, L-IN1-IM.
+      * @param [in] L-IN2-COMPLEX,
+      *   with members L-IN2-RE, L-IN2-IM.
       *
       *   (a + b i)/(c + d i) = (a + bi) * (1/(c + di))
-      *COMPLEX-DIVIDE.
            CALL 'CRINV' USING
-             LK-DIVPARM-IN2-COMPLEX,
-             LK-DIV-INVTMP-COMPLEX
+             L-IN2-COMPLEX,
+             W-TMP-COMPLEX
 
            CALL 'CMMULT' USING
-             LK-DIVPARM-IN1-COMPLEX,
-             LK-DIV-INVTMP-COMPLEX
+             L-IN1-COMPLEX,
+             W-TMP-COMPLEX
 
            GOBACK
            .

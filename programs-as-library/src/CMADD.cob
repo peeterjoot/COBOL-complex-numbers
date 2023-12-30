@@ -3,25 +3,24 @@
        DATA DIVISION.
        WORKING-STORAGE SECTION.
        LINKAGE SECTION.
-        COPY COMPLEX REPLACING ==(PRFX)== BY ==LK-ADDPARM-IN1-==.
-        COPY COMPLEX REPLACING ==(PRFX)== BY ==LK-ADDPARM-IN2-==.
+        COPY COMPLEX REPLACING ==(PRFX)== BY ==L-IN1-==.
+        COPY COMPLEX REPLACING ==(PRFX)== BY ==L-IN2-==.
        PROCEDURE DIVISION USING
-        LK-ADDPARM-IN1-COMPLEX,
-        LK-ADDPARM-IN2-COMPLEX.
+        L-IN1-COMPLEX,
+        L-IN2-COMPLEX.
       ******************************************************************
-      * LIBRARY ROUTINE: COMPLEX-ADD
+      * @brief COMPLEX-ADD-MODIFY
       *
-      * @param [in,out] LK-ADDPARM-IN1-COMPLEX,
-      *   with members LK-ADDPARM-IN1-RE, LK-ADDPARM-IN1-IM.
-      * @param [in] LK-ADDPARM-IN2-COMPLEX,
-      *   with members LK-ADDPARM-IN2-RE, LK-ADDPARM-IN2-IM.
+      * @param [in,out] L-IN1-COMPLEX,
+      *   with members L-IN1-RE, L-IN1-IM.
+      * @param [in] L-IN2-COMPLEX,
+      *   with members L-IN2-RE, L-IN2-IM.
       *
-      *COMPLEX-ADD.
-           COMPUTE LK-ADDPARM-IN1-RE = 
-             LK-ADDPARM-IN1-RE + LK-ADDPARM-IN2-RE
+           COMPUTE L-IN1-RE =
+             L-IN1-RE + L-IN2-RE
 
-           COMPUTE LK-ADDPARM-IN1-IM = 
-             LK-ADDPARM-IN1-IM + LK-ADDPARM-IN2-IM
+           COMPUTE L-IN1-IM =
+             L-IN1-IM + L-IN2-IM
 
            GOBACK
            .

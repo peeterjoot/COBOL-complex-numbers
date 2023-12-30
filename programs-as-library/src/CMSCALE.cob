@@ -3,24 +3,23 @@
        DATA DIVISION.
        WORKING-STORAGE SECTION.
        LINKAGE SECTION.
-        COPY COMPLEX REPLACING ==(PRFX)== BY ==LK-SCALEPARM-IN1-==.
-        COPY FLOAT   REPLACING ==(PRFX)== BY ==LK-SCALEPARM-IN2-==.
+        COPY COMPLEX REPLACING ==(PRFX)== BY ==L-IN1-==.
+        COPY FLOAT   REPLACING ==(PRFX)== BY ==L-IN2-==.
        PROCEDURE DIVISION USING
-        LK-SCALEPARM-IN1-COMPLEX,
-        LK-SCALEPARM-IN2-V.
+        L-IN1-COMPLEX,
+        L-IN2-V.
       ******************************************************************
-      * LIBRARY ROUTINE: COMPLEX-SCALE
+      * @brief COMPLEX-SCALE-MODIFY
       *
-      * @param [in,out] LK-SCALEPARM-IN1-COMPLEX,
-      *   with members LK-SCALEPARM-IN-RE, LK-SCALEPARM-IN-IM.
-      * @param [in] LK-SCALEPARM-IN2-V
+      * @param [in,out] L-IN1-COMPLEX,
+      *   with members L-IN-RE, L-IN-IM.
+      * @param [in] L-IN2-V
       *
-      *COMPLEX-SCALE.
-           COMPUTE LK-SCALEPARM-IN1-RE =
-             LK-SCALEPARM-IN1-RE * LK-SCALEPARM-IN2-V
+           COMPUTE L-IN1-RE =
+             L-IN1-RE * L-IN2-V
 
-           COMPUTE LK-SCALEPARM-IN1-IM =
-             LK-SCALEPARM-IN1-IM * LK-SCALEPARM-IN2-V
+           COMPUTE L-IN1-IM =
+             L-IN1-IM * L-IN2-V
 
            GOBACK
            .

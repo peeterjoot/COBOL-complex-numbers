@@ -2,35 +2,32 @@
        PROGRAM-ID.    CMMULT.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
-        COPY FLOAT REPLACING ==(PRFX)== BY ==WS-MULT-TMP-RE-==.
-        COPY FLOAT REPLACING ==(PRFX)== BY ==WS-MULT-TMP-IM-==.
+        COPY COMPLEX REPLACING ==(PRFX)== BY ==W-TMP-==.
        LINKAGE SECTION.
-        COPY COMPLEX REPLACING ==(PRFX)== BY ==LK-MULTPARM-IN1-==.
-        COPY COMPLEX REPLACING ==(PRFX)== BY ==LK-MULTPARM-IN2-==.
+        COPY COMPLEX REPLACING ==(PRFX)== BY ==L-IN1-==.
+        COPY COMPLEX REPLACING ==(PRFX)== BY ==L-IN2-==.
        PROCEDURE DIVISION USING
-        LK-MULTPARM-IN1-COMPLEX,
-        LK-MULTPARM-IN2-COMPLEX.
+        L-IN1-COMPLEX,
+        L-IN2-COMPLEX.
       ******************************************************************
-      * LIBRARY ROUTINE: COMPLEX-MULT
+      * @brief COMPLEX-MULT-MODIFY
       *
-      * @param [in,out] LK-MULTPARM-IN1-COMPLEX,
-      *   with members LK-MULTPARM-IN1-RE, LK-MULTPARM-IN1-IM.
-      * @param [in] LK-MULTPARM-IN2-COMPLEX,
-      *   with members LK-MULTPARM-IN2-RE, LK-MULTPARM-IN2-IM.
+      * @param [in,out] L-IN1-COMPLEX,
+      *   with members L-IN1-RE, L-IN1-IM.
+      * @param [in] L-IN2-COMPLEX,
+      *   with members L-IN2-RE, L-IN2-IM.
       *
       *   (a + b i)(c + d i) = a c - b d + i( b c + a d)
-      *COMPLEX-MULT.
-           COMPUTE WS-MULT-TMP-RE-V =
-             (LK-MULTPARM-IN1-RE * LK-MULTPARM-IN2-RE) -
-             (LK-MULTPARM-IN1-IM * LK-MULTPARM-IN2-IM)
+           COMPUTE W-TMP-RE =
+             (L-IN1-RE * L-IN2-RE) -
+             (L-IN1-IM * L-IN2-IM)
 
-           COMPUTE WS-MULT-TMP-IM-V =
-             (LK-MULTPARM-IN1-IM * LK-MULTPARM-IN2-RE) +
-             (LK-MULTPARM-IN1-RE * LK-MULTPARM-IN2-IM)
+           COMPUTE W-TMP-IM =
+             (L-IN1-IM * L-IN2-RE) +
+             (L-IN1-RE * L-IN2-IM)
 
       * temps in case there's aliasing:
-           MOVE WS-MULT-TMP-RE-V TO LK-MULTPARM-IN1-RE
-           MOVE WS-MULT-TMP-IM-V TO LK-MULTPARM-IN1-IM
+           MOVE W-TMP-COMPLEX TO L-IN1-COMPLEX
 
            GOBACK
            .
