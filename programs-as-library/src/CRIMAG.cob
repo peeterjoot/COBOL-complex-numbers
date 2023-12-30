@@ -1,7 +1,5 @@
        IDENTIFICATION DIVISION.
        PROGRAM-ID.    CRIMAG.
-      *ENVIRONMENT DIVISION.
-      *CONFIGURATION SECTION.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
        LINKAGE SECTION.
@@ -16,7 +14,7 @@
       * @param [in] LK-IMAG-IN-COMPLEX,
       *   with members LK-IMAG-IN-RE, LK-IMAG-IN-IM.
       * @param [out] LK-IMAG-V,
-       COMPLEX-IMAG.
+      *COMPLEX-IMAG.
            MOVE LK-IMAG-IN-IM TO LK-IMAG-OUT-V
 
            GOBACK

@@ -1,7 +1,5 @@
        IDENTIFICATION DIVISION.
        PROGRAM-ID.    CRDIV.
-      *ENVIRONMENT DIVISION.
-      *CONFIGURATION SECTION.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
         COPY COMPLEX REPLACING ==(PRFX)== BY ==LK-DIV-INVTMP-==.
@@ -24,7 +22,7 @@
       *   with members LK-DIVPARM-OUT-RE, LK-DIVPARM-OUT-IM.
       *
       *   (a + b i)/(c + d i) = (a + bi) * (1/(c + di))
-       COMPLEX-DIVIDE.
+      *COMPLEX-DIVIDE.
            CALL 'CRINV' USING
              LK-DIVPARM-IN2-COMPLEX,
              LK-DIV-INVTMP-COMPLEX
