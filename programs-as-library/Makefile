@@ -18,10 +18,40 @@ OBJECTS += $(OBJECTS_cdisplay)
 ENTRIES += cdisplay
 SHAREDS += out/src/liblz_pgm_cdisplay.so
 
+OBJECTS_cmadd += out/src/CMADD.o
+OBJECTS += $(OBJECTS_cmadd)
+ENTRIES += cmadd
+SHAREDS += out/src/liblz_pgm_cmadd.so
+
 OBJECTS_cmconj += out/src/CMCONJ.o
 OBJECTS += $(OBJECTS_cmconj)
 ENTRIES += cmconj
 SHAREDS += out/src/liblz_pgm_cmconj.so
+
+OBJECTS_cmdiv += out/src/CMDIV.o
+OBJECTS += $(OBJECTS_cmdiv)
+ENTRIES += cmdiv
+SHAREDS += out/src/liblz_pgm_cmdiv.so
+
+OBJECTS_cminv += out/src/CMINV.o
+OBJECTS += $(OBJECTS_cminv)
+ENTRIES += cminv
+SHAREDS += out/src/liblz_pgm_cminv.so
+
+OBJECTS_cmmult += out/src/CMMULT.o
+OBJECTS += $(OBJECTS_cmmult)
+ENTRIES += cmmult
+SHAREDS += out/src/liblz_pgm_cmmult.so
+
+OBJECTS_cmscale += out/src/CMSCALE.o
+OBJECTS += $(OBJECTS_cmscale)
+ENTRIES += cmscale
+SHAREDS += out/src/liblz_pgm_cmscale.so
+
+OBJECTS_cmsub += out/src/CMSUB.o
+OBJECTS += $(OBJECTS_cmsub)
+ENTRIES += cmsub
+SHAREDS += out/src/liblz_pgm_cmsub.so
 
 OBJECTS_cradd += out/src/CRADD.o
 OBJECTS += $(OBJECTS_cradd)
@@ -109,10 +139,40 @@ out/src/liblz_pgm_cdisplay.so : $(OBJECTS_cdisplay)
 	$(Q)rm -f 'out/src/liblz_pgm_cdisplay.so'
 	$(Q)$(COBRC) :Output='out/src/liblz_pgm_cdisplay.so' $(patsubst %,'%',$(OBJECTS_cdisplay)) $(LDFLAGS) $(LDFLAGS_cdisplay)
 
+out/src/liblz_pgm_cmadd.so : $(OBJECTS_cmadd)
+	$(call SAYWHAT,out/src/liblz_pgm_cmadd.so)
+	$(Q)rm -f 'out/src/liblz_pgm_cmadd.so'
+	$(Q)$(COBRC) :Output='out/src/liblz_pgm_cmadd.so' $(patsubst %,'%',$(OBJECTS_cmadd)) $(LDFLAGS) $(LDFLAGS_cmadd)
+
 out/src/liblz_pgm_cmconj.so : $(OBJECTS_cmconj)
 	$(call SAYWHAT,out/src/liblz_pgm_cmconj.so)
 	$(Q)rm -f 'out/src/liblz_pgm_cmconj.so'
 	$(Q)$(COBRC) :Output='out/src/liblz_pgm_cmconj.so' $(patsubst %,'%',$(OBJECTS_cmconj)) $(LDFLAGS) $(LDFLAGS_cmconj)
+
+out/src/liblz_pgm_cmdiv.so : $(OBJECTS_cmdiv)
+	$(call SAYWHAT,out/src/liblz_pgm_cmdiv.so)
+	$(Q)rm -f 'out/src/liblz_pgm_cmdiv.so'
+	$(Q)$(COBRC) :Output='out/src/liblz_pgm_cmdiv.so' $(patsubst %,'%',$(OBJECTS_cmdiv)) $(LDFLAGS) $(LDFLAGS_cmdiv)
+
+out/src/liblz_pgm_cminv.so : $(OBJECTS_cminv)
+	$(call SAYWHAT,out/src/liblz_pgm_cminv.so)
+	$(Q)rm -f 'out/src/liblz_pgm_cminv.so'
+	$(Q)$(COBRC) :Output='out/src/liblz_pgm_cminv.so' $(patsubst %,'%',$(OBJECTS_cminv)) $(LDFLAGS) $(LDFLAGS_cminv)
+
+out/src/liblz_pgm_cmmult.so : $(OBJECTS_cmmult)
+	$(call SAYWHAT,out/src/liblz_pgm_cmmult.so)
+	$(Q)rm -f 'out/src/liblz_pgm_cmmult.so'
+	$(Q)$(COBRC) :Output='out/src/liblz_pgm_cmmult.so' $(patsubst %,'%',$(OBJECTS_cmmult)) $(LDFLAGS) $(LDFLAGS_cmmult)
+
+out/src/liblz_pgm_cmscale.so : $(OBJECTS_cmscale)
+	$(call SAYWHAT,out/src/liblz_pgm_cmscale.so)
+	$(Q)rm -f 'out/src/liblz_pgm_cmscale.so'
+	$(Q)$(COBRC) :Output='out/src/liblz_pgm_cmscale.so' $(patsubst %,'%',$(OBJECTS_cmscale)) $(LDFLAGS) $(LDFLAGS_cmscale)
+
+out/src/liblz_pgm_cmsub.so : $(OBJECTS_cmsub)
+	$(call SAYWHAT,out/src/liblz_pgm_cmsub.so)
+	$(Q)rm -f 'out/src/liblz_pgm_cmsub.so'
+	$(Q)$(COBRC) :Output='out/src/liblz_pgm_cmsub.so' $(patsubst %,'%',$(OBJECTS_cmsub)) $(LDFLAGS) $(LDFLAGS_cmsub)
 
 out/src/liblz_pgm_cradd.so : $(OBJECTS_cradd)
 	$(call SAYWHAT,out/src/liblz_pgm_cradd.so)
@@ -191,10 +251,52 @@ out/src/liblz_pgm_cdisplay.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/l
 
 
 
+out/src/liblz_pgm_cmadd.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/liblz_pgm_cmadd.so
+	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX(CMADD))
+	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_cmadd.so',recfm=u -o '//PJOOT.SAMPLE2.COMPLEX(CMADD),disp=mod' $(CLIREDIRECT)
+	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_cmadd.pds'
+
+
+
 out/src/liblz_pgm_cmconj.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/liblz_pgm_cmconj.so
 	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX(CMCONJ))
 	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_cmconj.so',recfm=u -o '//PJOOT.SAMPLE2.COMPLEX(CMCONJ),disp=mod' $(CLIREDIRECT)
 	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_cmconj.pds'
+
+
+
+out/src/liblz_pgm_cmdiv.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/liblz_pgm_cmdiv.so
+	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX(CMDIV))
+	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_cmdiv.so',recfm=u -o '//PJOOT.SAMPLE2.COMPLEX(CMDIV),disp=mod' $(CLIREDIRECT)
+	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_cmdiv.pds'
+
+
+
+out/src/liblz_pgm_cminv.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/liblz_pgm_cminv.so
+	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX(CMINV))
+	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_cminv.so',recfm=u -o '//PJOOT.SAMPLE2.COMPLEX(CMINV),disp=mod' $(CLIREDIRECT)
+	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_cminv.pds'
+
+
+
+out/src/liblz_pgm_cmmult.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/liblz_pgm_cmmult.so
+	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX(CMMULT))
+	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_cmmult.so',recfm=u -o '//PJOOT.SAMPLE2.COMPLEX(CMMULT),disp=mod' $(CLIREDIRECT)
+	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_cmmult.pds'
+
+
+
+out/src/liblz_pgm_cmscale.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/liblz_pgm_cmscale.so
+	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX(CMSCALE))
+	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_cmscale.so',recfm=u -o '//PJOOT.SAMPLE2.COMPLEX(CMSCALE),disp=mod' $(CLIREDIRECT)
+	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_cmscale.pds'
+
+
+
+out/src/liblz_pgm_cmsub.pds : out/PJOOT.SAMPLE2.COMPLEX.allocate.ts out/src/liblz_pgm_cmsub.so
+	$(call SAYWHAT,PJOOT.SAMPLE2.COMPLEX(CMSUB))
+	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_cmsub.so',recfm=u -o '//PJOOT.SAMPLE2.COMPLEX(CMSUB),disp=mod' $(CLIREDIRECT)
+	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_cmsub.pds'
 
 
 
