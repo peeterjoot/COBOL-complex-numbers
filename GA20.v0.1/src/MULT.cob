@@ -12,6 +12,10 @@
        COPY MV     REPLACING ==(PRFX)== BY ==F-==.
        COPY MV     REPLACING ==(PRFX)== BY ==G-==.
        COPY MV     REPLACING ==(PRFX)== BY ==H-==.
+       COPY MV     REPLACING ==(PRFX)== BY ==K-==.
+       COPY MV     REPLACING ==(PRFX)== BY ==S1-==.
+       COPY MV     REPLACING ==(PRFX)== BY ==S2-==.
+       COPY MV     REPLACING ==(PRFX)== BY ==R-==.
        COPY FLOAT  REPLACING ==(PRFX)== BY ==ZS-==.
        COPY FLOAT  REPLACING ==(PRFX)== BY ==ONE-S-==.
        COPY FLOAT  REPLACING ==(PRFX)== BY ==TWO-S-==.
@@ -91,9 +95,19 @@
              ONE-MV,
              E-MV
 
+           MOVE 'A * 1' TO WS-DISPPARM-N
+           CALL GA-DISPLAY USING
+             WS-DISPPARM-N,
+             E-MV
+
            CALL GA-MULT-RETURN USING
              A-MV,
              E1-MV,
+             F-MV
+
+           MOVE 'A * e_1' TO WS-DISPPARM-N
+           CALL GA-DISPLAY USING
+             WS-DISPPARM-N,
              F-MV
 
            CALL GA-MULT-RETURN USING
@@ -101,32 +115,67 @@
              E2-MV,
              G-MV
 
-           CALL GA-MULT-RETURN USING
-             A-MV,
-             E12-MV,
-             H-MV
-
-           MOVE 'A * 1' TO WS-DISPPARM-N
-           CALL GA-DISPLAY USING
-             WS-DISPPARM-N,
-             E-MV
-
-           MOVE 'A * e_1' TO WS-DISPPARM-N
-           CALL GA-DISPLAY USING
-             WS-DISPPARM-N,
-             F-MV
-
            MOVE 'A * e_2' TO WS-DISPPARM-N
            CALL GA-DISPLAY USING
              WS-DISPPARM-N,
              G-MV
+
+           CALL GA-MULT-RETURN USING
+             A-MV,
+             E12-MV,
+             H-MV
 
            MOVE 'A * e_{12}' TO WS-DISPPARM-N
            CALL GA-DISPLAY USING
              WS-DISPPARM-N,
              H-MV
 
+           CALL GA-SCALE-RETURN USING
+             A-MV,
+             TWO-S-V,
+             K-MV
+
+           MOVE 'A * 2' TO WS-DISPPARM-N
+           CALL GA-DISPLAY USING
+             WS-DISPPARM-N,
+             K-MV
+
+           MOVE 'e_1 e_2 + e_2 e_1' TO WS-DISPPARM-N
+           MOVE E1-MV TO S1-MV
+           MOVE E2-MV TO S2-MV
+           PERFORM SYMMETRIC
+
+           MOVE 'e_1 e_2 - e_2 e_1' TO WS-DISPPARM-N
+           PERFORM ANTISYMMETRIC
+
+           MOVE E1-MV TO S2-MV
+           MOVE 'e_1 e_1 + e_1 e_1' TO WS-DISPPARM-N
+           PERFORM SYMMETRIC
+           MOVE 'e_1 e_1 - e_1 e_1' TO WS-DISPPARM-N
+           PERFORM ANTISYMMETRIC
+
            GOBACK
+           .
+
+        SYMMETRIC.
+           CALL GA-SYMMETRIC-RETURN USING
+             S1-MV,
+             S2-MV,
+             R-MV
+
+           CALL GA-DISPLAY USING
+             WS-DISPPARM-N,
+             R-MV
+           .
+        ANTISYMMETRIC.
+           CALL GA-ANTISYMMETRIC-RETURN USING
+             S1-MV,
+             S2-MV,
+             R-MV
+
+           CALL GA-DISPLAY USING
+             WS-DISPPARM-N,
+             R-MV
            .
 
       * vim: et ts=4 sw=4
