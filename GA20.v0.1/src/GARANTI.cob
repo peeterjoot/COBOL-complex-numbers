@@ -32,8 +32,8 @@
              W-TM2-MV
 
            CALL GA-SUB-RETURN USING
-             L-TM1-MV,
-             L-TM2-MV,
+             W-TM1-MV,
+             W-TM2-MV,
              L-OUT-MV
 
            GOBACK
