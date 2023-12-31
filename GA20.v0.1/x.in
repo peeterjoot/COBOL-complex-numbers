@@ -1,4 +1,5 @@
 src/GARMULT.cob
+src/GAMMV.cob
 src/MULT.cob
 src/GADISP.cob
 src/GAMSCAL.cob
