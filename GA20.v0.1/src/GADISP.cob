@@ -42,9 +42,13 @@
            .
         DISPLAY-GRADE-1.
            IF L-IN-X NOT = 0
-             IF L-IN-Y NOT = 0
-               DISPLAY WS-PREFIX-N WS-PLUS 
-                 '( ' L-IN-X ') e_1 + (' L-IN-Y ') e_2'
+             IF L-IN-Y = 0
+               DISPLAY WS-PREFIX-N WS-PLUS
+                 '(' L-IN-X ') e_1'
+               PERFORM DISPLAYED-NONZERO
+             ELSE
+               DISPLAY WS-PREFIX-N WS-PLUS
+                 '(' L-IN-X ') e_1 + (' L-IN-Y ') e_2'
                PERFORM DISPLAYED-NONZERO
              END-IF
            ELSE IF L-IN-Y NOT = 0

@@ -18,6 +18,11 @@ OBJECTS += $(OBJECTS_gadisp)
 ENTRIES += gadisp
 SHAREDS += out/src/liblz_pgm_gadisp.so
 
+OBJECTS_gammv += out/src/GAMMV.o
+OBJECTS += $(OBJECTS_gammv)
+ENTRIES += gammv
+SHAREDS += out/src/liblz_pgm_gammv.so
+
 OBJECTS_gampseu += out/src/GAMPSEU.o
 OBJECTS += $(OBJECTS_gampseu)
 ENTRIES += gampseu
@@ -79,6 +84,11 @@ out/src/liblz_pgm_gadisp.so : $(OBJECTS_gadisp)
 	$(Q)rm -f 'out/src/liblz_pgm_gadisp.so'
 	$(Q)$(COBRC) :Output='out/src/liblz_pgm_gadisp.so' $(patsubst %,'%',$(OBJECTS_gadisp)) $(LDFLAGS) $(LDFLAGS_gadisp)
 
+out/src/liblz_pgm_gammv.so : $(OBJECTS_gammv)
+	$(call SAYWHAT,out/src/liblz_pgm_gammv.so)
+	$(Q)rm -f 'out/src/liblz_pgm_gammv.so'
+	$(Q)$(COBRC) :Output='out/src/liblz_pgm_gammv.so' $(patsubst %,'%',$(OBJECTS_gammv)) $(LDFLAGS) $(LDFLAGS_gammv)
+
 out/src/liblz_pgm_gampseu.so : $(OBJECTS_gampseu)
 	$(call SAYWHAT,out/src/liblz_pgm_gampseu.so)
 	$(Q)rm -f 'out/src/liblz_pgm_gampseu.so'
@@ -128,6 +138,13 @@ out/src/liblz_pgm_gadisp.pds : out/PJOOT.GA20V01.LOADLIB.allocate.ts out/src/lib
 	$(call SAYWHAT,PJOOT.GA20V01.LOADLIB(GADISP))
 	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_gadisp.so',recfm=u -o '//PJOOT.GA20V01.LOADLIB(GADISP),disp=mod' $(CLIREDIRECT)
 	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_gadisp.pds'
+
+
+
+out/src/liblz_pgm_gammv.pds : out/PJOOT.GA20V01.LOADLIB.allocate.ts out/src/liblz_pgm_gammv.so
+	$(call SAYWHAT,PJOOT.GA20V01.LOADLIB(GAMMV))
+	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_gammv.so',recfm=u -o '//PJOOT.GA20V01.LOADLIB(GAMMV),disp=mod' $(CLIREDIRECT)
+	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_gammv.pds'
 
 
 
