@@ -16,6 +16,7 @@
       *   with members ...
       * @param [in] L-V
       *
+           MOVE LOW-VALUES to L-MV
            MOVE L-V TO L-SC
            MOVE 0 TO L-GRADE
 
