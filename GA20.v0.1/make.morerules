@@ -1,0 +1,8 @@
+# Here's an example of an additional rule to supplement the generic rules in lz_mkmake's make.rules
+# If uncommented, this would unconditionally delete the named PDS, ignoring errors.
+
+clean ::
+	#-lz_delete PJOOT.FOO.NATIVE
+	rm -f *.ts
+	rm -f JOB*
+	rm -rf tmp
