@@ -16,7 +16,7 @@
         L-IN2-MV,
         L-OUT-MV.
       ******************************************************************
-      * @brief MV-MULT-RETURN
+      * @brief GA-MULT-RETURN
       *
       * @param [in] L-IN1-MV,
       *   with members L-IN1-RE, L-IN1-IM.
@@ -40,6 +40,26 @@
       *    r2 L-OUT-G1
 
            MOVE -1 TO W-TM-GRADE
+           IF L-IN1-GRADE = 0
+             MOVE L-IN2-GRADE TO W-TM-GRADE
+           ELSE IF L-IN2-GRADE = 0
+             MOVE L-IN1-GRADE TO W-TM-GRADE
+           ELSE IF L-IN1-GRADE = 2
+             IF L-IN2-GRADE = 1
+               MOVE 1 TO W-TM-GRADE
+             ELSE IF L-IN2-GRADE = 2
+               MOVE 0 TO W-TM-GRADE
+             END-IF
+           ELSE IF L-IN2-GRADE = 2
+             IF L-IN1-GRADE = 1
+               MOVE 1 TO W-TM-GRADE
+             END-IF
+           ELSE IF L-IN1-GRADE = 1
+             IF L-IN2-GRADE = 1
+               MOVE 0 TO W-TM-GRADE
+             END-IF
+           END-IF
+
            CALL COMPLEX-MULT-RETURN USING
              L-IN1-G02,
              L-IN2-G02,

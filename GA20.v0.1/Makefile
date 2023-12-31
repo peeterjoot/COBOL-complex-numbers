@@ -38,10 +38,35 @@ OBJECTS += $(OBJECTS_gamvec)
 ENTRIES += gamvec
 SHAREDS += out/src/liblz_pgm_gamvec.so
 
+OBJECTS_garadd += out/src/GARADD.o
+OBJECTS += $(OBJECTS_garadd)
+ENTRIES += garadd
+SHAREDS += out/src/liblz_pgm_garadd.so
+
+OBJECTS_garanti += out/src/GARANTI.o
+OBJECTS += $(OBJECTS_garanti)
+ENTRIES += garanti
+SHAREDS += out/src/liblz_pgm_garanti.so
+
 OBJECTS_garmult += out/src/GARMULT.o
 OBJECTS += $(OBJECTS_garmult)
 ENTRIES += garmult
 SHAREDS += out/src/liblz_pgm_garmult.so
+
+OBJECTS_garscale += out/src/GARSCALE.o
+OBJECTS += $(OBJECTS_garscale)
+ENTRIES += garscale
+SHAREDS += out/src/liblz_pgm_garscale.so
+
+OBJECTS_garsub += out/src/GARSUB.o
+OBJECTS += $(OBJECTS_garsub)
+ENTRIES += garsub
+SHAREDS += out/src/liblz_pgm_garsub.so
+
+OBJECTS_garsym += out/src/GARSYM.o
+OBJECTS += $(OBJECTS_garsym)
+ENTRIES += garsym
+SHAREDS += out/src/liblz_pgm_garsym.so
 
 OBJECTS_mult += out/src/MULT.o
 OBJECTS += $(OBJECTS_mult)
@@ -104,10 +129,35 @@ out/src/liblz_pgm_gamvec.so : $(OBJECTS_gamvec)
 	$(Q)rm -f 'out/src/liblz_pgm_gamvec.so'
 	$(Q)$(COBRC) :Output='out/src/liblz_pgm_gamvec.so' $(patsubst %,'%',$(OBJECTS_gamvec)) $(LDFLAGS) $(LDFLAGS_gamvec)
 
+out/src/liblz_pgm_garadd.so : $(OBJECTS_garadd)
+	$(call SAYWHAT,out/src/liblz_pgm_garadd.so)
+	$(Q)rm -f 'out/src/liblz_pgm_garadd.so'
+	$(Q)$(COBRC) :Output='out/src/liblz_pgm_garadd.so' $(patsubst %,'%',$(OBJECTS_garadd)) $(LDFLAGS) $(LDFLAGS_garadd)
+
+out/src/liblz_pgm_garanti.so : $(OBJECTS_garanti)
+	$(call SAYWHAT,out/src/liblz_pgm_garanti.so)
+	$(Q)rm -f 'out/src/liblz_pgm_garanti.so'
+	$(Q)$(COBRC) :Output='out/src/liblz_pgm_garanti.so' $(patsubst %,'%',$(OBJECTS_garanti)) $(LDFLAGS) $(LDFLAGS_garanti)
+
 out/src/liblz_pgm_garmult.so : $(OBJECTS_garmult)
 	$(call SAYWHAT,out/src/liblz_pgm_garmult.so)
 	$(Q)rm -f 'out/src/liblz_pgm_garmult.so'
 	$(Q)$(COBRC) :Output='out/src/liblz_pgm_garmult.so' $(patsubst %,'%',$(OBJECTS_garmult)) $(LDFLAGS) $(LDFLAGS_garmult)
+
+out/src/liblz_pgm_garscale.so : $(OBJECTS_garscale)
+	$(call SAYWHAT,out/src/liblz_pgm_garscale.so)
+	$(Q)rm -f 'out/src/liblz_pgm_garscale.so'
+	$(Q)$(COBRC) :Output='out/src/liblz_pgm_garscale.so' $(patsubst %,'%',$(OBJECTS_garscale)) $(LDFLAGS) $(LDFLAGS_garscale)
+
+out/src/liblz_pgm_garsub.so : $(OBJECTS_garsub)
+	$(call SAYWHAT,out/src/liblz_pgm_garsub.so)
+	$(Q)rm -f 'out/src/liblz_pgm_garsub.so'
+	$(Q)$(COBRC) :Output='out/src/liblz_pgm_garsub.so' $(patsubst %,'%',$(OBJECTS_garsub)) $(LDFLAGS) $(LDFLAGS_garsub)
+
+out/src/liblz_pgm_garsym.so : $(OBJECTS_garsym)
+	$(call SAYWHAT,out/src/liblz_pgm_garsym.so)
+	$(Q)rm -f 'out/src/liblz_pgm_garsym.so'
+	$(Q)$(COBRC) :Output='out/src/liblz_pgm_garsym.so' $(patsubst %,'%',$(OBJECTS_garsym)) $(LDFLAGS) $(LDFLAGS_garsym)
 
 out/src/liblz_pgm_mult.so : $(OBJECTS_mult)
 	$(call SAYWHAT,out/src/liblz_pgm_mult.so)
@@ -169,10 +219,45 @@ out/src/liblz_pgm_gamvec.pds : out/PJOOT.GA20V01.LOADLIB.allocate.ts out/src/lib
 
 
 
+out/src/liblz_pgm_garadd.pds : out/PJOOT.GA20V01.LOADLIB.allocate.ts out/src/liblz_pgm_garadd.so
+	$(call SAYWHAT,PJOOT.GA20V01.LOADLIB(GARADD))
+	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_garadd.so',recfm=u -o '//PJOOT.GA20V01.LOADLIB(GARADD),disp=mod' $(CLIREDIRECT)
+	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_garadd.pds'
+
+
+
+out/src/liblz_pgm_garanti.pds : out/PJOOT.GA20V01.LOADLIB.allocate.ts out/src/liblz_pgm_garanti.so
+	$(call SAYWHAT,PJOOT.GA20V01.LOADLIB(GARANTI))
+	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_garanti.so',recfm=u -o '//PJOOT.GA20V01.LOADLIB(GARANTI),disp=mod' $(CLIREDIRECT)
+	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_garanti.pds'
+
+
+
 out/src/liblz_pgm_garmult.pds : out/PJOOT.GA20V01.LOADLIB.allocate.ts out/src/liblz_pgm_garmult.so
 	$(call SAYWHAT,PJOOT.GA20V01.LOADLIB(GARMULT))
 	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_garmult.so',recfm=u -o '//PJOOT.GA20V01.LOADLIB(GARMULT),disp=mod' $(CLIREDIRECT)
 	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_garmult.pds'
+
+
+
+out/src/liblz_pgm_garscale.pds : out/PJOOT.GA20V01.LOADLIB.allocate.ts out/src/liblz_pgm_garscale.so
+	$(call SAYWHAT,PJOOT.GA20V01.LOADLIB(GARSCALE))
+	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_garscale.so',recfm=u -o '//PJOOT.GA20V01.LOADLIB(GARSCALE),disp=mod' $(CLIREDIRECT)
+	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_garscale.pds'
+
+
+
+out/src/liblz_pgm_garsub.pds : out/PJOOT.GA20V01.LOADLIB.allocate.ts out/src/liblz_pgm_garsub.so
+	$(call SAYWHAT,PJOOT.GA20V01.LOADLIB(GARSUB))
+	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_garsub.so',recfm=u -o '//PJOOT.GA20V01.LOADLIB(GARSUB),disp=mod' $(CLIREDIRECT)
+	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_garsub.pds'
+
+
+
+out/src/liblz_pgm_garsym.pds : out/PJOOT.GA20V01.LOADLIB.allocate.ts out/src/liblz_pgm_garsym.so
+	$(call SAYWHAT,PJOOT.GA20V01.LOADLIB(GARSYM))
+	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_garsym.so',recfm=u -o '//PJOOT.GA20V01.LOADLIB(GARSYM),disp=mod' $(CLIREDIRECT)
+	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_garsym.pds'
 
 
 
