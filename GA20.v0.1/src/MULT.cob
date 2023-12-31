@@ -2,9 +2,12 @@
        PROGRAM-ID.    MULT.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
+      *LOCAL-STORAGE SECTION.
        COPY GA20.
        COPY MV REPLACING ==(PRFX)== BY ==A-==.
        COPY MV REPLACING ==(PRFX)== BY ==B-==.
+       COPY MV REPLACING ==(PRFX)== BY ==C-==.
+       COPY MV REPLACING ==(PRFX)== BY ==D-==.
        COPY GADISP REPLACING ==(PRFX)== BY ==WS-DISPPARM-==.
        PROCEDURE DIVISION.
 
@@ -15,6 +18,8 @@
            MOVE 4 TO A-PS
 
            CALL GA-MKSCALAR-MODIFY USING B-MV, A-SC
+           CALL GA-MKVECTOR-MODIFY USING C-MV, A-X, A-Y
+           CALL GA-MKPSEUDO-MODIFY USING D-MV, A-PS
 
            MOVE 'A' TO WS-DISPPARM-N
            CALL GA-DISPLAY USING
@@ -25,6 +30,16 @@
            CALL GA-DISPLAY USING
              WS-DISPPARM-N,
              B-MV
+
+           MOVE 'C' TO WS-DISPPARM-N
+           CALL GA-DISPLAY USING
+             WS-DISPPARM-N,
+             C-MV
+
+           MOVE 'D' TO WS-DISPPARM-N
+           CALL GA-DISPLAY USING
+             WS-DISPPARM-N,
+             D-MV
 
       *    CALL COMPLEX-MULT-RETURN USING
       *      WS-V1-COMPLEX,

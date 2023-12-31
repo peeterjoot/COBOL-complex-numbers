@@ -1,5 +1,5 @@
        IDENTIFICATION DIVISION.
-       PROGRAM-ID.    GAMSCAL.
+       PROGRAM-ID.    GAMPSEU.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
        LOCAL-STORAGE SECTION.
@@ -16,8 +16,8 @@
       *   with members ...
       * @param [in] L-V
       *
-           MOVE L-V TO L-SC
-           MOVE 0 TO L-GRADE
+           MOVE L-V TO L-PS
+           MOVE 2 TO L-GRADE
 
            GOBACK
            .

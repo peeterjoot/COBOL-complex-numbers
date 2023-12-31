@@ -2,6 +2,7 @@
        PROGRAM-ID.    GADISP.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
+      *LOCAL-STORAGE SECTION.
         01 WS-PLUS PIC XX VALUE '  '.
         COPY GADISP REPLACING ==(PRFX)== BY ==WS-PREFIX-==.
        LINKAGE SECTION.
@@ -15,6 +16,9 @@
       *   with members ...
       *
            MOVE L-IN-N TO WS-PREFIX-N
+      * not using LOCAL-STORAGE because we are missing lldb support for
+      * LOCAL-STORAGE variables.  Instead explicitly reinitialize:
+           MOVE '  '   TO WS-PLUS
 
            EVALUATE L-IN-GRADE
              WHEN 0 PERFORM DISPLAY-GRADE-0
@@ -32,7 +36,7 @@
            .
         DISPLAY-GRADE-0.
            IF L-IN-SC NOT = 0
-             DISPLAY WS-PREFIX-N '(' L-IN-SC ')'
+             DISPLAY WS-PREFIX-N WS-PLUS '(' L-IN-SC ')'
              PERFORM DISPLAYED-NONZERO
            END-IF
            .
@@ -44,7 +48,7 @@
                PERFORM DISPLAYED-NONZERO
              END-IF
            ELSE IF L-IN-Y NOT = 0
-             DISPLAY WS-PREFIX-N '(' L-IN-Y ') e_2'
+             DISPLAY WS-PREFIX-N WS-PLUS '(' L-IN-Y ') e_2'
              PERFORM DISPLAYED-NONZERO
            END-IF
            .

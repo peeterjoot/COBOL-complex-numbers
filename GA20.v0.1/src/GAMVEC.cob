@@ -1,14 +1,16 @@
        IDENTIFICATION DIVISION.
-       PROGRAM-ID.    GAMSCAL.
+       PROGRAM-ID.    GAMVEC.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
        LOCAL-STORAGE SECTION.
        LINKAGE SECTION.
         COPY MV    REPLACING ==(PRFX)== BY ==L-==.
-        COPY FLOAT REPLACING ==(PRFX)== BY ==L-==.
+        COPY FLOAT REPLACING ==(PRFX)== BY ==L-X-==.
+        COPY FLOAT REPLACING ==(PRFX)== BY ==L-Y-==.
        PROCEDURE DIVISION USING
         L-MV,
-        L-V.
+        L-X-V,
+        L-Y-V.
       ******************************************************************
       * @brief GA20-MKSCALAR-MODIFY
       *
@@ -16,8 +18,9 @@
       *   with members ...
       * @param [in] L-V
       *
-           MOVE L-V TO L-SC
-           MOVE 0 TO L-GRADE
+           MOVE L-X-V TO L-X
+           MOVE L-Y-V TO L-Y
+           MOVE 1 TO L-GRADE
 
            GOBACK
            .

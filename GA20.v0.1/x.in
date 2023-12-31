@@ -1,4 +1,6 @@
-#src/G20RMULT.cob
+src/GARMULT.cob
 src/MULT.cob
 src/GADISP.cob
 src/GAMSCAL.cob
+src/GAMVEC.cob
+src/GAMPSEU.cob
