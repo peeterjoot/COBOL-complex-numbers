@@ -18,6 +18,11 @@ OBJECTS += $(OBJECTS_gadisp)
 ENTRIES += gadisp
 SHAREDS += out/src/liblz_pgm_gadisp.so
 
+OBJECTS_gamscal += out/src/GAMSCAL.o
+OBJECTS += $(OBJECTS_gamscal)
+ENTRIES += gamscal
+SHAREDS += out/src/liblz_pgm_gamscal.so
+
 OBJECTS_mult += out/src/MULT.o
 OBJECTS += $(OBJECTS_mult)
 ENTRIES += mult
@@ -59,6 +64,11 @@ out/src/liblz_pgm_gadisp.so : $(OBJECTS_gadisp)
 	$(Q)rm -f 'out/src/liblz_pgm_gadisp.so'
 	$(Q)$(COBRC) :Output='out/src/liblz_pgm_gadisp.so' $(patsubst %,'%',$(OBJECTS_gadisp)) $(LDFLAGS) $(LDFLAGS_gadisp)
 
+out/src/liblz_pgm_gamscal.so : $(OBJECTS_gamscal)
+	$(call SAYWHAT,out/src/liblz_pgm_gamscal.so)
+	$(Q)rm -f 'out/src/liblz_pgm_gamscal.so'
+	$(Q)$(COBRC) :Output='out/src/liblz_pgm_gamscal.so' $(patsubst %,'%',$(OBJECTS_gamscal)) $(LDFLAGS) $(LDFLAGS_gamscal)
+
 out/src/liblz_pgm_mult.so : $(OBJECTS_mult)
 	$(call SAYWHAT,out/src/liblz_pgm_mult.so)
 	$(Q)rm -f 'out/src/liblz_pgm_mult.so'
@@ -88,6 +98,13 @@ out/src/liblz_pgm_gadisp.pds : out/PJOOT.GA20V01.LOADLIB.allocate.ts out/src/lib
 	$(call SAYWHAT,PJOOT.GA20V01.LOADLIB(GADISP))
 	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_gadisp.so',recfm=u -o '//PJOOT.GA20V01.LOADLIB(GADISP),disp=mod' $(CLIREDIRECT)
 	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_gadisp.pds'
+
+
+
+out/src/liblz_pgm_gamscal.pds : out/PJOOT.GA20V01.LOADLIB.allocate.ts out/src/liblz_pgm_gamscal.so
+	$(call SAYWHAT,PJOOT.GA20V01.LOADLIB(GAMSCAL))
+	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_gamscal.so',recfm=u -o '//PJOOT.GA20V01.LOADLIB(GAMSCAL),disp=mod' $(CLIREDIRECT)
+	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_gamscal.pds'
 
 
 
