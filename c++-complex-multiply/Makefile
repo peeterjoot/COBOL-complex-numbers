@@ -1,5 +1,7 @@
 ALL += mult
 ALL += mymult
+ALL += ga20
+
 all : $(ALL)
 
 % : %.cc
