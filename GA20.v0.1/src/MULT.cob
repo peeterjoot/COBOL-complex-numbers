@@ -4,29 +4,25 @@
        WORKING-STORAGE SECTION.
       *LOCAL-STORAGE SECTION.
        COPY GA20.
-       COPY MV      REPLACING ==(PRFX)== BY ==A-==.
-       COPY MV      REPLACING ==(PRFX)== BY ==B-==.
-       COPY MV      REPLACING ==(PRFX)== BY ==C-==.
-       COPY MV      REPLACING ==(PRFX)== BY ==D-==.
-       COPY MV      REPLACING ==(PRFX)== BY ==E-==.
-       COPY MV      REPLACING ==(PRFX)== BY ==F-==.
-       COPY MV      REPLACING ==(PRFX)== BY ==G-==.
-       COPY MV      REPLACING ==(PRFX)== BY ==H-==.
-       COPY MV      REPLACING ==(PRFX)== BY ==K-==.
-       COPY MV      REPLACING ==(PRFX)== BY ==S1-==.
-       COPY MV      REPLACING ==(PRFX)== BY ==S2-==.
-       COPY MV      REPLACING ==(PRFX)== BY ==R-==.
-       COPY FLOAT   REPLACING ==(PRFX)== BY ==ZS-==.
-       COPY FLOAT   REPLACING ==(PRFX)== BY ==ONE-S-==.
-       COPY FLOAT   REPLACING ==(PRFX)== BY ==TWO-S-==.
-       COPY FLOAT   REPLACING ==(PRFX)== BY ==THREE-S-==.
-       COPY FLOAT   REPLACING ==(PRFX)== BY ==FOUR-S-==.
-       COPY MV      REPLACING ==(PRFX)== BY ==ONE-==.
-       COPY MV      REPLACING ==(PRFX)== BY ==E1-==.
-       COPY MV      REPLACING ==(PRFX)== BY ==E2-==.
-       COPY MV      REPLACING ==(PRFX)== BY ==E12-==.
-       COPY INTEGER REPLACING ==(PRFX)== BY ==WS-GR-==.
-       COPY GADISP  REPLACING ==(PRFX)== BY ==WS-DISPPARM-==.
+       COPY MVI      REPLACING ==(PRFX)== BY ==A-==.
+       COPY MVI      REPLACING ==(PRFX)== BY ==B-==.
+       COPY MVI      REPLACING ==(PRFX)== BY ==C-==.
+       COPY MVI      REPLACING ==(PRFX)== BY ==D-==.
+       COPY MVI      REPLACING ==(PRFX)== BY ==K-==.
+       COPY MVI      REPLACING ==(PRFX)== BY ==S1-==.
+       COPY MVI      REPLACING ==(PRFX)== BY ==S2-==.
+       COPY MVI      REPLACING ==(PRFX)== BY ==R-==.
+       COPY FLOATI   REPLACING ==(PRFX)== BY ==ZS-==.
+       COPY FLOATI   REPLACING ==(PRFX)== BY ==ONE-S-==.
+       COPY FLOATI   REPLACING ==(PRFX)== BY ==TWO-S-==.
+       COPY FLOATI   REPLACING ==(PRFX)== BY ==THREE-S-==.
+       COPY FLOATI   REPLACING ==(PRFX)== BY ==FOUR-S-==.
+       COPY MVI      REPLACING ==(PRFX)== BY ==ONE-==.
+       COPY MVI      REPLACING ==(PRFX)== BY ==E1-==.
+       COPY MVI      REPLACING ==(PRFX)== BY ==E2-==.
+       COPY MVI      REPLACING ==(PRFX)== BY ==E12-==.
+       COPY INTEGERI REPLACING ==(PRFX)== BY ==WS-GR-==.
+       COPY GADISP   REPLACING ==(PRFX)== BY ==WS-DISPPARM-==.
        PROCEDURE DIVISION.
 
            MOVE 0 TO ZS-V
@@ -91,45 +87,22 @@
              WS-DISPPARM-N,
              E12-MV
 
-           CALL GA-MULT-RETURN USING
-             A-MV,
-             ONE-MV,
-             E-MV
 
            MOVE 'A * 1' TO WS-DISPPARM-N
-           CALL GA-DISPLAY USING
-             WS-DISPPARM-N,
-             E-MV
-
-           CALL GA-MULT-RETURN USING
-             A-MV,
-             E1-MV,
-             F-MV
+           MOVE ONE-MV TO S1-MV
+           PERFORM MULTIPLY-AND-PRINT
 
            MOVE 'A * e_1' TO WS-DISPPARM-N
-           CALL GA-DISPLAY USING
-             WS-DISPPARM-N,
-             F-MV
-
-           CALL GA-MULT-RETURN USING
-             A-MV,
-             E2-MV,
-             G-MV
+           MOVE E1-MV TO S1-MV
+           PERFORM MULTIPLY-AND-PRINT
 
            MOVE 'A * e_2' TO WS-DISPPARM-N
-           CALL GA-DISPLAY USING
-             WS-DISPPARM-N,
-             G-MV
-
-           CALL GA-MULT-RETURN USING
-             A-MV,
-             E12-MV,
-             H-MV
+           MOVE E2-MV TO S1-MV
+           PERFORM MULTIPLY-AND-PRINT
 
            MOVE 'A * e_{12}' TO WS-DISPPARM-N
-           CALL GA-DISPLAY USING
-             WS-DISPPARM-N,
-             H-MV
+           MOVE E12-MV TO S1-MV
+           PERFORM MULTIPLY-AND-PRINT
 
            CALL GA-SCALE-RETURN USING
              A-MV,
@@ -168,6 +141,17 @@
            PERFORM GRADE-SELECT
 
            GOBACK
+           .
+
+         MULTIPLY-AND-PRINT.
+           CALL GA-MULT-RETURN USING
+             A-MV,
+             S1-MV,
+             R-MV
+
+           CALL GA-DISPLAY USING
+             WS-DISPPARM-N,
+             R-MV
            .
 
         GRADE-SELECT.
