@@ -1,4 +1,9 @@
 src/GARMULT.cob
+src/GARADD.cob
+src/GARSUB.cob
+src/GARSCALE.cob
+src/GARSYM.cob
+src/GARANTI.cob
 src/GAMMV.cob
 src/MULT.cob
 src/GADISP.cob
