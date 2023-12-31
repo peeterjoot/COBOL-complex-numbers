@@ -48,6 +48,11 @@ OBJECTS += $(OBJECTS_garanti)
 ENTRIES += garanti
 SHAREDS += out/src/liblz_pgm_garanti.so
 
+OBJECTS_gargrsel += out/src/GARGRSEL.o
+OBJECTS += $(OBJECTS_gargrsel)
+ENTRIES += gargrsel
+SHAREDS += out/src/liblz_pgm_gargrsel.so
+
 OBJECTS_garmult += out/src/GARMULT.o
 OBJECTS += $(OBJECTS_garmult)
 ENTRIES += garmult
@@ -138,6 +143,11 @@ out/src/liblz_pgm_garanti.so : $(OBJECTS_garanti)
 	$(call SAYWHAT,out/src/liblz_pgm_garanti.so)
 	$(Q)rm -f 'out/src/liblz_pgm_garanti.so'
 	$(Q)$(COBRC) :Output='out/src/liblz_pgm_garanti.so' $(patsubst %,'%',$(OBJECTS_garanti)) $(LDFLAGS) $(LDFLAGS_garanti)
+
+out/src/liblz_pgm_gargrsel.so : $(OBJECTS_gargrsel)
+	$(call SAYWHAT,out/src/liblz_pgm_gargrsel.so)
+	$(Q)rm -f 'out/src/liblz_pgm_gargrsel.so'
+	$(Q)$(COBRC) :Output='out/src/liblz_pgm_gargrsel.so' $(patsubst %,'%',$(OBJECTS_gargrsel)) $(LDFLAGS) $(LDFLAGS_gargrsel)
 
 out/src/liblz_pgm_garmult.so : $(OBJECTS_garmult)
 	$(call SAYWHAT,out/src/liblz_pgm_garmult.so)
@@ -230,6 +240,13 @@ out/src/liblz_pgm_garanti.pds : out/PJOOT.GA20V01.LOADLIB.allocate.ts out/src/li
 	$(call SAYWHAT,PJOOT.GA20V01.LOADLIB(GARANTI))
 	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_garanti.so',recfm=u -o '//PJOOT.GA20V01.LOADLIB(GARANTI),disp=mod' $(CLIREDIRECT)
 	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_garanti.pds'
+
+
+
+out/src/liblz_pgm_gargrsel.pds : out/PJOOT.GA20V01.LOADLIB.allocate.ts out/src/liblz_pgm_gargrsel.so
+	$(call SAYWHAT,PJOOT.GA20V01.LOADLIB(GARGRSEL))
+	$(Q)$(LZCOPYMOD) --enqwait -+REPLACE,RMODE=ANY,AMODE=31 -S $(FSRELCWD)out/src/'liblz_pgm_gargrsel.so',recfm=u -o '//PJOOT.GA20V01.LOADLIB(GARGRSEL),disp=mod' $(CLIREDIRECT)
+	$(Q)mv $(CLITMPPATH) 'out/src/liblz_pgm_gargrsel.pds'
 
 
 

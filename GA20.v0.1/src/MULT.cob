@@ -4,28 +4,29 @@
        WORKING-STORAGE SECTION.
       *LOCAL-STORAGE SECTION.
        COPY GA20.
-       COPY MV     REPLACING ==(PRFX)== BY ==A-==.
-       COPY MV     REPLACING ==(PRFX)== BY ==B-==.
-       COPY MV     REPLACING ==(PRFX)== BY ==C-==.
-       COPY MV     REPLACING ==(PRFX)== BY ==D-==.
-       COPY MV     REPLACING ==(PRFX)== BY ==E-==.
-       COPY MV     REPLACING ==(PRFX)== BY ==F-==.
-       COPY MV     REPLACING ==(PRFX)== BY ==G-==.
-       COPY MV     REPLACING ==(PRFX)== BY ==H-==.
-       COPY MV     REPLACING ==(PRFX)== BY ==K-==.
-       COPY MV     REPLACING ==(PRFX)== BY ==S1-==.
-       COPY MV     REPLACING ==(PRFX)== BY ==S2-==.
-       COPY MV     REPLACING ==(PRFX)== BY ==R-==.
-       COPY FLOAT  REPLACING ==(PRFX)== BY ==ZS-==.
-       COPY FLOAT  REPLACING ==(PRFX)== BY ==ONE-S-==.
-       COPY FLOAT  REPLACING ==(PRFX)== BY ==TWO-S-==.
-       COPY FLOAT  REPLACING ==(PRFX)== BY ==THREE-S-==.
-       COPY FLOAT  REPLACING ==(PRFX)== BY ==FOUR-S-==.
-       COPY MV     REPLACING ==(PRFX)== BY ==ONE-==.
-       COPY MV     REPLACING ==(PRFX)== BY ==E1-==.
-       COPY MV     REPLACING ==(PRFX)== BY ==E2-==.
-       COPY MV     REPLACING ==(PRFX)== BY ==E12-==.
-       COPY GADISP REPLACING ==(PRFX)== BY ==WS-DISPPARM-==.
+       COPY MV      REPLACING ==(PRFX)== BY ==A-==.
+       COPY MV      REPLACING ==(PRFX)== BY ==B-==.
+       COPY MV      REPLACING ==(PRFX)== BY ==C-==.
+       COPY MV      REPLACING ==(PRFX)== BY ==D-==.
+       COPY MV      REPLACING ==(PRFX)== BY ==E-==.
+       COPY MV      REPLACING ==(PRFX)== BY ==F-==.
+       COPY MV      REPLACING ==(PRFX)== BY ==G-==.
+       COPY MV      REPLACING ==(PRFX)== BY ==H-==.
+       COPY MV      REPLACING ==(PRFX)== BY ==K-==.
+       COPY MV      REPLACING ==(PRFX)== BY ==S1-==.
+       COPY MV      REPLACING ==(PRFX)== BY ==S2-==.
+       COPY MV      REPLACING ==(PRFX)== BY ==R-==.
+       COPY FLOAT   REPLACING ==(PRFX)== BY ==ZS-==.
+       COPY FLOAT   REPLACING ==(PRFX)== BY ==ONE-S-==.
+       COPY FLOAT   REPLACING ==(PRFX)== BY ==TWO-S-==.
+       COPY FLOAT   REPLACING ==(PRFX)== BY ==THREE-S-==.
+       COPY FLOAT   REPLACING ==(PRFX)== BY ==FOUR-S-==.
+       COPY MV      REPLACING ==(PRFX)== BY ==ONE-==.
+       COPY MV      REPLACING ==(PRFX)== BY ==E1-==.
+       COPY MV      REPLACING ==(PRFX)== BY ==E2-==.
+       COPY MV      REPLACING ==(PRFX)== BY ==E12-==.
+       COPY INTEGER REPLACING ==(PRFX)== BY ==WS-GR-==.
+       COPY GADISP  REPLACING ==(PRFX)== BY ==WS-DISPPARM-==.
        PROCEDURE DIVISION.
 
            MOVE 0 TO ZS-V
@@ -154,9 +155,31 @@
            MOVE 'e_1 e_1 - e_1 e_1' TO WS-DISPPARM-N
            PERFORM ANTISYMMETRIC
 
+           MOVE '<A>_0' TO WS-DISPPARM-N
+           MOVE 0 TO WS-GR-I
+           PERFORM GRADE-SELECT
+
+           MOVE '<A>_1' TO WS-DISPPARM-N
+           MOVE 1 TO WS-GR-I
+           PERFORM GRADE-SELECT
+
+           MOVE '<A>_2' TO WS-DISPPARM-N
+           MOVE 2 TO WS-GR-I
+           PERFORM GRADE-SELECT
+
            GOBACK
            .
 
+        GRADE-SELECT.
+           CALL GA-GRADE-SELECTION-MV-RETURN USING
+             A-MV,
+             WS-GR-I,
+             R-MV
+
+           CALL GA-DISPLAY USING
+             WS-DISPPARM-N,
+             R-MV
+           .
         SYMMETRIC.
            CALL GA-SYMMETRIC-RETURN USING
              S1-MV,
