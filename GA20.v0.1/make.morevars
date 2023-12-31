@@ -1,0 +1,72 @@
+
+#---------------------------------------------------------------------------------------
+# cobrc now defaults to:
+#    :StrictIBM=TRUE :Margins=7,72
+#
+# If that is undesirable or causes trouble, uncomment the following to revert to previous behaviour:
+#
+#COBFLAGS += :StrictIBM=FALSE :Margins=1,400000
+#---------------------------------------------------------------------------------------
+# To examine the compiler's intermediate representation:
+#
+#COBFLAGS += :LLVMLL=TRUE
+#---------------------------------------------------------------------------------------
+
+# any other compiler options can be added to COBFLAGS, as above, and such options will apply to all COBOL sources.
+
+#---------------------------------------------------------------------------------------
+# COBDYNLINK is a special variable used to easily construct :DynExternals=... compiler options that apply to all COBOL sources.
+# Add to this variable as many times as desired.
+#
+# The purpose of :DynExternals= is to specify any symbols that cannot be directly linked into the Linux loadmodule equivalent
+# as they are provided by the SDM as wormholes, or by Assembler modules in STEPLIB or similar DD concatenations.
+# If :DynExternals= is not used for such symbols, the code must be changed to use DYNAMIC call syntax (using a variable name
+# for the entry in the CALL statement.)
+#
+COBDYNLINK += CRADD
+COBDYNLINK += CMCONJ
+COBDYNLINK += CRSCALE
+COBDYNLINK += CDISPLAY
+COBDYNLINK += CRREAL
+COBDYNLINK += CRIMAG
+COBDYNLINK += CRSUB
+COBDYNLINK += CRMULT
+COBDYNLINK += CRINV
+COBDYNLINK += CRDIV
+COBDYNLINK += CMADD
+COBDYNLINK += CMCONJ
+COBDYNLINK += CMDIV
+COBDYNLINK += CMINV
+COBDYNLINK += CMMULT
+COBDYNLINK += CMSCALE
+COBDYNLINK += CMSUB
+COBDYNLINK += CMNEGATE
+COBDYNLINK += GADISP
+COBDYNLINK += GARMULT
+#---------------------------------------------------------------------------------------
+
+# Here is one way to construct a complex :IncludeSearchPath compiler option, listing many paths.
+# An alternative mechanism would be to use separate :IncludeSearchDir= options for each such path.
+#
+COBCOPYDIRS += copy
+COBCOPYDIRS += ../CMPXLBRY.v0.2/copy
+#COBCOPYDIRS += /opt/lzlabs/COBOL/DB2
+#COBCOPYDIRS += /opt/lzlabs/COBOL/DFH
+COBFLAGS += :IncludeSearchPath=$(shell echo $(COBCOPYDIRS) | tr ' ' ,)
+
+#---------------------------------------------------------------------------------------
+# As for COBOL, add compiler options that you want to apply to add PL/I compilation like so:
+#PLIFLAGS += :IncludeCaseInsensitive
+#PLIFLAGS += :IncludeExtension=plinc
+
+#---------------------------------------------------------------------------------------
+# Like COBDYNLINK, we have an easy mechanism to specify that symbols are dynamic, even if called using non-external syntax:
+#PLIDYNLINK += MQOPEN,MQGET
+
+#---------------------------------------------------------------------------------------
+# Like the COBOL :IncludeSearchPath example above:
+#PLICOPYDIRS += /opt/lzlabs/PLI/DB2
+#PLICOPYDIRS += /opt/lzlabs/PLI/DFH
+#PLIFLAGS += :IncludeSearchPath=$(shell echo $(PLICOPYDIRS) | tr ' ' ,)
+
+#---------------------------------------------------------------------------------------

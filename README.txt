@@ -1,9 +1,9 @@
-paragraphs-as-library/
+CMPXLBRY.v0.1/
 
    This is a single module toy complex number implementation in COBOL.
    A naming convention for global variables is used to simulate functions using COBOL paragraphs.
 
-programs-as-library/
+CMPXLBRY.v0.2/
 
    This is a multiple module toy complex number implementation in COBOL using external programs to implement
     the low level complex number operations.
