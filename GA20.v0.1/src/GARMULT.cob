@@ -2,7 +2,7 @@
        PROGRAM-ID.    GARMULT.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
-       LOCAL-STORAGE SECTION.
+      *LOCAL-STORAGE SECTION.
         COPY COMPLEX REPLACING ==(PRFX)== BY ==W-TC-==.
         COPY MV      REPLACING ==(PRFX)== BY ==W-TM-==.
         COPY CMPXLBRY.
@@ -54,11 +54,15 @@
              IF L-IN1-GRADE = 1
                MOVE 1 TO W-TM-GRADE
              END-IF
-           ELSE IF L-IN1-GRADE = 1
-             IF L-IN2-GRADE = 1
-               MOVE 0 TO W-TM-GRADE
-             END-IF
+      *    ELSE IF L-IN1-GRADE = 1
+      *      IF L-IN2-GRADE = 1
+      *        MOVE 0 TO W-TM-GRADE
+      *        MOVE 2 TO W-TM-GRADE
+      *      END-IF
            END-IF
+      * Without this trailing ., the program terminates at this point!?
+      * -- Seems to execute an implicit GOBACK
+           .
 
            CALL COMPLEX-MULT-RETURN USING
              L-IN1-G02,
