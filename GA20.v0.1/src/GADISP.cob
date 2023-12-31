@@ -10,10 +10,12 @@
         COPY MV REPLACING ==(PRFX)== BY ==L-IN-==.
        PROCEDURE DIVISION USING L-IN-N, L-IN-MV.
       ******************************************************************
-      * @brief GA20-DISPLAY
+      * @brief GA-DISPLAY
       *
-      * @param [in] L-IN-GA20,
-      *   with members ...
+      * @param [in] L-IN-N,
+      *   A character array with the name of the variable to display
+      * @param [in] L-IN-MV,
+      *   The Multivector
       *
            MOVE L-IN-N TO WS-PREFIX-N
       * Don't need this with LOCAL-STORAGE:
