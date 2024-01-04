@@ -42,27 +42,25 @@
            MOVE -1 TO W-TM-GRADE
            IF L-IN1-GRADE = 0
              MOVE L-IN2-GRADE TO W-TM-GRADE
-           ELSE IF L-IN2-GRADE = 0
-             MOVE L-IN1-GRADE TO W-TM-GRADE
-           ELSE IF L-IN1-GRADE = 2
-             IF L-IN2-GRADE = 1
-               MOVE 1 TO W-TM-GRADE
-             ELSE IF L-IN2-GRADE = 2
-               MOVE 0 TO W-TM-GRADE
+           ELSE
+             IF L-IN2-GRADE = 0
+               MOVE L-IN1-GRADE TO W-TM-GRADE
+             ELSE
+               IF L-IN1-GRADE = 2
+                 IF L-IN2-GRADE = 1
+                   MOVE 1 TO W-TM-GRADE
+                 ELSE IF L-IN2-GRADE = 2
+                   MOVE 0 TO W-TM-GRADE
+                 END-IF
+               ELSE
+                 IF L-IN2-GRADE = 2
+                   IF L-IN1-GRADE = 1
+                     MOVE 1 TO W-TM-GRADE
+                   END-IF
+                 END-IF
+               END-IF
              END-IF
-           ELSE IF L-IN2-GRADE = 2
-             IF L-IN1-GRADE = 1
-               MOVE 1 TO W-TM-GRADE
-             END-IF
-      *    ELSE IF L-IN1-GRADE = 1
-      *      IF L-IN2-GRADE = 1
-      *        MOVE 0 TO W-TM-GRADE
-      *        MOVE 2 TO W-TM-GRADE
-      *      END-IF
            END-IF
-      * Without this trailing ., the program terminates at this point!?
-      * -- Seems to execute an implicit GOBACK
-           .
 
            CALL COMPLEX-MULT-RETURN USING
              L-IN1-G02,
