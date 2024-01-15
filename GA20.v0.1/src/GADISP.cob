@@ -2,7 +2,7 @@
        PROGRAM-ID.    GADISP.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
-      *LOCAL-STORAGE SECTION.
+       LOCAL-STORAGE SECTION.
         01 WS-PLUS PIC XX VALUE '  '.
         COPY GADISP REPLACING ==(PRFX)== BY ==WS-PREFIX-==.
        LINKAGE SECTION.
@@ -19,7 +19,7 @@
       *
            MOVE L-IN-N TO WS-PREFIX-N
       * Don't need this with LOCAL-STORAGE:
-           MOVE '  '   TO WS-PLUS
+      *    MOVE '  '   TO WS-PLUS
 
            EVALUATE L-IN-GRADE
              WHEN 0 PERFORM DISPLAY-GRADE-0
@@ -31,6 +31,7 @@
            IF WS-PLUS = SPACES
              DISPLAY WS-PREFIX-N 0
            END-IF
+           .
 
            GOBACK
            .
@@ -71,4 +72,4 @@
            PERFORM DISPLAY-GRADE-0 THROUGH DISPLAY-GRADE-2
            .
 
-      * vim: et ts=4 sw=4
+      * vim: et ts=2 sw=2

@@ -2,7 +2,7 @@
        PROGRAM-ID.    GARMULT.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
-      *LOCAL-STORAGE SECTION.
+       LOCAL-STORAGE SECTION.
         COPY COMPLEX REPLACING ==(PRFX)== BY ==W-TC-==.
         COPY MV      REPLACING ==(PRFX)== BY ==W-TM-==.
         COPY CMPXLBRY.
@@ -42,25 +42,20 @@
            MOVE -1 TO W-TM-GRADE
            IF L-IN1-GRADE = 0
              MOVE L-IN2-GRADE TO W-TM-GRADE
-           ELSE
-             IF L-IN2-GRADE = 0
+           ELSE IF L-IN2-GRADE = 0
                MOVE L-IN1-GRADE TO W-TM-GRADE
-             ELSE
-               IF L-IN1-GRADE = 2
-                 IF L-IN2-GRADE = 1
-                   MOVE 1 TO W-TM-GRADE
-                 ELSE IF L-IN2-GRADE = 2
-                   MOVE 0 TO W-TM-GRADE
-                 END-IF
-               ELSE
-                 IF L-IN2-GRADE = 2
-                   IF L-IN1-GRADE = 1
-                     MOVE 1 TO W-TM-GRADE
-                   END-IF
-                 END-IF
-               END-IF
+           ELSE IF L-IN1-GRADE = 2
+             IF L-IN2-GRADE = 1
+               MOVE 1 TO W-TM-GRADE
+             ELSE IF L-IN2-GRADE = 2
+               MOVE 0 TO W-TM-GRADE
+             END-IF
+           ELSE IF L-IN2-GRADE = 2
+             IF L-IN1-GRADE = 1
+               MOVE 1 TO W-TM-GRADE
              END-IF
            END-IF
+           .
 
            CALL COMPLEX-MULT-RETURN USING
              L-IN1-G02,
@@ -87,4 +82,4 @@
            GOBACK
            .
 
-      * vim: et ts=4 sw=4
+      * vim: et ts=2 sw=2
