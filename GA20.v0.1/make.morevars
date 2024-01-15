@@ -70,3 +70,4 @@ COBFLAGS += :IncludeSearchPath=$(shell echo $(COBCOPYDIRS) | tr ' ' ,)
 #PLIFLAGS += :IncludeSearchPath=$(shell echo $(PLICOPYDIRS) | tr ' ' ,)
 
 #---------------------------------------------------------------------------------------
+COBFLAGS += :Warnings=+1690

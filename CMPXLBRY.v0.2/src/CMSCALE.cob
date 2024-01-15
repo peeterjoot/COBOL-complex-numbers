@@ -24,4 +24,4 @@
            GOBACK
            .
 
-      * vim: et ts=4 sw=4
+      * vim: et ts=2 sw=2

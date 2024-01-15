@@ -2,7 +2,7 @@
       * copy/MV.cpy
        01 (PRFX)MV.
           05 (PRFX)GRADE
-            PIC S9(9) USAGE IS COMP-5 VALUE 0.
+            PIC S9(9) USAGE IS COMP-5.
           05 (PRFX)G02.
              10 (PRFX)SC
                COMP-2.

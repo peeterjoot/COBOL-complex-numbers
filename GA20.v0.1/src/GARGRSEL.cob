@@ -2,7 +2,7 @@
        PROGRAM-ID.    GARGRSEL.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
-      *LOCAL-STORAGE SECTION.
+       LOCAL-STORAGE SECTION.
        LINKAGE SECTION.
         COPY MV      REPLACING ==(PRFX)== BY ==L-IN-==.
         COPY INTEGER REPLACING ==(PRFX)== BY ==L-==.
@@ -48,4 +48,4 @@
            MOVE 0          TO L-OUT-Y
            .
 
-      * vim: et ts=4 sw=4
+      * vim: et ts=2 sw=2
