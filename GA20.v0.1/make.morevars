@@ -71,3 +71,4 @@ COBFLAGS += :IncludeSearchPath=$(shell echo $(COBCOPYDIRS) | tr ' ' ,)
 
 #---------------------------------------------------------------------------------------
 COBFLAGS += :Warnings=+1690
+#COBFLAGS += :Debug=TRUE
