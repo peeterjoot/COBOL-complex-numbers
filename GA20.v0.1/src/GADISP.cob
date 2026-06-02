@@ -4,10 +4,10 @@
        WORKING-STORAGE SECTION.
        LOCAL-STORAGE SECTION.
         01 WS-PLUS PIC XX VALUE '  '.
-        COPY GADISP REPLACING ==(PRFX)== BY ==WS-PREFIX-==.
+        COPY GADISPT REPLACING LEADING ==PRFX== BY ==WS-PREFIX==.
        LINKAGE SECTION.
-        COPY GADISP REPLACING ==(PRFX)== BY ==L-IN-==.
-        COPY MV REPLACING ==(PRFX)== BY ==L-IN-==.
+        COPY GADISPT REPLACING LEADING ==PRFX== BY ==L-IN==.
+        COPY MV REPLACING LEADING ==PRFX== BY ==L-IN==.
        PROCEDURE DIVISION USING L-IN-N, L-IN-MV.
       ******************************************************************
       * @brief GA-DISPLAY

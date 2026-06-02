@@ -4,9 +4,9 @@
        WORKING-STORAGE SECTION.
        LOCAL-STORAGE SECTION.
        LINKAGE SECTION.
-        COPY MV      REPLACING ==(PRFX)== BY ==L-IN-==.
-        COPY INTEGER REPLACING ==(PRFX)== BY ==L-==.
-        COPY MV      REPLACING ==(PRFX)== BY ==L-OUT-==.
+        COPY MV      REPLACING LEADING ==PRFX== BY ==L-IN==.
+        COPY INTEGER REPLACING LEADING ==PRFX== BY ==L==.
+        COPY MV      REPLACING LEADING ==PRFX== BY ==L-OUT==.
        PROCEDURE DIVISION USING L-IN-MV, L-I, L-OUT-MV.
       ******************************************************************
       * @brief GA-GRADE-SELECTION-MV-RETURN

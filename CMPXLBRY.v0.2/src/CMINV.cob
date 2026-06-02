@@ -2,9 +2,9 @@
        PROGRAM-ID.    CMINV.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
-        COPY FLOAT REPLACING ==(PRFX)== BY ==W-MAGNITUDE-==.
+        COPY FLOAT REPLACING LEADING ==PRFX== BY ==W-MAGNITUDE==.
        LINKAGE SECTION.
-        COPY COMPLEX REPLACING ==(PRFX)== BY ==L-IN-==.
+        COPY COMPLEX REPLACING LEADING ==PRFX== BY ==L-IN==.
        PROCEDURE DIVISION USING
         L-IN-COMPLEX.
       ******************************************************************

@@ -3,12 +3,12 @@
        DATA DIVISION.
        WORKING-STORAGE SECTION.
        LOCAL-STORAGE SECTION.
-        COPY MV    REPLACING ==(PRFX)== BY ==W-TM-==.
+        COPY MV    REPLACING LEADING ==PRFX== BY ==W-TM==.
         COPY CMPXLBRY.
        LINKAGE SECTION.
-        COPY MV    REPLACING ==(PRFX)== BY ==L-IN-==.
-        COPY FLOAT REPLACING ==(PRFX)== BY ==L-==.
-        COPY MV    REPLACING ==(PRFX)== BY ==L-OUT-==.
+        COPY MV    REPLACING LEADING ==PRFX== BY ==L-IN==.
+        COPY FLOAT REPLACING LEADING ==PRFX== BY ==L==.
+        COPY MV    REPLACING LEADING ==PRFX== BY ==L-OUT==.
        PROCEDURE DIVISION USING
         L-IN-MV,
         L-V,

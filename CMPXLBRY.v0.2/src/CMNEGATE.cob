@@ -3,7 +3,7 @@
        DATA DIVISION.
        WORKING-STORAGE SECTION.
        LINKAGE SECTION.
-        COPY COMPLEX REPLACING ==(PRFX)== BY ==L-IN1-==.
+        COPY COMPLEX REPLACING LEADING ==PRFX== BY ==L-IN1==.
        PROCEDURE DIVISION USING
         L-IN1-COMPLEX.
       ******************************************************************
