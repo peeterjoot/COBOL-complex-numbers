@@ -33,7 +33,7 @@
              W-TM-G02
 
            CALL COMPLEX-SUB-RETURN USING
-             L-IN2-G1,
+             L-IN1-G1,
              L-IN2-G1,
              W-TM-G1
 
