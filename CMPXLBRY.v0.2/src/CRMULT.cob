@@ -22,9 +22,10 @@
       *   with members L-OUT-RE, L-OUT-IM.
       *
       *   (a + b i)(c + d i) = a c - b d + i( b c + a d)
+      * gcobol workaround: COMP-2 subtraction miscompiles; use + (x * -1)
            COMPUTE W-TMP-RE =
-             (L-IN1-RE * L-IN2-RE) -
-             (L-IN1-IM * L-IN2-IM)
+             (L-IN1-RE * L-IN2-RE) +
+             (L-IN1-IM * L-IN2-IM * -1)
 
            COMPUTE W-TMP-IM =
              (L-IN1-IM * L-IN2-RE) +

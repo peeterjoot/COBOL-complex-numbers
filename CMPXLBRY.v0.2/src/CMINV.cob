@@ -21,8 +21,9 @@
            COMPUTE L-IN-RE =
              L-IN-RE/W-MAGNITUDE-V
 
+      * gcobol workaround: COMP-2 unary minus miscompiles; use (x) * -1
            COMPUTE L-IN-IM =
-             -(L-IN-IM/W-MAGNITUDE-V)
+             (L-IN-IM/W-MAGNITUDE-V) * -1
 
            GOBACK
            .

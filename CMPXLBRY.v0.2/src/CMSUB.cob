@@ -16,11 +16,12 @@
       * @param [in] L-IN2-COMPLEX,
       *   with members L-IN2-RE, L-IN2-IM.
       *
+      * gcobol workaround: COMP-2 subtraction miscompiles; use + (x * -1)
            COMPUTE L-IN1-RE =
-             L-IN1-RE - L-IN2-RE
+             L-IN1-RE + (L-IN2-RE * -1)
 
            COMPUTE L-IN1-IM =
-             L-IN1-IM - L-IN2-IM
+             L-IN1-IM + (L-IN2-IM * -1)
 
            GOBACK
            .

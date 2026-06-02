@@ -20,11 +20,12 @@
       * @param [out] L-OUT-COMPLEX,
       *   with members L-OUT-RE, L-OUT-IM.
       *
+      * gcobol workaround: COMP-2 subtraction miscompiles; use + (x * -1)
            COMPUTE L-OUT-RE =
-             L-IN1-RE - L-IN2-RE
+             L-IN1-RE + (L-IN2-RE * -1)
 
            COMPUTE L-OUT-IM =
-             L-IN1-IM - L-IN2-IM
+             L-IN1-IM + (L-IN2-IM * -1)
 
            GOBACK
            .
