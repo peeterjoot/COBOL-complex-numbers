@@ -1,3 +1,4 @@
+       COPY GCWA.
        IDENTIFICATION DIVISION.
        PROGRAM-ID.    COMPLEX.
       *ENVIRONMENT DIVISION.
@@ -176,10 +177,16 @@
       *
       *   (a + b i)(c + d i) = a c - b d + i( b c + a d)
        COMPLEX-MULT.
+       >>IF GCOBOL-WORKAROUNDS = 1
       * gcobol workaround: COMP-2 subtraction miscompiles; use + (x * -1)
            COMPUTE WS-MULTPARM-OUT-RE =
              (WS-MULTPARM-IN1-RE * WS-MULTPARM-IN2-RE) +
              (WS-MULTPARM-IN1-IM * WS-MULTPARM-IN2-IM * -1)
+       >>ELSE
+           COMPUTE WS-MULTPARM-OUT-RE =
+             (WS-MULTPARM-IN1-RE * WS-MULTPARM-IN2-RE) -
+             (WS-MULTPARM-IN1-IM * WS-MULTPARM-IN2-IM)
+       >>END-IF
 
            COMPUTE WS-MULTPARM-OUT-IM =
              (WS-MULTPARM-IN1-IM * WS-MULTPARM-IN2-RE) +
@@ -213,12 +220,20 @@
       *   with members WS-SUBPARM-OUT-RE, WS-SUBPARM-OUT-IM.
       *
        COMPLEX-SUB.
+       >>IF GCOBOL-WORKAROUNDS = 1
       * gcobol workaround: COMP-2 subtraction miscompiles; use + (x * -1)
            COMPUTE WS-SUBPARM-OUT-RE =
              WS-SUBPARM-IN1-RE + (WS-SUBPARM-IN2-RE * -1)
 
            COMPUTE WS-SUBPARM-OUT-IM =
              WS-SUBPARM-IN1-IM + (WS-SUBPARM-IN2-IM * -1)
+       >>ELSE
+           COMPUTE WS-SUBPARM-OUT-RE =
+             WS-SUBPARM-IN1-RE - WS-SUBPARM-IN2-RE
+
+           COMPUTE WS-SUBPARM-OUT-IM =
+             WS-SUBPARM-IN1-IM - WS-SUBPARM-IN2-IM
+       >>END-IF
            .
       ******************************************************************
       * LIBRARY ROUTINE: COMPLEX-INVERSE
@@ -237,9 +252,14 @@
            COMPUTE WS-INVPARM-OUT-RE =
              WS-INVPARM-IN-RE/WS-INV-MAGNITUDE-V
 
+       >>IF GCOBOL-WORKAROUNDS = 1
       * gcobol workaround: COMP-2 unary minus miscompiles; use (x) * -1
            COMPUTE WS-INVPARM-OUT-IM =
              (WS-INVPARM-IN-IM/WS-INV-MAGNITUDE-V) * -1
+       >>ELSE
+           COMPUTE WS-INVPARM-OUT-IM =
+             -(WS-INVPARM-IN-IM/WS-INV-MAGNITUDE-V)
+       >>END-IF
            .
       ******************************************************************
       * LIBRARY ROUTINE: COMPLEX-NEGATE

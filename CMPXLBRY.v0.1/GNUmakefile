@@ -14,7 +14,7 @@ OUT    := out
 all : $(OUT)/complex
 
 $(OUT)/complex : $(SRC)/COMPLEX.cob | $(OUT)
-	$(GCOBOL) $< -I $(COPY) -o $@
+	$(GCOBOL) $< -I $(COPY) -I .. -o $@
 
 $(OUT) :
 	mkdir -p $(OUT)

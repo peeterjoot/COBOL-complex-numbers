@@ -26,7 +26,7 @@ SUBOBJS := $(addprefix $(OUT)/,$(addsuffix .o,$(SUBS)))
 
 LIB     := $(OUT)/libcmpx.so
 
-COPYFLAGS := -I $(COPY)
+COPYFLAGS := -I $(COPY) -I ..
 # --no-as-needed: keep libcmpx.so linked though no symbol is referenced at link
 #   time (dynamic CALL has no link-time reference; the default would drop it).
 # rpath=$ORIGIN: find libcmpx.so beside the executable (no LD_LIBRARY_PATH).

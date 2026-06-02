@@ -1,7 +1,14 @@
+       COPY GCWA.
        IDENTIFICATION DIVISION.
        PROGRAM-ID.    GARMULT.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
+      * gcobol workaround: keep temps in WORKING-STORAGE.  Original used
+      * LOCAL-STORAGE, but gcobol fails to write a LOCAL-STORAGE output
+      * for a subprogram CALLed at depth >= 2 (main -> GARSYM -> GARMULT).
+       >>IF GCOBOL-WORKAROUNDS = 0
+       LOCAL-STORAGE SECTION.
+       >>END-IF
         COPY COMPLEX REPLACING LEADING ==PRFX== BY ==W-TC==.
         COPY MV      REPLACING LEADING ==PRFX== BY ==W-TM==.
         COPY CMPXLBRY.

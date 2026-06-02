@@ -1,3 +1,4 @@
+       COPY GCWA.
        IDENTIFICATION DIVISION.
        PROGRAM-ID.    CMINV.
        DATA DIVISION.
@@ -21,9 +22,14 @@
            COMPUTE L-IN-RE =
              L-IN-RE/W-MAGNITUDE-V
 
+       >>IF GCOBOL-WORKAROUNDS = 1
       * gcobol workaround: COMP-2 unary minus miscompiles; use (x) * -1
            COMPUTE L-IN-IM =
              (L-IN-IM/W-MAGNITUDE-V) * -1
+       >>ELSE
+           COMPUTE L-IN-IM =
+             -(L-IN-IM/W-MAGNITUDE-V)
+       >>END-IF
 
            GOBACK
            .
