@@ -1,0 +1,2 @@
+# Build output directories (gcobol artifacts: objects, shared libs, executables)
+out/
