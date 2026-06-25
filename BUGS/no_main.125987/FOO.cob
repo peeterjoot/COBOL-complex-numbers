@@ -1,0 +1,8 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID.    FOO.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       LINKAGE SECTION.
+       PROCEDURE DIVISION.
+           GOBACK
+           .

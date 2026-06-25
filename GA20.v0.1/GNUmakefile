@@ -17,7 +17,7 @@
 # Copybook note: copy/GADISP.cpy was renamed to copy/GADISPT.cpy (COPY
 # references updated) so program GADISP.cob no longer shadows it.
 
-GCOBOL := gcobol
+include ../make.common
 SRC    := src
 COPY   := copy
 OUT    := out
@@ -33,23 +33,23 @@ SUBOBJS := $(addprefix $(OUT)/,$(addsuffix .o,$(SUBS)))
 LIB     := $(OUT)/libga.so
 
 # Copybooks resolve from this project first, then the complex project.
-COPYFLAGS := -I $(COPY) -I $(CMPX)/copy -I ..
+COBCFLAGS += -I $(COPY) -I $(CMPX)/copy -I ..
 
 # Link the driver against both operation libraries. --no-as-needed keeps them
 # linked despite no link-time reference (dynamic CALL); the two rpaths locate
 # libga.so beside the executable and libcmpx.so in the sibling project's out/.
-LDLIBS := -L $(OUT) -L $(CMPX)/out -Wl,--no-as-needed -lga -lcmpx \
-          -Wl,-rpath,'$$ORIGIN' -Wl,-rpath,'$$ORIGIN/../$(CMPX)/out'
+COBLDFLAGS += -L $(OUT) -L $(CMPX)/out -Wl,--no-as-needed -lga -lcmpx \
+          -Wl,-rpath,'$$ORIGIN/../$(CMPX)/out'
 
 all : $(OUT)/mult
 
 # Each GA operation subprogram -> position-independent, callable-only object.
 $(OUT)/%.o : $(SRC)/%.cob | $(OUT)
-	$(GCOBOL) $(COPYFLAGS) -c -fPIC -nomain -o $@ $<
+	$(COBCC) $(COBCFLAGS) -c -fPIC -nomain -o $@ $<
 
 # Bundle the GA subprograms into the shared library.
 $(LIB) : $(SUBOBJS)
-	$(GCOBOL) -shared -o $@ $^
+	$(COBCC) -shared -o $@ $^
 
 # Delegate to the sibling project for the complex-operations library.
 $(CMPXLIB) : force
@@ -57,7 +57,7 @@ $(CMPXLIB) : force
 
 # Driver: compile with a main() entry and link against both libraries.
 $(OUT)/mult : $(SRC)/MULT.cob $(LIB) $(CMPXLIB) | $(OUT)
-	$(GCOBOL) $(COPYFLAGS) -main -o $@ $< $(LDLIBS)
+	$(COBCC) $(COBCFLAGS) -main -o $@ $< $(COBLDFLAGS)
 
 $(OUT) :
 	mkdir -p $(OUT)

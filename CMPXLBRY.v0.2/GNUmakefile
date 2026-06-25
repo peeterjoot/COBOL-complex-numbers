@@ -14,7 +14,7 @@
 # CDISPLAY.cob shadowed copybook CDISPLAY.cpy -- the same collision v0.1 hit
 # with COMPLEX -> COMPLEXT.
 
-GCOBOL := gcobol
+include ../make.common
 SRC    := src
 COPY   := copy
 OUT    := out
@@ -26,28 +26,27 @@ SUBOBJS := $(addprefix $(OUT)/,$(addsuffix .o,$(SUBS)))
 
 LIB     := $(OUT)/libcmpx.so
 
-COPYFLAGS := -I $(COPY) -I ..
+COBCFLAGS += -I $(COPY) -I ..
 # --no-as-needed: keep libcmpx.so linked though no symbol is referenced at link
 #   time (dynamic CALL has no link-time reference; the default would drop it).
-# rpath=$ORIGIN: find libcmpx.so beside the executable (no LD_LIBRARY_PATH).
-LDLIBS    := -L $(OUT) -Wl,--no-as-needed -lcmpx -Wl,-rpath,'$$ORIGIN'
+COBLDFLAGS += -L $(OUT) -Wl,--no-as-needed -lcmpx
 
 all : $(OUT)/main $(OUT)/mult
 
 # Each operation subprogram -> position-independent, callable-only object.
 $(OUT)/%.o : $(SRC)/%.cob | $(OUT)
-	$(GCOBOL) $(COPYFLAGS) -c -fPIC -nomain -o $@ $<
+	$(COBCC) $(COBCFLAGS) -c -fPIC -nomain -o $@ $<
 
 # Bundle the subprograms into the shared library.
 $(LIB) : $(SUBOBJS)
-	$(GCOBOL) -shared -o $@ $^
+	$(COBCC) -shared -o $@ $^
 
 # Drivers: compile with a main() entry point and link against the library.
 $(OUT)/main : $(SRC)/MAIN.cob $(LIB) | $(OUT)
-	$(GCOBOL) $(COPYFLAGS) -main -o $@ $< $(LDLIBS)
+	$(COBCC) $(COBCFLAGS) -main -o $@ $< $(COBLDFLAGS)
 
 $(OUT)/mult : $(SRC)/MULT.cob $(LIB) | $(OUT)
-	$(GCOBOL) $(COPYFLAGS) -main -o $@ $< $(LDLIBS)
+	$(COBCC) $(COBCFLAGS) -main -o $@ $< $(COBLDFLAGS)
 
 $(OUT) :
 	mkdir -p $(OUT)

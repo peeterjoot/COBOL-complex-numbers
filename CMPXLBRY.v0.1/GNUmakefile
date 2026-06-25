@@ -6,7 +6,7 @@
 # directory before -I and treats .cob as a copybook extension, so program
 # COMPLEX.cob shadowed copybook COMPLEX.cpy.
 
-GCOBOL := gcobol
+include ../make.common
 SRC    := src
 COPY   := copy
 OUT    := out
@@ -14,7 +14,7 @@ OUT    := out
 all : $(OUT)/complex
 
 $(OUT)/complex : $(SRC)/COMPLEX.cob | $(OUT)
-	$(GCOBOL) $< -I $(COPY) -I .. -o $@
+	$(COBCC) $(COBCFLAGS) $< -I $(COPY) -I .. $(COBLDFLAGS) -o $@
 
 $(OUT) :
 	mkdir -p $(OUT)

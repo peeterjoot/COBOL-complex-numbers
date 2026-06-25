@@ -1,0 +1,18 @@
+
+
+BRLANG := 1
+ifdef BRLANG
+  COBCC  := brcob
+  COBLDFLAGS += -Wl,-rpath,'$$ORIGIN'
+else
+  ifeq ($(wildcard /opt/gcc-trunk-20260606/bin/gcobol),)
+    COBCC  := gcobol
+  else
+    # Fix for https://gcc.gnu.org/bugzilla/show_bug.cgi?id=125616
+    COBPREFIX  := /opt/gcc-trunk-20260606
+    COBCC      += $(COBPREFIX)/bin/gcobol
+
+    COBCFLAGS  += -dialect ibm
+    COBLDFLAGS += -Wl,-rpath,$(COBPREFIX)/lib64:'$$ORIGIN'
+  endif
+endif
