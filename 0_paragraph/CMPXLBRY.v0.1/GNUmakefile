@@ -6,7 +6,7 @@
 # directory before -I and treats .cob as a copybook extension, so program
 # COMPLEX.cob shadowed copybook COMPLEX.cpy.
 
-include ../make.common
+include ../../make.common
 SRC    := src
 COPY   := copy
 OUT    := out

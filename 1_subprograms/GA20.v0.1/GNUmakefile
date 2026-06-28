@@ -17,7 +17,7 @@
 # Copybook note: copy/GADISP.cpy was renamed to copy/GADISPT.cpy (COPY
 # references updated) so program GADISP.cob no longer shadows it.
 
-include ../make.common
+include ../../make.common
 SRC    := src
 COPY   := copy
 OUT    := out

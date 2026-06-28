@@ -14,7 +14,7 @@
 # CDISPLAY.cob shadowed copybook CDISPLAY.cpy -- the same collision v0.1 hit
 # with COMPLEX -> COMPLEXT.
 
-include ../make.common
+include ../../make.common
 SRC    := src
 COPY   := copy
 OUT    := out
