@@ -5,7 +5,7 @@
 # FUNCTION-ID and the multivector/complex/real types are IBM TYPEDEF/TYPE
 # (copy/GATYPES.cpy, which COPYs the sibling complex library's CTYPES).  This
 # requires brcob with -dialect=ibm_ent65 and does NOT compile with gcobol, so
-# there are no GCOBOL-WORKAROUNDS and no dynamic-CALL dispatch table.
+# there are no GCOBOL-WORKAROUND-* and no dynamic-CALL dispatch table.
 #
 # A multivector's two halves are TYPE COMPLEX-T, so the GA operations delegate
 # straight to the COMPLEX-* user functions of the sibling project
@@ -20,6 +20,7 @@
 # is not needed; rpaths locate libga.so beside the executable and libcmpx.so
 # in the sibling project's out/.
 
+BRLANG := 1
 include ../../make.common
 SRC    := src
 COPY   := copy

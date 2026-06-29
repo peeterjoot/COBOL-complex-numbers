@@ -26,7 +26,7 @@ SUBOBJS := $(addprefix $(OUT)/,$(addsuffix .o,$(SUBS)))
 
 LIB     := $(OUT)/libcmpx.so
 
-COBCFLAGS += -I $(COPY) -I ..
+COBCFLAGS += -I $(COPY) -I ../..
 # --no-as-needed: keep libcmpx.so linked though no symbol is referenced at link
 #   time (dynamic CALL has no link-time reference; the default would drop it).
 COBLDFLAGS += -L $(OUT) -Wl,--no-as-needed -lcmpx

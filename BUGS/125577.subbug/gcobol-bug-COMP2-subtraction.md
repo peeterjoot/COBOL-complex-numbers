@@ -1,3 +1,5 @@
+- https://gcc.gnu.org/bugzilla/show_bug.cgi?id=125577
+
 # [cobol] Floating-point (COMP-1/COMP-2) subtraction in COMPUTE/SUBTRACT returns a stale temporary instead of the difference
 
 - **File at:** https://gcc.gnu.org/bugzilla — Product **gcc**, Component **cobol**

@@ -17,20 +17,11 @@
       * @param [in] L-IN2-COMPLEX,
       *   with members L-IN2-RE, L-IN2-IM.
       *
-       >>IF GCOBOL-WORKAROUNDS = 1
-      * gcobol workaround: COMP-2 subtraction miscompiles; use + (x * -1)
-           COMPUTE L-IN1-RE =
-             L-IN1-RE + (L-IN2-RE * -1)
-
-           COMPUTE L-IN1-IM =
-             L-IN1-IM + (L-IN2-IM * -1)
-       >>ELSE
            COMPUTE L-IN1-RE =
              L-IN1-RE - L-IN2-RE
 
            COMPUTE L-IN1-IM =
              L-IN1-IM - L-IN2-IM
-       >>END-IF
 
            GOBACK
            .

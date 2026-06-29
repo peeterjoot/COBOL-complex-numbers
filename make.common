@@ -1,8 +1,8 @@
 
 
-BRLANG := 1
+#BRLANG := 1
 ifdef BRLANG
-  COBCC  := brcob
+  COBCC  := brcob -DBRCOB
   COBLDFLAGS += -Wl,-rpath,'$$ORIGIN'
 else
   ifeq ($(wildcard /opt/gcc-trunk-20260606/bin/gcobol),)

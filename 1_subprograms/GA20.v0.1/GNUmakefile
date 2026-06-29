@@ -33,7 +33,7 @@ SUBOBJS := $(addprefix $(OUT)/,$(addsuffix .o,$(SUBS)))
 LIB     := $(OUT)/libga.so
 
 # Copybooks resolve from this project first, then the complex project.
-COBCFLAGS += -I $(COPY) -I $(CMPX)/copy -I ..
+COBCFLAGS += -I $(COPY) -I $(CMPX)/copy -I ../..
 
 # Link the driver against both operation libraries. --no-as-needed keeps them
 # linked despite no link-time reference (dynamic CALL); the two rpaths locate
@@ -64,6 +64,10 @@ $(OUT) :
 
 clean :
 	rm -rf $(OUT)
+
+check :
+	./out/mult  | diff -wup - ./MULT.expected
+	@echo PASS
 
 .PHONY : all clean force
 force :

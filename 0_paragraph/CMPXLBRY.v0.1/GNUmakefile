@@ -14,12 +14,16 @@ OUT    := out
 all : $(OUT)/complex
 
 $(OUT)/complex : $(SRC)/COMPLEX.cob | $(OUT)
-	$(COBCC) $(COBCFLAGS) $< -I $(COPY) -I .. $(COBLDFLAGS) -o $@
+	$(COBCC) $(COBCFLAGS) $< -I $(COPY) -I ../.. $(COBLDFLAGS) -o $@
 
 $(OUT) :
 	mkdir -p $(OUT)
 
 clean :
 	rm -rf $(OUT)
+
+check :
+	./out/complex | diff -up - COMPLEX.expected
+	@echo PASS
 
 .PHONY : all clean

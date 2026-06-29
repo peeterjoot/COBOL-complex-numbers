@@ -4,7 +4,7 @@
 # every operation is a user-defined FUNCTION-ID and the complex/real types are
 # IBM TYPEDEF/TYPE (copy/CTYPES.cpy).  This requires brcob with
 # -dialect=ibm_ent65; it does NOT compile with gcobol, so (unlike v0.2) there
-# are no GCOBOL-WORKAROUNDS and no dynamic-CALL dispatch table.
+# are no GCOBOL-WORKAROUND-* and no dynamic-CALL dispatch table.
 #
 # The operation functions are compiled to position-independent, callable-only
 # objects and bundled into libcmpx.so; the drivers MAIN and MULT reference the
@@ -12,6 +12,7 @@
 # prototypes) and link against the library.  Because the references are
 # resolved at link time (__br_func_* symbols), no --no-as-needed is needed.
 
+BRLANG := 1
 include ../../make.common
 SRC    := src
 COPY   := copy
