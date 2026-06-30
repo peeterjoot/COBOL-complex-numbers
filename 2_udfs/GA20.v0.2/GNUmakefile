@@ -30,6 +30,11 @@ OUT    := out
 CMPX    := ../CMPXLBRY.v0.3
 CMPXLIB := $(CMPX)/out/libcmpx.so
 
+#COBCFLAGS += -g
+COBCFLAGS += -O2
+
+#INTERNALS := 1
+
 # GA operation functions bundled into libga.so.
 SUBS    := GA-MAKE-MV GA-MAKE-SCALAR GA-MAKE-VECTOR GA-MAKE-PSEUDO \
            GA-ADD GA-SUB GA-SCALE GA-MULT GA-SYMMETRIC GA-ANTISYMMETRIC \
@@ -48,6 +53,10 @@ all : $(OUT)/mult
 # Each GA operation function -> position-independent, callable-only object.
 $(OUT)/%.o : $(SRC)/%.cob | $(OUT)
 	$(COBCC) $(COBCFLAGS) -c -fPIC -nomain -o $@ $<
+ifdef INTERNALS
+	$(COBCC) $(COBCFLAGS) -c -fPIC -nomain --emit-llvm -o out/$*.ll $<
+	$(COBCC) $(COBCFLAGS) -c -fPIC -nomain --emit-mlir -o out/$*.mlir $<
+endif
 
 # Bundle the GA functions into libga.so, linked against libcmpx.so (the GA
 # ops call the COMPLEX-* UDFs) so the library carries its own dependency.
@@ -62,6 +71,10 @@ $(CMPXLIB) : force
 $(OUT)/mult : $(SRC)/MULT.cob $(LIB) $(CMPXLIB) | $(OUT)
 	$(COBCC) $(COBCFLAGS) -main -o $@ $< -L $(OUT) -lga \
 	  -L $(CMPX)/out -lcmpx $(CMPXRPATH) $(COBLDFLAGS)
+ifdef INTERNALS
+	$(COBCC) $(COBCFLAGS) -main -c --emit-llvm -o out/$*.ll $<
+	$(COBCC) $(COBCFLAGS) -main -c --emit-mlir -o out/$*.mlir $<
+endif
 
 # Compare the driver output against the committed reference output.
 check : all

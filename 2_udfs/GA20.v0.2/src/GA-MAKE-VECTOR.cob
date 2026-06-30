@@ -6,7 +6,7 @@
        01  LK-X      TYPE REAL-T.
        01  LK-Y      TYPE REAL-T.
        01  LK-RESULT TYPE MV-T.
-       PROCEDURE DIVISION USING LK-X, LK-Y
+       PROCEDURE DIVISION USING BY VALUE LK-X, LK-Y
                           RETURNING LK-RESULT.
       ******************************************************************
       * @brief GA-MAKE-VECTOR -- the grade-1 multivector x e_1 + y e_2.

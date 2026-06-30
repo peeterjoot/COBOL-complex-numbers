@@ -10,7 +10,7 @@
        01  LK-A      TYPE MV-T.
        01  LK-S      TYPE REAL-T.
        01  LK-RESULT TYPE MV-T.
-       PROCEDURE DIVISION USING LK-A, LK-S
+       PROCEDURE DIVISION USING LK-A, BY VALUE LK-S
                           RETURNING LK-RESULT.
       ******************************************************************
       * @brief GA-SCALE -- s * multivector, s real.

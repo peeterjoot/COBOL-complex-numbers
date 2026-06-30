@@ -5,7 +5,7 @@
         COPY GATYPES.
        01  LK-S      TYPE REAL-T.
        01  LK-RESULT TYPE MV-T.
-       PROCEDURE DIVISION USING LK-S
+       PROCEDURE DIVISION USING BY VALUE LK-S
                           RETURNING LK-RESULT.
       ******************************************************************
       * @brief GA-MAKE-SCALAR -- the grade-0 multivector s.

@@ -8,7 +8,7 @@
        01  LK-Y      TYPE REAL-T.
        01  LK-PS     TYPE REAL-T.
        01  LK-RESULT TYPE MV-T.
-       PROCEDURE DIVISION USING LK-SC, LK-X, LK-Y, LK-PS
+       PROCEDURE DIVISION USING BY VALUE LK-SC, LK-X, LK-Y, LK-PS
                           RETURNING LK-RESULT.
       ******************************************************************
       * @brief GA-MAKE-MV -- a general multivector from its 4 coordinates.

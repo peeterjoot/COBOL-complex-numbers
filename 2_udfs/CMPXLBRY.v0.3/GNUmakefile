@@ -29,13 +29,21 @@ LIB     := $(OUT)/libcmpx.so
 # -dialect=ibm_ent65 enables TYPEDEF / TYPE / :: and user-defined functions (but it's the default, so need not be specified)
 #COBCFLAGS += -dialect=ibm_ent65
 COBCFLAGS += -I $(COPY)
+#COBCFLAGS += -g
+COBCFLAGS += -O2
 COBLDFLAGS += -L $(OUT) -lcmpx
+
+#INTERNALS := 1
 
 all : $(OUT)/main $(OUT)/mult
 
 # Each operation function -> position-independent, callable-only object.
 $(OUT)/%.o : $(SRC)/%.cob | $(OUT)
-	$(COBCC) $(COBCFLAGS) -c -fPIC -nomain -o $@ $<
+ifdef INTERNALS
+	$(COBCC) $(COBCFLAGS) -fPIC -nomain -c --emit-mlir -o out/$*.mlir $<
+	$(COBCC) $(COBCFLAGS) -fPIC -nomain -c --emit-llvm -o out/$*.ll $<
+endif
+	$(COBCC) $(COBCFLAGS) -fPIC -nomain -c -o $@ $<
 
 # Bundle the functions into the shared library.
 $(LIB) : $(SUBOBJS)
@@ -43,7 +51,12 @@ $(LIB) : $(SUBOBJS)
 
 # Drivers: compile with a main() entry point and link against the library.
 $(OUT)/main : $(SRC)/MAIN.cob $(LIB) | $(OUT)
-	$(COBCC) $(COBCFLAGS) -main -o $@ $< $(COBLDFLAGS)
+ifdef INTERNALS
+	$(COBCC) $(COBCFLAGS) -main -c --emit-mlir -o $@.mlir $<
+	$(COBCC) $(COBCFLAGS) -main -c --emit-llvm -o $@.ll $<
+endif
+	$(COBCC) $(COBCFLAGS) -main -c -o $@.o $<
+	$(COBCC) $(COBCFLAGS) -main -o $@ $@.o $(COBLDFLAGS)
 
 $(OUT)/mult : $(SRC)/MULT.cob $(LIB) | $(OUT)
 	$(COBCC) $(COBCFLAGS) -main -o $@ $< $(COBLDFLAGS)

@@ -6,7 +6,7 @@
        01  LK-A      TYPE COMPLEX-T.
        01  LK-S      TYPE REAL-T.
        01  LK-RESULT TYPE COMPLEX-T.
-       PROCEDURE DIVISION USING LK-A, LK-S
+       PROCEDURE DIVISION USING LK-A, BY VALUE LK-S
                           RETURNING LK-RESULT.
       ******************************************************************
       * @brief COMPLEX-SCALE -- s (a + b i), s real

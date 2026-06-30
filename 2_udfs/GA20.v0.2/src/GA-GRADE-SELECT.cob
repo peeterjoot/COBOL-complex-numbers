@@ -6,7 +6,7 @@
        01  LK-A      TYPE MV-T.
        01  LK-I      TYPE GRADE-T.
        01  LK-RESULT TYPE MV-T.
-       PROCEDURE DIVISION USING LK-A, LK-I
+       PROCEDURE DIVISION USING LK-A, BY VALUE LK-I
                           RETURNING LK-RESULT.
       ******************************************************************
       * @brief GA-GRADE-SELECT -- <A>_i, the grade-i part of A.
